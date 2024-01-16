@@ -30,7 +30,7 @@ function UserItem() {
       <Image src={"/downArrow.png"} alt="user image" width={25} height={25} />
 
       {toggle && (
-        <div className="absolute w-[fill] top-[120%] left-0 py-2 px-4 bg-[#1B1B1B] rounded-[10px] flex flex-col items-start">
+        <div className="absolute w-[stretch] top-[120%] left-0 py-2 px-4 bg-[#1B1B1B] rounded-[10px] flex flex-col items-start">
           {userItems.map((item, i) =>
             item !== "logout" ? (
               <button

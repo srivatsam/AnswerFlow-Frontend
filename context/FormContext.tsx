@@ -33,7 +33,7 @@ interface FormContextProps {
   setBotPurpose: (botPurpose: string) => void;
   setToneOfVoice: (toneOfVoice: string) => void;
   setOpenAiApiKey: (name: string) => void;
-  setFiles: (files: File[]) => void;
+  setFiles: (file: File) => void;
   setUrls: (url: string) => void;
   resetFormData: () => void;
 }
@@ -47,7 +47,14 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     try {
       const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
       return storedData
-        ? JSON.parse(storedData)
+        ? JSON.parse(storedData, (key, value) => {
+            if (key === "files" && Array.isArray(value)) {
+              return value.map(
+                (file: any) => new File([file], file.name, { type: file.type })
+              );
+            }
+            return value;
+          })
         : {
             botName: "",
             botPurpose: "",
@@ -71,11 +78,18 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
 
   useEffect(() => {
     try {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(formData));
+      // Store only essential information about files
+      const filesData = formData.files.map((file) => ({
+        name: file.name,
+        type: file.type,
+      }));
+      const dataToStore = { ...formData, files: filesData };
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataToStore));
     } catch (error) {
-      console.error("Error accessing localStorage:", error);
+      console.error("Error storing data in localStorage:", error);
     }
   }, [formData]);
+
   const setBotName = (botName: string) => {
     setFormData((prev) => ({ ...prev, botName }));
   };
@@ -92,8 +106,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setFormData((prev) => ({ ...prev, openAiApiKey }));
   };
 
-  const setFiles = (files: File[]) => {
-    setFormData((prev) => ({ ...prev, files: files }));
+  const setFiles = (file: File) => {
+    setFormData((prev) => ({ ...prev, files: [...prev.files, file] }));
   };
 
   const setUrls = (url: string) => {
