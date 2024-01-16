@@ -1,11 +1,22 @@
 "use client";
+import * as z from "zod";
+import { LoginSchema } from "@/schemas";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { signIn } from "next-auth/react";
 
 function Page() {
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
   const signUpWithGoogle = () => {
     signIn("google", { callbackUrl: "/setup" });
   };
@@ -35,7 +46,8 @@ function Page() {
       <div className="h-full min-w-[33%] bg-[#0B0B0B] px-20 py-30 flex flex-col justify-center items-center gap-20">
         <Image src={"/logo.svg"} width={250} height={60} alt="logo png" />
         {/* credentials sign in */}
-        <form className="flex flex-col gap-10 w-full">
+
+        {/* <form className="flex flex-col gap-10 w-full">
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="font-medium">
               Email Address
@@ -65,7 +77,7 @@ function Page() {
             </p>
           </div>
           <span className="bg-[#252525] h-[1px] w-full" />
-        </form>
+        </form> */}
         {/* google sign in */}
         <div className="w-full">
           <button
