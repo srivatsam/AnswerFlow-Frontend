@@ -1,6 +1,6 @@
 "use client";
 import * as z from "zod";
-import { LoginSchema } from "@/schemas";
+import { RegisterSchema } from "@/schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -19,48 +19,38 @@ import { Input } from "@/components/ui/input";
 import { FormSuccess } from "../_components/form-success";
 import { FormError } from "../_components/form-error";
 import Link from "next/link";
-import { login } from "@/actions/login";
-function Login() {
+import { register } from "@/actions/register";
+function Register() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof RegisterSchema>>({
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
-
-  const signUpWithGoogle = () => {
-    signIn("google", { callbackUrl: "/setup" });
-  };
-
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     startTransition(() => {
-      login(values).then((data) => {
-        if (data?.error) {
-          setError(data.error);
-        }
-        if (data?.success) {
-          setSuccess(data.success);
-        }
+      register(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
       });
     });
   };
   return (
-    <div className="absolute left-0 h-screen overflow-y-auto flex justify-center items-center w-full">
+    <div className="absolute left-0 h-screen flex justify-center items-center w-full">
       <div className="bg-3"></div>
       <div className="flex-1 flex justify-center items-center">
         <h1 className="text-[64px] font-semibold leading-[74px]">
           Embrace the future of <br /> Custom AI Bots
         </h1>
       </div>
-
       <div className="h-full min-w-[33%] bg-[#0B0B0B] px-20 py-30 flex flex-col justify-center items-center gap-20">
         <Image src={"/logo.svg"} width={250} height={60} alt="logo png" />
-        {/* credentials sign in */}
-
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -90,6 +80,22 @@ function Login() {
               <FormField
                 disabled={isPending}
                 control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[1rem]">User Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter Name" type="text" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex flex-col gap-4">
+              <FormField
+                disabled={isPending}
+                control={form.control}
                 name="password"
                 render={({ field }) => (
                   <FormItem>
@@ -106,33 +112,50 @@ function Login() {
                 )}
               />
             </div>
+            <div className="flex flex-col gap-4">
+              <FormField
+                disabled={isPending}
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[1rem]">
+                      Confirm Password
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Enter your password"
+                        type="password"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <div className="flex flex-col gap-4 w-full items-center">
               <FormSuccess message={success} />
               <FormError message={error} />
               <button type="submit" className="btn sec" disabled={isPending}>
-                {isPending ? "Login..." : "Login"}
+                {isPending ? "Creating user..." : "Register"}
               </button>
               <p className="text-[#518EF8]">
-                New Here? <Link href={"/register"}>Create an Account</Link>
+                <Link href={"/login"}>Have an Account?</Link>
               </p>
             </div>
             <span className="bg-[#252525] h-[1px] w-full" />
           </form>
         </Form>
-
-        {/* google sign in */}
         <div className="w-full">
-          <button
-            onClick={signUpWithGoogle}
-            className="btn prim !w-full flex gap-4"
-          >
+          <button className="btn prim !w-full flex gap-4">
             <Image
               src={"/google.png"}
               width={20}
               height={20}
               alt="google png"
             />
-            <p>Sign up with Google</p>
+            <p>Signup with Google</p>
           </button>
         </div>
       </div>
@@ -140,4 +163,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

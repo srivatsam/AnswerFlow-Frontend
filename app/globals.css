@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -9,63 +9,63 @@
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
- 
+
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
- 
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
- 
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
- 
+
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
- 
+
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
- 
+
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
- 
+
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
- 
+
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
- 
+
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
- 
+
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
- 
+
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
- 
+
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -73,4 +73,282 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+body {
+  color: #ffffff;
+  background-color: #030303;
+}
+/* btn classes */
+.btn {
+  @apply h-[40px] w-[130px] md:h-[60px] md:w-[230px] rounded-[10px] flex justify-center items-center font-semibold;
+}
+.btn {
+  transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  -moz-transition: 0.3s all ease-in-out;
+  -ms-transition: 0.3s all ease-in-out;
+  -o-transition: 0.3s all ease-in-out;
+}
+.btn.prim {
+  @apply hover:bg-[#1a1a1a];
+  background: #232323;
+}
+.btn.sec {
+  background: linear-gradient(90.09deg, #7515ef 1.17%, #ec7d4e 99.92%);
+}
+/* btn classes */
+.section {
+  @apply mx-auto;
+  width: 100%;
+}
+@me (min-width: 640px) {
+  .section {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .section {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .section {
+    max-width: 1280px;
+  }
+}
+/* section Classes */
+/* horizontal scrolling */
+.slider {
+  width: 100%;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+.slider-track {
+  display: flex;
+  width: calc(18 * 190px);
+  animation: scrollVertical 17s linear infinite;
+  -webkit-animation: scrollVertical 17s linear infinite;
+}
+.slide {
+  width: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes scrollVertical {
+  0% {
+    transform: translateX(0px);
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    -o-transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(calc(-190 * 9px));
+    -webkit-transform: translateX(calc(-190 * 9px));
+    -moz-transform: translateX(calc(-190 * 9px));
+    -ms-transform: translateX(calc(-190 * 9px));
+    -o-transform: translateX(calc(-190 * 9px));
+  }
+}
+.slider::before,
+.slider::after {
+  /* background: linear-gradient(
+    to right,
+    rgb(3 3 3) 0%,
+    rgba(255, 255, 255, 0) 100%
+  ); */
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: 15%;
+  z-index: 2;
+}
+.slider::before {
+  left: 0;
+  top: 0;
+}
+.slider::after {
+  right: 0;
+  top: 0;
+  transform: rotateZ(180deg);
+  -webkit-transform: rotateZ(180deg);
+  -moz-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+}
+/* horizontal scrolling */
+
+/* images background */
+.bg-1 {
+  background-image: url("/bg-1.png");
+  position: absolute;
+  z-index: -10000;
+  height: 200vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+.bg-2 {
+  background-image: url(/bg-2.png);
+  position: absolute;
+  z-index: -10000;
+  height: 200vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  bottom: 2200px;
+  left: 0px;
+  right: 0px;
+}
+/* bottom: 2233px; */
+
+.bg-3 {
+  background-image: url(/bg-2.png);
+  position: absolute;
+  z-index: -10000;
+  height: 200vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.bg-1::before,
+.bg-2::before,
+.bg-3::before,
+.bg-1::after,
+.bg-2::after,
+.bg-3::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 28%;
+}
+
+.bg-1::before,
+.bg-2::before,
+.bg-3::before {
+  top: 0;
+  background: linear-gradient(to bottom, #030303, #02020200);
+}
+
+.bg-1::after,
+.bg-2::after,
+.bg-3::after {
+  bottom: 0;
+  background: linear-gradient(to top, #030303, #02020200);
+}
+
+.steps {
+  @apply relative section  flex gap-24 md:gap-28 items-center flex-col py-[100px] md:py-[200px] px-2 sm:px-8;
+}
+.card {
+  @apply relative py-16 px-6 md:py-16 md:px-14 flex flex-col lg:flex-row gap-20 items-center w-[100%] md:w-[96%] hover:scale-105 transition-all duration-700;
+}
+
+.border-gad-1::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 86px;
+  left: 0;
+  top: 80%;
+  z-index: 1;
+  opacity: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(59, 56, 65, 0) 22.4%,
+    #a594fd 60.94%,
+    rgba(59, 56, 65, 0)
+  );
+  transition: 0.8s ease-in-out;
+  -webkit-transition: 0.8s ease-in-out;
+  -moz-transition: 0.8s ease-in-out;
+  -ms-transition: 0.8s ease-in-out;
+  -o-transition: 0.8s ease-in-out;
+}
+.border-gad-1:hover::after {
+  opacity: 1;
+  top: 20%;
+}
+.border-gad-2 {
+  z-index: 11;
+  border: double 2px transparent;
+  border-radius: 20px;
+  background-image: linear-gradient(#1d1d1d, #1d1d1d),
+    radial-gradient(circle at left center, #2f20ff00 60%, #3d3d3d);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.border-gad-1 {
+  position: relative;
+  padding-block: 2.8rem;
+  padding-inline: 2rem;
+  z-index: 11;
+  border: double 2px transparent;
+  border-radius: 20px;
+  background-image: linear-gradient(#101010, #101010),
+    radial-gradient(circle at left center, #2f20ff00 60%, #2a3458);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.sticker {
+  @apply absolute top-[-70px]  w-[100px] h-[100px] flex justify-center items-center font-medium text-4xl text-[#A595FD];
+  background-image: url("/Sticker.png");
+  background-position: center;
+  background-size: contain;
+}
+
+.inner-card-1 {
+  @apply py-3 px-8 bg-[#333333] rounded-[10px] flex justify-between items-center translate-x-[-80px] translate-y-[20px] rotate-[-7deg] transition-all duration-500 ease-in-out;
+}
+.inner-card-2 {
+  @apply py-8 px-8 bg-[#333333] rounded-[10px] flex gap-4 items-start flex-col translate-x-[20px] translate-y-[10px] rotate-[-7deg] transition-all duration-500 ease-in-out;
+}
+.card:hover .inner-card-1,
+.card:hover .inner-card-2 {
+  @apply translate-x-[0px] translate-y-[0px] rotate-[0deg];
+}
+.improveCard {
+  @apply relative w-full bg-[#1B1B1B] text-white rounded-[20px] px-6  py-8 flex gap-8 flex-col transition-all duration-700 ease-in-out;
+}
+.question {
+  @apply relative px-4 py-2 rounded-[5px] bg-[#292929];
+}
+.question::after {
+  position: absolute;
+  content: "";
+  border: 12px solid;
+  border-radius: 3px;
+  border-color: #292929 transparent transparent #292929;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  left: 0px;
+  bottom: -16px;
+}
+input[type="file"] {
+  display: none;
 }

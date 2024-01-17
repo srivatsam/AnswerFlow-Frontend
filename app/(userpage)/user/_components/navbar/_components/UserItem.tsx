@@ -16,16 +16,14 @@ function UserItem() {
       className="flex justify-between items-center gap-10 py-2 px-4 bg-[#1B1B1B] rounded-[10px] cursor-pointer relative"
     >
       <div className="flex gap-2 items-center">
-        <Image
+        {/* <Image
           src={session.data?.user?.image as string}
           alt="user image"
           width={30}
           height={30}
           className="rounded-full "
-        />
-        <h1 className="font-medium">
-          {session.data?.user?.name?.split(" ")[0]}
-        </h1>
+        /> */}
+        {/* <h1 className="font-medium">{session.data?.user?.name}</h1> */}
       </div>
       <Image src={"/downArrow.png"} alt="user image" width={25} height={25} />
 
