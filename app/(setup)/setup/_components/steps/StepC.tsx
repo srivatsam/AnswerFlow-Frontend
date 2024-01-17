@@ -1,49 +1,38 @@
+import { setAiKey } from "@/actions/setAiKey";
+import { FormError } from "@/app/(auth)/_components/form-error";
+import { FormSuccess } from "@/app/(auth)/_components/form-success";
 import { useFormContext } from "@/context/FormContext";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useTransition } from "react";
 type props = { handleNext: () => void };
 function StepC({ handleNext }: props) {
   const { formData, setOpenAiApiKey } = useFormContext();
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
   const session = useSession();
 
-  const handleCreateUser = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    if (formData.openAiApiKey && session.data?.user) {
-      e.preventDefault();
-      const userDate = session.data?.user;
-      try {
-        const response = await fetch(
-          `//ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/update_user/${localStorage.getItem(
-            "userId"
-          )}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              openai_api_key: formData.openAiApiKey,
-            }),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+  const openAiApiKeySubmit = (formData: FormData) => {
+    startTransition(() => {
+      setAiKey(formData).then((data) => {
+        if (data?.error) {
+          setError(data.error);
         }
-        const responseData = await response.json();
-        console.log(responseData.user.id);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-      handleNext();
-    }
+        if (data?.success) {
+          setSuccess(data.success);
+          handleNext();
+        }
+      });
+    });
   };
   return (
     <section className="h-screen flex justify-center items-center w-full flex-col ">
-      <form className="flex flex-col justify-around items-center w-[500px] h-full">
+      <form
+        action={openAiApiKeySubmit}
+        className="flex flex-col justify-around items-center w-[500px] h-full"
+      >
         <Image src={"/logo.svg"} width={250} height={60} alt="logo png" />
         <div className="flex flex-col gap-3">
           <label htmlFor="APIKey" className="font-medium">
@@ -52,6 +41,7 @@ function StepC({ handleNext }: props) {
           <input
             type="text"
             id="APIKey"
+            name="APIKey"
             value={formData.openAiApiKey}
             onChange={(e) => setOpenAiApiKey(e.target.value)}
             required
@@ -67,14 +57,16 @@ function StepC({ handleNext }: props) {
         </div>
 
         <div className="flex justify-center items-center flex-col gap-4">
+          <FormSuccess message={success} />
+          <FormError message={error} />
           <button
-            disabled={formData.openAiApiKey == ""}
+            type="submit"
+            disabled={formData.openAiApiKey == "" || isPending}
             className={`btn sec flex !justify-around ${
               formData.openAiApiKey == "" && " opacity-50 cursor-not-allowed"
             }`}
-            onClick={handleCreateUser}
           >
-            <p>Next</p>
+            <p>{isPending ? "Loading.." : "Next"}</p>
             <Image
               src={"/rightarrow.png"}
               width={8}

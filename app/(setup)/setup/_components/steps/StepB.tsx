@@ -19,6 +19,8 @@ function StepB({ handleNext }: props) {
       console.error("Error while retrieving plan from local storage:", error);
     }
   }, []);
+
+  
   const currentDate = new Date();
   let formattedDate;
 

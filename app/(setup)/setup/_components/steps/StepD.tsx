@@ -1,50 +1,40 @@
+import { createBot } from "@/actions/createBot";
+import { FormError } from "@/app/(auth)/_components/form-error";
+import { FormSuccess } from "@/app/(auth)/_components/form-success";
 import { useFormContext } from "@/context/FormContext";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useTransition } from "react";
 type props = { handleNext: () => void };
 
 function StepD({ handleNext }: props) {
   const { formData, setBotName, setBotPurpose, setToneOfVoice } =
     useFormContext();
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
 
-  const createBotHandle = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const createBotHandle = (formDataFrom: FormData) => {
     if (formData.botName || formData.botPurpose || formData.toneOfVoice) {
-      e.preventDefault();
-      try {
-        const response = await fetch(
-          `//ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/create_bot/${localStorage.getItem(
-            "userId"
-          )}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: formData.botName,
-              system_prompt: formData.botPurpose,
-              tone: formData.toneOfVoice,
-              openai_api_key: formData.openAiApiKey,
-            }),
+      startTransition(() => {
+        createBot(formDataFrom).then((data) => {
+          if (data?.error) {
+            setError(data.error);
           }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const responseData = await response.json();
-        localStorage.setItem("botId", responseData.bot.id);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-      handleNext();
+          if (data?.success) {
+            setSuccess(data.success);
+            handleNext();
+          }
+        });
+      });
     }
   };
+
   return (
     <div className="min-h-screen flex justify-center items-center w-full">
-      <form className="flex flex-1 flex-col justify-between min-h-screen  items-start w-full px-20 py-20">
+      <form
+        action={createBotHandle}
+        className="flex flex-1 flex-col justify-between min-h-screen  items-start w-full px-20 py-20"
+      >
         <h1 className="text-[40px] font-bold">Create a Bot</h1>
         <div className="w-[460px] flex flex-col gap-10">
           <div className="flex flex-col gap-2">
@@ -54,6 +44,7 @@ function StepD({ handleNext }: props) {
             <input
               type="text"
               id="botName"
+              name="botName"
               value={formData.botName}
               onChange={(e) => {
                 setBotName(e.target.value);
@@ -82,6 +73,7 @@ function StepD({ handleNext }: props) {
               onChange={(e) => {
                 setBotPurpose(e.target.value);
               }}
+              name="botPurpose"
               required
               placeholder="A customer support agent for a saas company that operates in healthcare market"
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none min-h-[140px]  max-h-[240px]"
@@ -92,6 +84,7 @@ function StepD({ handleNext }: props) {
               Tone Of Voice
             </label>
             <input
+              name="toneOfVoice"
               type="text"
               id="toneOfVoice"
               value={formData.toneOfVoice}
@@ -105,7 +98,10 @@ function StepD({ handleNext }: props) {
           </div>
         </div>
         <div className="flex justify-center items-center flex-col gap-4">
+          <FormSuccess message={success} />
+          <FormError message={error} />
           <button
+            type="submit"
             disabled={formData.openAiApiKey == ""}
             className={`btn sec flex !justify-around ${
               (formData.botName.length == 0 ||
@@ -113,7 +109,6 @@ function StepD({ handleNext }: props) {
                 formData.toneOfVoice.length == 0) &&
               " opacity-50 cursor-not-allowed"
             }`}
-            onClick={(e) => createBotHandle(e)}
           >
             <p>Next</p>
             <Image

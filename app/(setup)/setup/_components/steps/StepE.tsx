@@ -9,9 +9,7 @@ function StepE({ handleNext }: props) {
   const getUserPlan = async () => {
     try {
       const response = await fetch(
-        `//ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/get_user/${localStorage.getItem(
-          "userId"
-        )}`,
+        `//ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/get_user/4`,
         {
           method: "GET",
         }

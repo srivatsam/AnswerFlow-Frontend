@@ -20,6 +20,7 @@ import { FormSuccess } from "../_components/form-success";
 import { FormError } from "../_components/form-error";
 import Link from "next/link";
 import { register } from "@/actions/register";
+import { signInWithGoogle } from "@/actions/signInWithGoogle";
 function Register() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -40,6 +41,9 @@ function Register() {
         setSuccess(data.success);
       });
     });
+  };
+  const onGoogleSubmit = () => {
+    signInWithGoogle();
   };
   return (
     <div className="absolute left-0 h-screen flex justify-center items-center w-full">
@@ -147,8 +151,8 @@ function Register() {
             <span className="bg-[#252525] h-[1px] w-full" />
           </form>
         </Form>
-        <div className="w-full">
-          <button className="btn prim !w-full flex gap-4">
+        <form action={onGoogleSubmit} className="w-full">
+          <button type="submit" className="btn prim !w-full flex gap-4">
             <Image
               src={"/google.png"}
               width={20}
@@ -157,7 +161,7 @@ function Register() {
             />
             <p>Signup with Google</p>
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

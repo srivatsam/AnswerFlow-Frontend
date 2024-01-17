@@ -1,36 +1,21 @@
+import { addDataSourceDoc } from "@/actions/addDataSourceDoc";
 import { useFormContext } from "@/context/FormContext";
 import React from "react";
 type props = { handleNext: () => void };
 
 export function DocumentsForm({ handleNext }: props) {
   const { formData, setFiles } = useFormContext();
+
   const addFilesDataSource = async (formDataInputs: FormData) => {
     if (formDataInputs) {
       const fileData = formDataInputs.get("file") as File;
       setFiles(fileData);
-      formDataInputs.append("type", fileData.type.split("/")[1]);
-      try {
-        const response = await fetch(
-          `//ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/create_resource/1/1`,
-          {
-            method: "POST",
-            body: formDataInputs,
-          }
-        );
-        const responseData = await response.json();
-        console.log(responseData);
-        if (!responseData.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        localStorage.setItem("botId", responseData.bot.id);
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      addDataSourceDoc(formDataInputs);
     }
   };
   return (
     <form
-      action={(e) => addFilesDataSource(e)}
+      action={addFilesDataSource}
       className="flex-1 flex flex-col justify-between w-full"
     >
       <div className="flex flex-col gap-10 w-full">

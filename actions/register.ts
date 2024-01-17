@@ -7,6 +7,7 @@ import { z } from "zod";
 import bcrypt from "bcryptjs";
 
 import { getUserByEmail } from "@/utils/dbFunctions/user";
+import { APIBACKEND } from "@/utils/constData";
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validations = RegisterSchema.safeParse(values);
   if (!validations.success) {
@@ -25,16 +26,22 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   // fetch the backend api to create user
 
-  // const res = await fetch(`${APIBACKEND}/create_user`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     name: name,
-  //     email: email,
-  //     pwd: hashedPassword,
-  //   }),
-  // });
+  const res = await fetch(`${APIBACKEND}/create_user`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      pwd: hashedPassword,
+      phone: "011",
+    }),
+  });
+  const data = await res.json();
+  if (data.status == "error") {
+    return { error: "Email taken" };
+  }
+
   return { success: "User Created" };
 };

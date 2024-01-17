@@ -64,7 +64,7 @@ function Chat({ botData }: props) {
   return (
     <div className="flex-1 bg-[#131313] rounded-[12px] p-10 gap-10 flex flex-col justify-between">
       <div className="gap-10 flex flex-col max-h-[67vh] overflow-y-auto ">
-        {chat?.map((chat, i) => (
+        {/* {chat?.map((chat, i) => (
           <div className="flex gap-4 items-start" key={i}>
             {chat.role == "user" ? (
               <Image
@@ -87,7 +87,7 @@ function Chat({ botData }: props) {
               {chat.content}
             </p>
           </div>
-        ))}
+        ))} */}
       </div>
       <form
         action=""
@@ -95,13 +95,13 @@ function Chat({ botData }: props) {
         className="bg-[#1F1F1F] py-4 px-8 w-full flex justify-between rounded-[10px] gap-4 items-center"
       >
         <div className="flex gap-4 flex-1">
-          <Image
+          {/* <Image
             src={session.data?.user?.image as string}
             alt="user image"
             width={40}
             height={40}
             className="rounded-full"
-          />
+          /> */}
           <input
             type="text"
             id="question"

@@ -1,39 +1,18 @@
+import { addUrlData } from "@/actions/addUrlData";
 import { useFormContext } from "@/context/FormContext";
 import React from "react";
 type props = { handleNext: () => void };
 export function LinkForm({ handleNext }: props) {
-  const { formData, setFiles, setUrls } = useFormContext();
-  const addUrlData = async (e: FormData) => {
+  const { formData, setUrls } = useFormContext();
+  const addUrlDataHandle = async (e: FormData) => {
     if (e) {
       setUrls(e.get("link") as string);
-      try {
-        const response = await fetch(
-          `//ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/create_resource/1/1`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              type: "url",
-              name: e.get("link"),
-            }),
-          }
-        );
-        const responseData = await response.json();
-        console.log(responseData);
-        if (!responseData.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        localStorage.setItem("botId", responseData.bot.id);
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      addUrlData(e);
     }
   };
   return (
     <form
-      action={(e) => addUrlData(e)}
+      action={addUrlDataHandle}
       className="flex-1 flex flex-col justify-end gap-40 w-full"
     >
       <div className="flex flex-col gap-4 w-[100%]">

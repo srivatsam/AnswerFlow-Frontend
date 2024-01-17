@@ -1,14 +1,20 @@
 "use client";
 
+import { setPlan } from "@/actions/setPlan";
+import { FormError } from "@/app/(auth)/_components/form-error";
+import { FormSuccess } from "@/app/(auth)/_components/form-success";
 import { YourPlanType } from "@/types/plan";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 type props = { handleNext: () => void };
 
 function StepA({ handleNext }: props) {
   const [planFromLocal, setPlanFromLocal] = useState<YourPlanType | null>(null);
-  const session = useSession();
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
+  const { data } = useSession();
 
   // retrieving plan from local storage
   useEffect(() => {
@@ -23,62 +29,30 @@ function StepA({ handleNext }: props) {
     }
   }, []);
 
-  const createUser = async () => {
-    const userDate = session.data?.user;
-    try {
-      const response = await fetch(
-        "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/create_user",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: userDate?.name,
-            email: userDate?.email,
-            pwd: "134324",
-            phone: "0645612378",
-          }),
+  const onPlanSubmit = () => {
+    startTransition(() => {
+      setPlan().then((data) => {
+        if (data?.error) {
+          setError(data.error);
         }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const responseData = await response.json();
-      localStorage.setItem("userId", responseData.user.id);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-    setPlan();
-    handleNext();
-  };
-  const setPlan = async () => {
-    const userId = localStorage.getItem("userId");
-    try {
-      const response = await fetch(
-        `http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/set_plan/${userId}/1`,
-        {
-          method: "PUT",
+        if (data?.success) {
+          setSuccess(data.success);
+          handleNext();
         }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const responseData = await response.json();
-      window.localStorage.setItem("userId", responseData.user.id);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+      });
+    });
   };
   return (
-    <div className="flex justify-center items-center w-full">
+    <form
+      action={onPlanSubmit}
+      className="flex justify-center items-center w-full"
+    >
       <div className="flex-1 flex flex-col gap-10 justify-start items-start p-20 ">
         <h1 className="text-[40px] leading-[74px] font-bold">
           Continue Checkout
         </h1>
-        <form className="flex flex-col gap-6 ">
+        <div className="flex flex-col gap-6 ">
+          <div className=""></div>
           <div className="flex justify-between gap-4">
             <div className="flex flex-col gap-1">
               <label htmlFor="firstName" className="font-medium">
@@ -206,9 +180,8 @@ function StepA({ handleNext }: props) {
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
             />
           </div>
-        </form>
+        </div>
       </div>
-
       <div className="min-w-[33%] bg-[#0B0B0B] flex flex-col justify-center gap-8   h-screen fixed top-0 right-0">
         <h1 className="text-[32px] font-bold text-[#707070] px-20">
           Plan Details
@@ -358,13 +331,19 @@ function StepA({ handleNext }: props) {
               : ""}
           </div>
         </div>
-        <div className="flex justify-center px-20">
-          <button className="btn sec !w-[80%]" onClick={createUser}>
-            Proceed to Payment
+        <div className="flex flex-col gap-3 justify-center px-20">
+          <FormSuccess message={success} />
+          <FormError message={error} />
+          <button
+            type="submit"
+            disabled={isPending}
+            className="btn sec !w-[80%]"
+          >
+            {isPending ? "Loading..." : "Proceed to Payment"}
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

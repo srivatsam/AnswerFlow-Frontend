@@ -20,6 +20,7 @@ import { FormSuccess } from "../_components/form-success";
 import { FormError } from "../_components/form-error";
 import Link from "next/link";
 import { login } from "@/actions/login";
+import { signInWithGoogle } from "@/actions/signInWithGoogle";
 function Login() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -32,8 +33,8 @@ function Login() {
     },
   });
 
-  const signUpWithGoogle = () => {
-    signIn("google", { callbackUrl: "/setup" });
+  const onGoogleSubmit = () => {
+    signInWithGoogle();
   };
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
@@ -48,6 +49,7 @@ function Login() {
       });
     });
   };
+
   return (
     <div className="absolute left-0 h-screen overflow-y-auto flex justify-center items-center w-full">
       <div className="bg-3"></div>
@@ -121,11 +123,8 @@ function Login() {
         </Form>
 
         {/* google sign in */}
-        <div className="w-full">
-          <button
-            onClick={signUpWithGoogle}
-            className="btn prim !w-full flex gap-4"
-          >
+        <form action={onGoogleSubmit} className="w-full">
+          <button type="submit" className="btn prim !w-full flex gap-4">
             <Image
               src={"/google.png"}
               width={20}
@@ -134,7 +133,7 @@ function Login() {
             />
             <p>Sign up with Google</p>
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
