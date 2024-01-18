@@ -43,4 +43,21 @@ model User {
   password      String?
   role          UserRole @default(USER)
   accounts      Account[]
+  billing       BillingInfo?
+}
+
+model BillingInfo {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  firstName      String?
+  lastName       String?
+  email          String?   
+  company        String?
+  address        String?
+  city           String?
+  country        String?
+  pinCode        String?
+  phoneNumber    String?
+
+  user User @relation(fields: [userId], references: [id])
 }

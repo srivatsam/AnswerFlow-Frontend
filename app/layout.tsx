@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-
 import { Toaster } from "sonner";
 import AuthProvider from "../context/Auth";
-
 import { Poppins } from "next/font/google";
 import "./globals.css";
 

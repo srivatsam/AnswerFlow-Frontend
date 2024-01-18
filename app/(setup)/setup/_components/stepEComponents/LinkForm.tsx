@@ -1,13 +1,29 @@
 import { addUrlData } from "@/actions/addUrlData";
+import { FormError } from "@/app/(auth)/_components/form-error";
+import { FormSuccess } from "@/app/(auth)/_components/form-success";
 import { useFormContext } from "@/context/FormContext";
-import React from "react";
+import React, { useState, useTransition } from "react";
 type props = { handleNext: () => void };
 export function LinkForm({ handleNext }: props) {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
   const { formData, setUrls } = useFormContext();
-  const addUrlDataHandle = async (e: FormData) => {
-    if (e) {
-      setUrls(e.get("link") as string);
-      addUrlData(e);
+
+  const addUrlDataHandle = async (formDataInputs: FormData) => {
+    if (formDataInputs) {
+      const botId = window.localStorage.getItem("botId") as string;
+      startTransition(() => {
+        addUrlData(formDataInputs, botId).then((response) => {
+          if (response?.error) {
+            setError(response.error);
+          }
+          if (response?.success) {
+            setSuccess(response.success);
+            setUrls(formDataInputs.get("link") as string);
+          }
+        });
+      });
     }
   };
   return (
@@ -32,21 +48,21 @@ export function LinkForm({ handleNext }: props) {
           Knowledge-base
         </p>
       </div>
+      <FormSuccess message={success} />
+      <FormError message={error} />
       <div className="flex justify-between w-full items-center">
         <button
-          // disabled={formData.openAiApiKey == ""}
+          // disabled={formData.urls.length == 0 || isPending}
           type="submit"
-          className={`btn sec flex !justify-around`}
+          className={`btn sec flex !justify-around `} //${isPending && "opacity-50 cursor-not-allowed"}
         >
-          <p>Add to Data Source</p>
+          <p>{isPending ? "Adding Data Source" : "Add to Data Source"}</p>
         </button>
         <button
-          // disabled={formData.openAiApiKey == ""}
-          className={`btn sec flex !justify-around ${
-            formData.urls.length == 0 &&
-            formData.files.length == 0 &&
-            " opacity-50 cursor-not-allowed"
-          }`}
+          // disabled={
+          //   isPending || formData.files.length > 0 || formData.urls.length > 0
+          // }
+          className={`btn sec flex !justify-around `} //${formData.urls.length == 0 &&formData.files.length == 0 &&" opacity-50 cursor-not-allowed"}
           onClick={handleNext}
         >
           <p>Finish Setup</p>

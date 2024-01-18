@@ -16,12 +16,13 @@ function StepD({ handleNext }: props) {
   const createBotHandle = (formDataFrom: FormData) => {
     if (formData.botName || formData.botPurpose || formData.toneOfVoice) {
       startTransition(() => {
-        createBot(formDataFrom).then((data) => {
-          if (data?.error) {
-            setError(data.error);
+        createBot(formDataFrom).then((response) => {
+          if (response?.error) {
+            setError(response.error);
           }
-          if (data?.success) {
-            setSuccess(data.success);
+          if (response?.success) {
+            setSuccess(response.success);
+            localStorage.setItem("botId", response.data.bot.id);
             handleNext();
           }
         });
@@ -102,7 +103,7 @@ function StepD({ handleNext }: props) {
           <FormError message={error} />
           <button
             type="submit"
-            disabled={formData.openAiApiKey == ""}
+            disabled={isPending}
             className={`btn sec flex !justify-around ${
               (formData.botName.length == 0 ||
                 formData.botPurpose.length == 0 ||
@@ -110,7 +111,7 @@ function StepD({ handleNext }: props) {
               " opacity-50 cursor-not-allowed"
             }`}
           >
-            <p>Next</p>
+            <p>{isPending ? "Creating..." : "Next"}</p>
             <Image
               src={"/rightarrow.png"}
               width={8}

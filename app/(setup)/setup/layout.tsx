@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/next-script-for-ga */
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import ProgressBar from "./_components/ui/ProgressBar";

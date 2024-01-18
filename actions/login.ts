@@ -8,7 +8,7 @@ import { z } from "zod";
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validations = LoginSchema.safeParse(values);
   if (!validations.success) {
-    return { success: "invalid inputs" };
+    return { error: "Invalid Inputs" };
   }
   const { email, password } = validations.data;
   try {
@@ -23,6 +23,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
           return { error: "Something went Wrong" };
       }
     }
-    throw error;
   }
+  return { success: "Login Successfully" };
 };

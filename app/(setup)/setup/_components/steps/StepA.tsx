@@ -14,7 +14,6 @@ function StepA({ handleNext }: props) {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  const { data } = useSession();
 
   // retrieving plan from local storage
   useEffect(() => {
@@ -29,9 +28,9 @@ function StepA({ handleNext }: props) {
     }
   }, []);
 
-  const onPlanSubmit = () => {
+  const onPlanSubmit = (formData: FormData) => {
     startTransition(() => {
-      setPlan().then((data) => {
+      setPlan(formData, planFromLocal?.plan as string).then((data) => {
         if (data?.error) {
           setError(data.error);
         }
@@ -61,6 +60,7 @@ function StepA({ handleNext }: props) {
               <input
                 type="text"
                 id="firstName"
+                name="firstName"
                 required
                 placeholder="Enter your first name"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -73,6 +73,7 @@ function StepA({ handleNext }: props) {
               <input
                 type="text"
                 id="lastName"
+                name="lastName"
                 required
                 placeholder="Enter your last name"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -86,6 +87,7 @@ function StepA({ handleNext }: props) {
             <input
               type="email"
               id="email"
+              name="email"
               required
               placeholder="Enter your work email"
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -99,6 +101,7 @@ function StepA({ handleNext }: props) {
             <input
               type="text"
               id="company"
+              name="company"
               required
               placeholder="Enter your company name"
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -111,6 +114,7 @@ function StepA({ handleNext }: props) {
             <input
               type="text"
               id="address"
+              name="address"
               required
               placeholder="Apartment, Suite etc.."
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -124,6 +128,7 @@ function StepA({ handleNext }: props) {
               <input
                 type="text"
                 id="city"
+                name="city"
                 required
                 placeholder="Enter your city"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -136,6 +141,7 @@ function StepA({ handleNext }: props) {
               <input
                 type="text"
                 id="state"
+                name="state"
                 required
                 placeholder="Enter state"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -150,20 +156,22 @@ function StepA({ handleNext }: props) {
               <input
                 type="text"
                 id="country"
+                name="country"
                 required
                 placeholder="Enter country"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label htmlFor="pincode" className="font-medium">
-                Pincode
+              <label htmlFor="pinCode" className="font-medium">
+                PinCode
               </label>
               <input
                 type="text"
-                id="Pincode"
+                id="pinCode"
+                name="pinCode"
                 required
-                placeholder="Enter your pincode"
+                placeholder="Enter your PinCode"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
               />
             </div>
@@ -175,6 +183,7 @@ function StepA({ handleNext }: props) {
             <input
               type="text"
               id="phoneNumber"
+              name="phoneNumber"
               required
               placeholder="Enter your phone number"
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"

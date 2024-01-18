@@ -12,7 +12,6 @@ function StepC({ handleNext }: props) {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  const session = useSession();
 
   const openAiApiKeySubmit = (formData: FormData) => {
     startTransition(() => {
@@ -63,7 +62,8 @@ function StepC({ handleNext }: props) {
             type="submit"
             disabled={formData.openAiApiKey == "" || isPending}
             className={`btn sec flex !justify-around ${
-              formData.openAiApiKey == "" && " opacity-50 cursor-not-allowed"
+              (formData.openAiApiKey == "" || isPending) &&
+              " opacity-50 cursor-not-allowed"
             }`}
           >
             <p>{isPending ? "Loading.." : "Next"}</p>

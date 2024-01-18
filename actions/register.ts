@@ -11,7 +11,7 @@ import { APIBACKEND } from "@/utils/constData";
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validations = RegisterSchema.safeParse(values);
   if (!validations.success) {
-    return { error: "invalid inputs" };
+    return { error: "Invalid Inputs" };
   }
   const { name, email, password } = validations.data;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -22,26 +22,22 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   }
   await db.user.create({ data: { name, email, password: hashedPassword } });
 
-  // TODO :Send verification token email
+  // const res = await fetch(`${APIBACKEND}/create_user`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     name: name,
+  //     email: email,
+  //     pwd: hashedPassword,
+  //     phone: "011",
+  //   }),
+  // });
+  // const data = await res.json();
+  // if (data.status == "error") {
+  //   return { error: "Email Taken" };
+  // }
 
-  // fetch the backend api to create user
-
-  const res = await fetch(`${APIBACKEND}/create_user`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: name,
-      email: email,
-      pwd: hashedPassword,
-      phone: "011",
-    }),
-  });
-  const data = await res.json();
-  if (data.status == "error") {
-    return { error: "Email taken" };
-  }
-
-  return { success: "User Created" };
+  return { success: "User Created Successfully" };
 };

@@ -1,8 +1,13 @@
 "use server";
-export const addUrlData = async (formData: FormData) => {
+import { auth } from "@/auth";
+import { APIBACKEND } from "@/utils/constData";
+
+export const addUrlData = async (formData: FormData, botId: string) => {
+  const session = await auth();
+  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
   try {
     const response = await fetch(
-      `http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/create_resource/4/6`,
+      `${APIBACKEND}/create_resource/${userId}/${botId}`,
       {
         method: "POST",
         headers: {
@@ -15,12 +20,11 @@ export const addUrlData = async (formData: FormData) => {
       }
     );
     const responseData = await response.json();
-    console.log(responseData);
     if (responseData.status == "error") {
       throw new Error(`${responseData.message}`);
     }
-    return { success: "Bot Created" };
+    return { success: "Data Added Successfully" };
   } catch (error) {
-    return { error: "Some Thing Sent Wrong" };
+    return { error: "Something Sent Wrong" };
   }
 };

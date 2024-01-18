@@ -1,6 +1,5 @@
 import { useFormContext } from "@/context/FormContext";
 import { useSteps } from "@/hooks/use-steps";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -24,7 +23,7 @@ function StepFinal({ handleNext }: props) {
           resetFormData();
           resetToNewBot();
         }}
-        href={`/user/${localStorage.getItem("userId")}`}
+        href={`/user/${localStorage.getItem("botId")}`}
         className="btn sec"
       >
         Start Chatting
