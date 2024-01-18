@@ -6,9 +6,7 @@ import { APIBACKEND } from "@/utils/constData";
 export const addDataSourceDoc = async (formData: FormData, botId: string) => {
   const session = await auth();
   const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
-  const fileData = formData.get("file") as File;
 
-  formData.append("type", fileData.type.split("/")[1]);
   try {
     const response = await fetch(
       `${APIBACKEND}/create_resource/${userId}/${botId}`,
@@ -18,7 +16,7 @@ export const addDataSourceDoc = async (formData: FormData, botId: string) => {
       }
     );
     const responseData = await response.json();
-    console.log(responseData);
+    // console.log(responseData);
     if (responseData.status == "error") {
       throw new Error(`${responseData.message}`);
     }
