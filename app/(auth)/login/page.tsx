@@ -21,7 +21,9 @@ import { FormError } from "../_components/form-error";
 import Link from "next/link";
 import { login } from "@/actions/login";
 import { signInWithGoogle } from "@/actions/signInWithGoogle";
+import { useRouter } from "next/navigation";
 function Login() {
+  const route = useRouter();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -45,6 +47,7 @@ function Login() {
         }
         if (data?.success) {
           setSuccess(data.success);
+          route.push("/setup");
         }
       });
     });
