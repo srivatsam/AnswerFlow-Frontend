@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 import BotSelection from "./BotSelection";
-type props = {
-  userId: string;
-};
-export function Bots({ userId }: props) {
+import { APIBACKEND } from "@/utils/constData";
+
+export function Bots() {
   const [bots, setBots] = useState<any>();
   useEffect(() => {
-    getBots(userId);
-  }, [userId]);
-  const getBots = async (userId: string) => {
+    getBots();
+  }, []);
+  const getBots = async () => {
     try {
-      const response = await fetch(
-        `//ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/get_bots/1`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`${APIBACKEND}/get_bots/1`, {
+        method: "GET",
+      });
       const data = await response.json();
+      console.log(data);
       if (data.status == "error") {
         throw new Error(`${data.message}`);
       }
@@ -27,6 +24,5 @@ export function Bots({ userId }: props) {
     }
   };
 
-  // console.log(bots);
   return <BotSelection bots={bots} />;
 }
