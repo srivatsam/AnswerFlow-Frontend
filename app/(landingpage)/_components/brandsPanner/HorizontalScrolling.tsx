@@ -21,15 +21,15 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-1.png"}
-                height={80}
+                height={195}
                 width={80}
-                alt="brand-  "
+                alt="brand 1"
               ></Image>
             </div>
             <div className="slide">
               <Image
                 src={"/brand-2.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -37,7 +37,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-3.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -45,7 +45,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-4.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -53,7 +53,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-5.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -61,7 +61,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-6.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -69,7 +69,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-7.png"}
-                height={80}
+                height={195}
                 width={160}
                 alt="brand-"
               ></Image>
@@ -77,7 +77,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-8.png"}
-                height={80}
+                height={195}
                 width={160}
                 alt="brand-"
               ></Image>
@@ -85,24 +85,24 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-9.png"}
-                height={80}
+                height={195}
                 width={160}
                 alt="brand-"
               ></Image>
             </div>
-
+            {/*  */}
             <div className="slide">
               <Image
                 src={"/brand-1.png"}
-                height={80}
+                height={195}
                 width={80}
-                alt="brand-"
+                alt="brand 1"
               ></Image>
             </div>
             <div className="slide">
               <Image
                 src={"/brand-2.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -110,7 +110,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-3.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -118,7 +118,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-4.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -126,7 +126,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-5.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -134,7 +134,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-6.png"}
-                height={80}
+                height={195}
                 width={80}
                 alt="brand-"
               ></Image>
@@ -142,7 +142,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-7.png"}
-                height={80}
+                height={195}
                 width={160}
                 alt="brand-"
               ></Image>
@@ -150,7 +150,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-8.png"}
-                height={80}
+                height={195}
                 width={160}
                 alt="brand-"
               ></Image>
@@ -158,7 +158,7 @@ function HorizontalScrolling() {
             <div className="slide">
               <Image
                 src={"/brand-9.png"}
-                height={80}
+                height={195}
                 width={160}
                 alt="brand-"
               ></Image>

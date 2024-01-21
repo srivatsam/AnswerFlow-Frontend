@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import StepA from "./steps/StepA";
 import StepB from "./steps/StepB";
 import StepC from "./steps/StepC";
@@ -74,7 +74,7 @@ function Setup() {
           {activeStep === "f" && <StepF handleNext={handleNext} />}
         </AnimatePresence>
         <AnimatePresence>
-          {activeStep === "final" && <StepFinal handleNext={handleNext} />}
+          {activeStep === "final" && <StepFinal />}
         </AnimatePresence>
       </FormProvider>
     </div>

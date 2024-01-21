@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { DataSourceSelection } from "../stepEComponents/stepEComponents";
 import ProgressBar from "../stepEComponents/ProgressBar";
-import { APIBACKEND } from "@/utils/constData";
-import db from "@/utils/db";
-import { getUserById } from "@/utils/dbFunctions/user";
+import { getUserPlan } from "@/actions/getUserPlan";
 type props = { handleNext: () => void };
 
 function StepE({ handleNext }: props) {
   const [userPlan, setUserPlan] = useState();
 
-  const getUserPlan = async () => {
-    try {
-      const response = await fetch(`${APIBACKEND}/get_user/4`, {
-        method: "GET",
-      });
-      const responseData = await response.json();
-      setUserPlan(responseData.user.plan.name);
-      if (responseData.status != "success") {
-        throw new Error(`HTTP error! Status: ${responseData.status}`);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   useEffect(() => {
-    getUserPlan();
+    getUserPlan().then((data) => {
+      if (data?.error) {
+      }
+      if (data?.success) {
+        setUserPlan(data.userPlan);
+      }
+    });
   }, []);
 
   return (

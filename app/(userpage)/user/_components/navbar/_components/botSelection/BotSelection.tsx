@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
+
 import { useRouter } from "next/navigation";
 import { useActiveSection } from "@/hooks/use-active-section";
 
 function BotSelection({ bots }: { bots: any }) {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
   const [toggle, setToggle] = useState(false);
+  const route = useRouter();
+
   const [botSelected, setBotSelected] = useState(
     bots ? bots[0].name : "bot name"
   );
 
-  const route = useRouter();
   return (
     <div
       onClick={() => setToggle((prev) => !prev)}
@@ -38,20 +41,24 @@ function BotSelection({ bots }: { bots: any }) {
             />
           </button>
           <hr />
-          {bots.map((item: any) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                route.push(`/user/${item.id}`);
-                setActiveSection("Chat");
-                setBotSelected(item.name);
-                localStorage.setItem("botId", `${item.id}`);
-              }}
-              className="flex justify-between gap-1 py-1 px-2 w-full capitalize"
-            >
-              <p>{item.name}</p>
-            </button>
-          ))}
+          {bots ? (
+            bots.map((item: any) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  route.push(`/user/${item.id}`);
+                  setActiveSection("Chat");
+                  setBotSelected(item.name);
+                  localStorage.setItem("botId", `${item.id}`);
+                }}
+                className="flex justify-between gap-1 py-1 px-2 w-full capitalize"
+              >
+                <p>{item.name}</p>
+              </button>
+            ))
+          ) : (
+            <p>Ops no bots found</p>
+          )}
         </div>
       )}
     </div>

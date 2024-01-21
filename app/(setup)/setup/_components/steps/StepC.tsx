@@ -1,28 +1,26 @@
-import { setAiKey } from "@/actions/setAiKey";
-import { FormError } from "@/app/(auth)/_components/form-error";
-import { FormSuccess } from "@/app/(auth)/_components/form-success";
-import { useFormContext } from "@/context/FormContext";
-import { useSession } from "next-auth/react";
+import React, { useState, useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useTransition } from "react";
+
+import { setAiKey } from "@/actions/setAiKey";
+import { useFormContext } from "@/context/FormContext";
+
+import { toast } from "sonner";
+
 type props = { handleNext: () => void };
 function StepC({ handleNext }: props) {
   const { formData, setOpenAiApiKey } = useFormContext();
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const openAiApiKeySubmit = (formData: FormData) => {
     startTransition(() => {
-      setAiKey(formData).then((data) => {
-        if (data?.error) {
-          setError(data.error);
-        }
-        if (data?.success) {
-          setSuccess(data.success);
-          handleNext();
-        }
+      const setPlanPromise = setAiKey(formData).then((data) => {
+        if (data.success) handleNext();
+      });
+      toast.promise(setPlanPromise, {
+        loading: "Loading...",
+        success: "AI Key Seated Successfully",
+        error: "Something Went Wrong Try Agin",
       });
     });
   };
@@ -56,8 +54,6 @@ function StepC({ handleNext }: props) {
         </div>
 
         <div className="flex justify-center items-center flex-col gap-4">
-          <FormSuccess message={success} />
-          <FormError message={error} />
           <button
             type="submit"
             disabled={formData.openAiApiKey == "" || isPending}

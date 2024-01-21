@@ -13,7 +13,6 @@ type ChatItem = {
 
 function Chat({ botData }: props) {
   const [chat, setChat] = useState<ChatItem[] | null>();
-
   const [question, setQuestion] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +44,7 @@ function Chat({ botData }: props) {
         );
         const responseData = await response.json();
         if (responseData.status == "error") {
-          throw new Error(`${responseData.message}`);
+          throw new Error(`ERROR FROM CLIENT BOT:${responseData.message}`);
         }
         const newData: ChatItem[] = [
           {
@@ -55,7 +54,8 @@ function Chat({ botData }: props) {
         ];
         setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
       } catch (error) {
-        toast.error("something wrong check your chatgpt key");
+        console.error(error);
+        return null;
       }
     }
   };
@@ -84,7 +84,7 @@ function Chat({ botData }: props) {
               />
             )}
             <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px]">
-              {chat.content}
+              {chat.content ? chat.content : "something went wrong try agin"}
             </p>
           </div>
         ))}

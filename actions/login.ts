@@ -8,7 +8,8 @@ import { z } from "zod";
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validations = LoginSchema.safeParse(values);
   if (!validations.success) {
-    return { error: "Invalid Inputs" };
+    console.error(`ERROR FROM SERVER Invalid Inputs`);
+    return new Error("Invalid Inputs");
   }
   const { email, password } = validations.data;
   try {
@@ -17,10 +18,12 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { error: "Email or Password is Wrong" };
+          console.error(`ERROR FROM SERVER :${error}`);
+          return new Error("Email or Password is Wrong");
 
         default:
-          return { error: "Something went Wrong" };
+          console.error(`ERROR FROM SERVER :${error}`);
+          return new Error("Something went Wrong");
       }
     }
   }

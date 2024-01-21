@@ -2,22 +2,11 @@ import React, { useState } from "react";
 import { DocumentsForm } from "./DocumentsForm";
 import { LinkForm } from "./LinkForm";
 import DropDownSelection from "./DropDownSelection";
+import { limitPlan } from "@/utils/constData";
 
 type props = { handleNext: () => void; userPlan: string };
 
-const limitPlan: { name: string; datatypes: fileTypeSelected[] }[] = [
-  { name: "Basic", datatypes: ["Documents", "Links"] },
-  {
-    name: "Starter",
-    datatypes: ["Documents", "Links", "Database", "Zapier"],
-  },
-  {
-    name: "Pro",
-    datatypes: ["Documents", "Links", "Database", "Zapier", "ExternalAPI"],
-  },
-];
 export function DataSourceSelection({ handleNext, userPlan }: props) {
-  // types of file user can selected
   const planSelected = limitPlan.find((plan) => plan.name === userPlan);
   const [fileTypeSelected, setFileTypeSelected] =
     useState<fileTypeSelected>("Add Data Source");

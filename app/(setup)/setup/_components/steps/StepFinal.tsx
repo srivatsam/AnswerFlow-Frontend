@@ -1,10 +1,10 @@
-import { useFormContext } from "@/context/FormContext";
-import { useSteps } from "@/hooks/use-steps";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-type props = { handleNext: () => void };
-function StepFinal({ handleNext }: props) {
+
+import { useFormContext } from "@/context/FormContext";
+import { useSteps } from "@/hooks/use-steps";
+function StepFinal() {
   const { resetFormData } = useFormContext();
   const resetToNewBot = useSteps((state) => state.resetToNewBot);
   return (

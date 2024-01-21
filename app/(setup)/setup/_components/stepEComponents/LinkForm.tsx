@@ -1,27 +1,29 @@
+import React, { useTransition } from "react";
+
 import { addUrlData } from "@/actions/addUrlData";
-import { FormError } from "@/app/(auth)/_components/form-error";
-import { FormSuccess } from "@/app/(auth)/_components/form-success";
 import { useFormContext } from "@/context/FormContext";
-import React, { useState, useTransition } from "react";
+
+import { toast } from "sonner";
 type props = { handleNext: () => void };
 export function LinkForm({ handleNext }: props) {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  const { formData, setUrls } = useFormContext();
+  const { setUrls } = useFormContext();
 
   const addUrlDataHandle = async (formDataInputs: FormData) => {
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
       startTransition(() => {
-        addUrlData(formDataInputs, botId).then((response) => {
-          if (response?.error) {
-            setError(response.error);
+        const setPlanPromise = addUrlData(formDataInputs, botId).then(
+          (data) => {
+            if (data.success) {
+              setUrls(formDataInputs.get("link") as string);
+            }
           }
-          if (response?.success) {
-            setSuccess(response.success);
-            setUrls(formDataInputs.get("link") as string);
-          }
+        );
+        toast.promise(setPlanPromise, {
+          loading: "Loading...",
+          success: "Data Added Successfully",
+          error: "Something Went Wrong Try Agin",
         });
       });
     }
@@ -48,8 +50,6 @@ export function LinkForm({ handleNext }: props) {
           Knowledge-base
         </p>
       </div>
-      <FormSuccess message={success} />
-      <FormError message={error} />
       <div className="flex justify-between w-full items-center">
         <button
           // disabled={formData.urls.length == 0 || isPending}

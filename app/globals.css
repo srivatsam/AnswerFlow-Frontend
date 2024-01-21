@@ -78,6 +78,10 @@ body {
   color: #ffffff;
   background-color: #030303;
 }
+img {
+  width: auto;
+  height: auto;
+}
 /* btn classes */
 .btn {
   @apply h-[40px] w-[130px] md:h-[60px] md:w-[230px] rounded-[10px] flex justify-center items-center font-semibold;

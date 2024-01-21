@@ -22,11 +22,9 @@ export default function UserLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ProgressBar />
-        {children}
-      </body>
-    </html>
+    <section className={inter.className}>
+      <ProgressBar />
+      {children}
+    </section>
   );
 }

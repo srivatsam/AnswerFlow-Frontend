@@ -1,12 +1,17 @@
 "use client";
+import React, { useTransition } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { register } from "@/actions/register";
+import { SignWithGoogle } from "../_components/SignWithGoogle";
+
+import { toast } from "sonner";
+
 import * as z from "zod";
 import { RegisterSchema } from "@/schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { signIn } from "next-auth/react";
-import React, { useState, useTransition } from "react";
-import Image from "next/image";
 import {
   Form,
   FormControl,
@@ -16,14 +21,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FormSuccess } from "../_components/form-success";
-import { FormError } from "../_components/form-error";
-import Link from "next/link";
-import { register } from "@/actions/register";
-import { signInWithGoogle } from "@/actions/signInWithGoogle";
+
 function Register() {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -34,16 +33,16 @@ function Register() {
       confirmPassword: "",
     },
   });
+
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     startTransition(() => {
-      register(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
+      const registerPromise = register(values);
+      toast.promise(registerPromise, {
+        loading: "Loading...",
+        success: "User Created Successfully",
+        error: "This Email taken",
       });
     });
-  };
-  const onGoogleSubmit = () => {
-    signInWithGoogle();
   };
   return (
     <div className="absolute left-0 h-screen flex justify-center items-center w-full">
@@ -139,8 +138,6 @@ function Register() {
               />
             </div>
             <div className="flex flex-col gap-4 w-full items-center">
-              <FormSuccess message={success} />
-              <FormError message={error} />
               <button type="submit" className="btn sec" disabled={isPending}>
                 {isPending ? "Creating user..." : "Register"}
               </button>
@@ -151,17 +148,8 @@ function Register() {
             <span className="bg-[#252525] h-[1px] w-full" />
           </form>
         </Form>
-        <form action={onGoogleSubmit} className="w-full">
-          <button type="submit" className="btn prim !w-full flex gap-4">
-            <Image
-              src={"/google.png"}
-              width={20}
-              height={20}
-              alt="google png"
-            />
-            <p>Signup with Google</p>
-          </button>
-        </form>
+        {/* google sign in */}
+        <SignWithGoogle />
       </div>
     </div>
   );

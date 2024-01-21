@@ -45,7 +45,9 @@ const FormContext = createContext<FormContextProps | undefined>(undefined);
 export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [formData, setFormData] = useState<FormData>(() => {
     try {
-      const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const storedData =
+        typeof window !== "undefined" &&
+        localStorage.getItem(LOCAL_STORAGE_KEY);
       return storedData
         ? JSON.parse(storedData, (key, value) => {
             if (key === "files" && Array.isArray(value)) {

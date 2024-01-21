@@ -1,29 +1,32 @@
+import React, { useTransition } from "react";
+
 import { addDataSourceDoc } from "@/actions/addDataSourceDoc";
-import { FormError } from "@/app/(auth)/_components/form-error";
-import { FormSuccess } from "@/app/(auth)/_components/form-success";
 import { useFormContext } from "@/context/FormContext";
-import React, { useState, useTransition } from "react";
+
+import { toast } from "sonner";
+
 type props = { handleNext: () => void };
 
 export function DocumentsForm({ handleNext }: props) {
   const { formData, setFiles } = useFormContext();
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const addFilesDataSource = async (formDataInputs: FormData) => {
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
       startTransition(() => {
-        addDataSourceDoc(formDataInputs, botId).then((response) => {
-          if (response?.error) {
-            setError(response.error);
+        const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
+          (data) => {
+            if (data.success) {
+              const fileData = formDataInputs.get("file") as File;
+              setFiles(fileData);
+            }
           }
-          if (response?.success) {
-            const fileData = formDataInputs.get("file") as File;
-            setFiles(fileData);
-            setSuccess(response.success);
-          }
+        );
+        toast.promise(setPlanPromise, {
+          loading: "Loading...",
+          success: "Data Added Successfully",
+          error: "Something Went Wrong Try Agin",
         });
       });
     }
@@ -66,8 +69,6 @@ export function DocumentsForm({ handleNext }: props) {
         >
           <p>{isPending ? "Adding Data Source.." : "Add to Data Source"}</p>
         </button>
-        <FormSuccess message={success} />
-        <FormError message={error} />
         <button
           // disabled={
           //   isPending || formData.files.length > 0 || formData.urls.length > 0

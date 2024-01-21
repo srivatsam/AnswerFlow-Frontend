@@ -1,7 +1,7 @@
-import React from "react";
-import UserItem from "./_components/UserItem";
 import Image from "next/image";
 import Upgrade from "./_components/Upgrade";
+import UserItem from "./_components/UserItem";
+
 import { Bots } from "./_components/botSelection/Bots";
 
 function NavBar() {

@@ -44,7 +44,7 @@ export default function RootLayout({
         />
       </head>
       <body className={font.className}>
-        <Toaster position="bottom-center" />
+        <Toaster richColors position="bottom-center" />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

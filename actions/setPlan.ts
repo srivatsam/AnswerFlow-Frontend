@@ -25,28 +25,24 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
     try {
       await db.billingInfo.create({ data: billingData });
     } catch (error) {
-      return { error: "Something went Wrong Id Should be Uniq" };
+      console.error(error);
+      return new Error("Something went Wrong User Should Be Uniq");
     }
 
-    try {
-      const response = await fetch(
-        `${APIBACKEND}/set_plan/${userId}/${planId}`,
-        {
-          method: "PUT",
-        }
-      );
+    const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
+      method: "PUT",
+    });
 
-      const responseData = await response.json();
+    const responseData = await response.json();
 
-      if (responseData.status === "error") {
-        throw new Error(responseData.message);
-      }
-
-      return { success: "Set The Plan Successfully" };
-    } catch (error) {
-      return { error: "Something went wrong" };
+    if (responseData.status === "error") {
+      console.error(responseData.message);
+      throw new Error(`ERROR FROM SERVER :${responseData.message}`);
     }
+
+    return { success: "Set The Plan Successfully" };
+  } else {
+    console.error(`ERROR FROM SERVER :You are not authorized`);
+    return new Error("You are not authorized");
   }
-
-  return { error: "You are not authorized" };
 };

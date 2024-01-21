@@ -1,30 +1,30 @@
-import { createBot } from "@/actions/createBot";
-import { FormError } from "@/app/(auth)/_components/form-error";
-import { FormSuccess } from "@/app/(auth)/_components/form-success";
-import { useFormContext } from "@/context/FormContext";
 import Image from "next/image";
-import React, { useState, useTransition } from "react";
+import React, { useTransition } from "react";
+
+import { createBot } from "@/actions/createBot";
+import { useFormContext } from "@/context/FormContext";
+import { toast } from "sonner";
+
 type props = { handleNext: () => void };
 
 function StepD({ handleNext }: props) {
   const { formData, setBotName, setBotPurpose, setToneOfVoice } =
     useFormContext();
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const createBotHandle = (formDataFrom: FormData) => {
     if (formData.botName || formData.botPurpose || formData.toneOfVoice) {
       startTransition(() => {
-        createBot(formDataFrom).then((response) => {
-          if (response?.error) {
-            setError(response.error);
-          }
-          if (response?.success) {
-            setSuccess(response.success);
-            localStorage.setItem("botId", response.data.bot.id);
+        const setPlanPromise = createBot(formDataFrom).then((response) => {
+          if (response.success) {
             handleNext();
+            localStorage.setItem("botId", response.data.bot.id);
           }
+        });
+        toast.promise(setPlanPromise, {
+          loading: "Loading...",
+          success: "Bot Created Successfully",
+          error: "Something Went Wrong Try Agin",
         });
       });
     }
@@ -99,8 +99,6 @@ function StepD({ handleNext }: props) {
           </div>
         </div>
         <div className="flex justify-center items-center flex-col gap-4">
-          <FormSuccess message={success} />
-          <FormError message={error} />
           <button
             type="submit"
             disabled={isPending}

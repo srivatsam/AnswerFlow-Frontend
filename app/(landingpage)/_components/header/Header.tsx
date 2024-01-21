@@ -14,7 +14,7 @@ function Header() {
         className="section flex justify-between items-center py-4 px-2 sm:px-4 sm:py-2 md:px-4 md:py-8 fle-col transition-all duration-1000"
       >
         <div className="pr-4">
-          <Image src={"/logo.png"} width={240} height={100} alt="logo" />
+          <Image src={"/logo.png"} width={240} height={51} alt="logo" />
         </div>
         <div className="">
           <Link

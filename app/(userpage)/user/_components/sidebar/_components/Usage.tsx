@@ -1,5 +1,3 @@
-import React from "react";
-
 export function Usage() {
   return (
     <div className="rounded-[10px] bg-[#161616] p-6 flex flex-col gap-6">

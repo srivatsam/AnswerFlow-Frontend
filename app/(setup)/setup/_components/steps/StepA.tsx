@@ -1,18 +1,15 @@
 "use client";
+import { useEffect, useState, useTransition } from "react";
 
 import { setPlan } from "@/actions/setPlan";
-import { FormError } from "@/app/(auth)/_components/form-error";
-import { FormSuccess } from "@/app/(auth)/_components/form-success";
 import { YourPlanType } from "@/types/plan";
-import { useSession } from "next-auth/react";
-import { useEffect, useState, useTransition } from "react";
+
+import { toast } from "sonner";
 
 type props = { handleNext: () => void };
 
 function StepA({ handleNext }: props) {
   const [planFromLocal, setPlanFromLocal] = useState<YourPlanType | null>(null);
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   // retrieving plan from local storage
@@ -30,14 +27,16 @@ function StepA({ handleNext }: props) {
 
   const onPlanSubmit = (formData: FormData) => {
     startTransition(() => {
-      setPlan(formData, planFromLocal?.plan as string).then((data) => {
-        if (data?.error) {
-          setError(data.error);
-        }
-        if (data?.success) {
-          setSuccess(data.success);
-          handleNext();
-        }
+      const setPlanPromise = setPlan(
+        formData,
+        planFromLocal?.plan as string
+      ).then((response) => {
+        handleNext();
+      });
+      toast.promise(setPlanPromise, {
+        loading: "Loading...",
+        success: "Plan Seated Successfully",
+        error: "Something Went Wrong",
       });
     });
   };
@@ -341,8 +340,6 @@ function StepA({ handleNext }: props) {
           </div>
         </div>
         <div className="flex flex-col gap-3 justify-center px-20">
-          <FormSuccess message={success} />
-          <FormError message={error} />
           <button
             type="submit"
             disabled={isPending}

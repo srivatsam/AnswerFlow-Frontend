@@ -1,8 +1,9 @@
-import { useActiveSection } from "@/hooks/use-active-section";
-import { activeSectionType, sectionType } from "@/types/activeSection";
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+
+import { useActiveSection } from "@/hooks/use-active-section";
+import { activeSectionType } from "@/types/activeSection";
 
 // sections data
 const sections: activeSectionType[] = [
@@ -12,7 +13,7 @@ const sections: activeSectionType[] = [
   "Export",
   "Bot Settings",
 ];
-export function Sections() {
+export function SideBarSections() {
   const route = useRouter();
 
   const { activeSection, setActiveSection } = useActiveSection(

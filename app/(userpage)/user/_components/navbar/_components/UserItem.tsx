@@ -1,15 +1,20 @@
-import { useActiveSection } from "@/hooks/use-active-section";
-import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+"use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
-const userItems = ["profile", "billing", "settings", "logout"];
+import { signOut, useSession } from "next-auth/react";
+
+import { useRouter } from "next/navigation";
+import { useActiveSection } from "@/hooks/use-active-section";
+
+import { userItems } from "@/utils/constData";
+
 function UserItem() {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
   const [toggle, setToggle] = useState(false);
   const route = useRouter();
   const session = useSession();
+
   return (
     <button
       onClick={() => setToggle((prev) => !prev)}
@@ -34,7 +39,7 @@ function UserItem() {
               <button
                 key={i}
                 onClick={() => {
-                  route.push(`/user/account/${item}`);
+                  route.push(`/user/${item}`);
                   setActiveSection("");
                 }}
                 className="flex justify-between gap-1 py-1 px-2 w-full capitalize"
