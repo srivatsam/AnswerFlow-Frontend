@@ -38,7 +38,7 @@ function StepC({ handleNext }: props) {
           <input
             type="text"
             id="APIKey"
-            name="APIKey"
+            name="aiKey"
             value={formData.openAiApiKey}
             onChange={(e) => setOpenAiApiKey(e.target.value)}
             required
