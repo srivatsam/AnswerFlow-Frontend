@@ -1,10 +1,10 @@
-"use client";
 import { useEffect, useState, useTransition } from "react";
 
 import { setPlan } from "@/actions/setPlan";
 import { YourPlanType } from "@/types/plan";
 
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 type props = { handleNext: () => void };
 
@@ -41,7 +41,11 @@ function StepA({ handleNext }: props) {
     });
   };
   return (
-    <form
+    <motion.form
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
       action={onPlanSubmit}
       className="flex justify-center items-center w-full"
     >
@@ -349,7 +353,7 @@ function StepA({ handleNext }: props) {
           </button>
         </div>
       </div>
-    </form>
+    </motion.form>
   );
 }
 

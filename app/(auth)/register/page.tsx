@@ -21,8 +21,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 function Register() {
+  const route = useRouter();
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -36,7 +38,9 @@ function Register() {
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     startTransition(() => {
-      const registerPromise = register(values);
+      const registerPromise = register(values).then((date) => {
+        if (date) route.push("/login");
+      });
       toast.promise(registerPromise, {
         loading: "Loading...",
         success: "User Created Successfully",

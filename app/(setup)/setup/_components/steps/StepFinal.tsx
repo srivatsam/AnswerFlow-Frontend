@@ -4,11 +4,19 @@ import React from "react";
 
 import { useFormContext } from "@/context/FormContext";
 import { useSteps } from "@/hooks/use-steps";
+import { motion } from "framer-motion";
+
 function StepFinal() {
   const { resetFormData } = useFormContext();
   const resetToNewBot = useSteps((state) => state.resetToNewBot);
   return (
-    <div className="min-h-screen flex flex-col gap-10 text-center justify-center items-center ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen flex flex-col gap-10 text-center justify-center items-center "
+    >
       <div className="">
         <Image src={"/favicon.png"} width={120} height={120} alt="logoDark" />
       </div>
@@ -28,7 +36,7 @@ function StepFinal() {
       >
         Start Chatting
       </Link>
-    </div>
+    </motion.div>
   );
 }
 

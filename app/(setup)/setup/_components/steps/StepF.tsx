@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect } from "react";
 type props = { handleNext: () => void };
@@ -8,7 +9,13 @@ function StepF({ handleNext }: props) {
     }, 2000);
   });
   return (
-    <div className="min-h-screen flex flex-col gap-10 text-center justify-center items-center ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen flex flex-col gap-10 text-center justify-center items-center "
+    >
       <div className="">
         <Image src={"/logoDark.png"} width={120} height={120} alt="logoDark" />
       </div>
@@ -23,7 +30,7 @@ function StepF({ handleNext }: props) {
       <p className="text-[#737373]  text-[16px]">
         You will be able to edit Data Sources later
       </p>
-    </div>
+    </motion.div>
   );
 }
 

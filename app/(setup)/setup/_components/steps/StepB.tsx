@@ -1,6 +1,7 @@
-"use client";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+
 type props = { handleNext: () => void };
 type YourPlanType = {
   plan: "basic" | "starter" | "pro";
@@ -20,7 +21,6 @@ function StepB({ handleNext }: props) {
     }
   }, []);
 
-  
   const currentDate = new Date();
   let formattedDate;
 
@@ -37,7 +37,13 @@ function StepB({ handleNext }: props) {
   }
 
   return (
-    <div className="flex justify-center items-center flex-col h-screen gap-6">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
+      className="flex justify-center items-center flex-col h-screen gap-6"
+    >
       <Image
         src={"/Payment Success.png"}
         width={320}
@@ -60,7 +66,7 @@ function StepB({ handleNext }: props) {
           alt="rightarrow png"
         />
       </button>
-    </div>
+    </motion.div>
   );
 }
 

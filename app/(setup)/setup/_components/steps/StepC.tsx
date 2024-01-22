@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,6 +6,7 @@ import { setAiKey } from "@/actions/setAiKey";
 import { useFormContext } from "@/context/FormContext";
 
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 type props = { handleNext: () => void };
 function StepC({ handleNext }: props) {
@@ -25,7 +26,13 @@ function StepC({ handleNext }: props) {
     });
   };
   return (
-    <section className="h-screen flex justify-center items-center w-full flex-col ">
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
+      className="h-screen flex justify-center items-center w-full flex-col "
+    >
       <form
         action={openAiApiKeySubmit}
         className="flex flex-col justify-around items-center w-[500px] h-full"
@@ -72,7 +79,7 @@ function StepC({ handleNext }: props) {
           </button>
         </div>
       </form>
-    </section>
+    </motion.section>
   );
 }
 

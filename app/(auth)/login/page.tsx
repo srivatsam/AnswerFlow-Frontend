@@ -37,9 +37,14 @@ function Login() {
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     startTransition(() => {
-      const registerPromise = login(values).then((data) =>
-        route.push("/setup")
-      );
+      const registerPromise = login(values).then((data) => {
+        const botExist = localStorage.getItem("botId");
+        if (botExist == null) {
+          route.push("/setup");
+        } else {
+          route.push(`/user/${botExist}`);
+        }
+      });
       toast.promise(registerPromise, {
         loading: "Loading...",
         success: "User Login Successfully",

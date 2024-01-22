@@ -1,3 +1,5 @@
+// import { ChatAPI } from "@/utils/constData";
+import { APIBACKEND } from "@/utils/constData";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -29,19 +31,16 @@ function Chat({ botData }: props) {
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
       try {
-        const response = await fetch(
-          `//ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/chat/${botData.key}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              question: question,
-              chat_history: chat,
-            }),
-          }
-        );
+        const response = await fetch(`${APIBACKEND}/chat/${botData.key}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            question: question,
+            chat_history: chat,
+          }),
+        });
         const responseData = await response.json();
         if (responseData.status == "error") {
           throw new Error(`ERROR FROM CLIENT BOT:${responseData.message}`);

@@ -4,6 +4,7 @@ import React, { useTransition } from "react";
 import { createBot } from "@/actions/createBot";
 import { useFormContext } from "@/context/FormContext";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 type props = { handleNext: () => void };
 
@@ -31,7 +32,13 @@ function StepD({ handleNext }: props) {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center w-full">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen flex justify-center items-center w-full"
+    >
       <form
         action={createBotHandle}
         className="flex flex-1 flex-col justify-between min-h-screen  items-start w-full px-20 py-20"
@@ -152,7 +159,7 @@ function StepD({ handleNext }: props) {
           <br />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

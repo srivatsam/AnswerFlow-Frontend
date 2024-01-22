@@ -22,7 +22,7 @@ export default auth((req) => {
   }
   if (isAuthRoutes) {
     if (isLogin) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT[0], nextUrl));
+      return Response.redirect(new URL("/user/profile", nextUrl));
     }
     return null;
   }
