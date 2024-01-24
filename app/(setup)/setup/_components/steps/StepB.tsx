@@ -53,7 +53,7 @@ function StepB({ handleNext }: props) {
       transition={{ duration: 0.6 }}
       className="flex justify-center items-center flex-col h-screen gap-6"
     >
-      <div className="absolute top-0 w-[1000px]">
+      <div className="absolute top-0 w-[1000px] z-[-1]">
         <Lottie
           options={{
             loop: false,

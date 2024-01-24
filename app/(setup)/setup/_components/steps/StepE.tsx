@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+
 import { DataSourceSelection } from "../stepEComponents/stepEComponents";
 import ProgressBar from "../stepEComponents/ProgressBar";
+
 import { getUserPlan } from "@/actions/getUserPlan";
+
 import { motion } from "framer-motion";
+
 type props = { handleNext: () => void };
 
 function StepE({ handleNext }: props) {

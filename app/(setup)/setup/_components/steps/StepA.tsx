@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { PlanDetails } from "../stepAComponents/PlanDetails";
+import { CountryInput } from "../stepAComponents/CountryInput";
+import { PhoneInput } from "../stepAComponents/PhoneInput";
 
 type props = { handleNext: () => void };
 
@@ -161,19 +163,7 @@ function StepA({ handleNext }: props) {
             </div>
           </div>
           <div className="flex justify-between gap-4">
-            <div className="flex flex-col gap-1">
-              <label htmlFor="country" className="font-medium">
-                Country
-              </label>
-              <input
-                type="text"
-                id="country"
-                name="country"
-                required
-                placeholder="Enter country"
-                className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
-              />
-            </div>
+            <CountryInput />
             <div className="flex flex-col gap-1">
               <label htmlFor="pinCode" className="font-medium">
                 PinCode
@@ -188,7 +178,8 @@ function StepA({ handleNext }: props) {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-1">
+          <PhoneInput />
+          {/* <div className="flex flex-col gap-1">
             <label htmlFor="phoneNumber" className="font-medium">
               Phone Number
             </label>
@@ -200,7 +191,7 @@ function StepA({ handleNext }: props) {
               placeholder="Enter your phone number"
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
             />
-          </div>
+          </div> */}
         </div>
       </div>
       {/* plan details  */}

@@ -1,10 +1,13 @@
+import React, { useState, useTransition } from "react";
 import Image from "next/image";
-import React, { useTransition } from "react";
 
-import { createBot } from "@/actions/createBot";
 import { useFormContext } from "@/context/FormContext";
+import { createBot } from "@/actions/createBot";
+
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+
+import { tones } from "@/utils/constData";
 
 type props = { handleNext: () => void };
 
@@ -12,6 +15,7 @@ function StepD({ handleNext }: props) {
   const { formData, setBotName, setBotPurpose, setToneOfVoice } =
     useFormContext();
   const [isPending, startTransition] = useTransition();
+  const [isOpen, setIsOpen] = useState(false);
 
   const createBotHandle = (formDataFrom: FormData) => {
     if (formData.botName || formData.botPurpose || formData.toneOfVoice) {
@@ -31,6 +35,17 @@ function StepD({ handleNext }: props) {
     }
   };
 
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const selectOption = (option: string) => {
+    setToneOfVoice(option);
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -87,22 +102,45 @@ function StepD({ handleNext }: props) {
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none min-h-[140px]  max-h-[240px]"
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative  text-left">
             <label htmlFor="toneOfVoice" className="font-medium">
               Tone Of Voice
             </label>
-            <input
-              name="toneOfVoice"
-              type="text"
-              id="toneOfVoice"
-              value={formData.toneOfVoice}
-              onChange={(e) => {
-                setToneOfVoice(e.target.value);
-              }}
-              required
-              placeholder="Select an option"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
-            />
+            <button
+              type="button"
+              className="inline-flex justify-between items-center w-full bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+              id="options-menu"
+              onClick={toggleDropdown}
+            >
+              {formData.toneOfVoice || "Select an option"}
+              <Image
+                src={"/downArrow.png"}
+                width={20}
+                height={20}
+                alt="down Arrow image"
+              />
+            </button>
+
+            {isOpen && (
+              <div className="absolute top-[100%] z-10 w-full mt-2 bg-[#232323] rounded-[10px] max-h-40 overflow-y-auto transition-all">
+                <div
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  {tones.map((tone) => (
+                    <div
+                      key={tone.id}
+                      className="block px-8 py-4 text-sm text-gray-50 hover:bg-[#2c2c2c] transition-all cursor-pointer"
+                      role="menuitem"
+                      onClick={() => selectOption(tone.title)}
+                    >
+                      {tone.title}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex justify-center items-center flex-col gap-4">

@@ -74,6 +74,22 @@
     @apply bg-background text-foreground;
   }
 }
+::-webkit-scrollbar {
+  width: 6px; /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply transition-all rounded-[10px];
+  background-color: #494949;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #8f8f8f; /* color of the thumb on hover */
+}
 body {
   color: #ffffff;
   background-color: #030303;
