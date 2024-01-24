@@ -28,7 +28,7 @@ function BotSelection({ bots }: { bots: any }) {
       <Image src={"/downArrow.png"} alt="user image" width={25} height={25} />
 
       {toggle && (
-        <div className="absolute w-[stretch] top-[120%] left-0 py-2 px-4 bg-[#1B1B1B] rounded-[10px] flex flex-col items-start">
+        <div className="absolute w-[stretch] top-[120%] left-0 py-2 px-4 bg-[#1B1B1B] rounded-[10px] flex flex-col items-start gap-1">
           <button
             onClick={() => {
               resetToNewBot();
@@ -36,7 +36,7 @@ function BotSelection({ bots }: { bots: any }) {
             }}
             className="flex justify-between gap-1 py-1 px-2 w-full capitalize"
           >
-            <p>Add Bot </p>
+            <p>Add Bot</p>
             <Image
               src={"/addBot.png"}
               alt="addBot image"
@@ -44,7 +44,7 @@ function BotSelection({ bots }: { bots: any }) {
               height={20}
             />
           </button>
-          <hr />
+          <p className="h-[1px] w-full bg-gray-500" />
           {bots ? (
             bots.map((item: any) => (
               <button
@@ -61,7 +61,7 @@ function BotSelection({ bots }: { bots: any }) {
               </button>
             ))
           ) : (
-            <p>0 found</p>
+            <p className="text-center">No Bots Found ! </p>
           )}
         </div>
       )}

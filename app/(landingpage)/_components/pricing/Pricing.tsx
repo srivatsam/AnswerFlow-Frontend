@@ -4,58 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePlan } from "@/hooks/use-plan-hook";
 import { planNameType } from "@/types/plan";
-
-const planData = [
-  {
-    name: "BASIC",
-    price: 19,
-    popular: false,
-    features: [
-      "✅ Unlimited Chats",
-      "🤖 1 Bot",
-      "💿 50 MB Knowledge base",
-      "🔗 Share as Link",
-      "🔑 Use your own OpenAI API Key",
-    ],
-    dataSupport: ["📄 Documents", "🔗 Links"],
-  },
-  {
-    name: "STARTER",
-    price: 99,
-    popular: true,
-    features: [
-      "✅ Unlimited Chats",
-      "🤖 5 Bots",
-      "💿 1 GB Knowledge base",
-      "👨 5 Seat",
-      "🔗 Share as Link",
-      "🧩 Website Embed",
-      "🔑 Use your own OpenAI API Key",
-    ],
-    dataSupport: ["📄 Documents", "🔗 Links", "🧩 Zapier Integration"],
-  },
-  {
-    name: "PRO",
-    price: 299,
-    popular: false,
-    features: [
-      "✅ Unlimited Chats",
-      "🤖 5 Bots",
-      "💿 1 GB Knowledge base",
-      "👨 5 Seat",
-      "🔗 Share as Link",
-      "🧩 Website Embed",
-      "🔑 Use your own OpenAI API Key",
-    ],
-    dataSupport: [
-      "📄 Documents",
-      "🔗 Links",
-      "🧩 Zapier Integration",
-      "💿 1 Database Connection",
-      "🛠️ 2 External API Integrations",
-    ],
-  },
-];
+import { planData } from "@/utils/constData";
 
 function Pricing() {
   const { setPlan, plan, method } = usePlan((state) => state);

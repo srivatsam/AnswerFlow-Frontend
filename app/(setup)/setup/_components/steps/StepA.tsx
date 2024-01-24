@@ -5,11 +5,14 @@ import { YourPlanType } from "@/types/plan";
 
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { PlanDetails } from "../stepAComponents/PlanDetails";
 
 type props = { handleNext: () => void };
 
 function StepA({ handleNext }: props) {
-  const [planFromLocal, setPlanFromLocal] = useState<YourPlanType | null>(null);
+  const route = useRouter();
+  const [planFromLocal, setPlanFromLocal] = useState<YourPlanType>();
   const [isPending, startTransition] = useTransition();
 
   // retrieving plan from local storage
@@ -17,13 +20,18 @@ function StepA({ handleNext }: props) {
     try {
       const storedPlan = localStorage.getItem("plan");
       if (storedPlan) {
-        const parsedPlan = JSON.parse(storedPlan);
+        const parsedPlan: YourPlanType = JSON.parse(storedPlan);
         setPlanFromLocal(parsedPlan);
+      } else {
+        toast.info("You Have To Select a Plan");
+        route.push("/#pricing");
       }
     } catch (error) {
+      toast.info("You Have To Select a Plan");
+      route.push("/#pricing");
       console.error("Error while retrieving plan from local storage:", error);
     }
-  }, []);
+  }, [route]);
 
   const onPlanSubmit = (formData: FormData) => {
     startTransition(() => {
@@ -49,6 +57,7 @@ function StepA({ handleNext }: props) {
       action={onPlanSubmit}
       className="flex justify-center items-center w-full"
     >
+      {/* checkout form */}
       <div className="flex-1 flex flex-col gap-10 justify-start items-start p-20 ">
         <h1 className="text-[40px] leading-[74px] font-bold">
           Continue Checkout
@@ -194,7 +203,9 @@ function StepA({ handleNext }: props) {
           </div>
         </div>
       </div>
-      <div className="min-w-[33%] bg-[#0B0B0B] flex flex-col justify-center gap-8   h-screen fixed top-0 right-0">
+      {/* plan details  */}
+      <PlanDetails planProps={planFromLocal} isPending={isPending} />
+      {/* <div className="min-w-[33%] bg-[#0B0B0B] flex flex-col justify-center gap-8 h-screen fixed top-0 right-0">
         <h1 className="text-[32px] font-bold text-[#707070] px-20">
           Plan Details
         </h1>
@@ -352,7 +363,7 @@ function StepA({ handleNext }: props) {
             {isPending ? "Loading..." : "Proceed to Payment"}
           </button>
         </div>
-      </div>
+      </div> */}
     </motion.form>
   );
 }
