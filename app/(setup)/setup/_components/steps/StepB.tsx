@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Lottie from "react-lottie";
+import animationData from "@/public/confetti.json";
 
 type props = { handleNext: () => void };
 type YourPlanType = {
@@ -9,7 +11,14 @@ type YourPlanType = {
 };
 function StepB({ handleNext }: props) {
   const [planFromLocal, setPlanFromLocal] = useState<YourPlanType | null>(null);
+  const animationRef = useRef<any>(null);
+
   useEffect(() => {
+    const playAnimation = () => {
+      animationRef.current?.play();
+    };
+    playAnimation();
+
     try {
       const storedPlan = localStorage.getItem("plan");
       if (storedPlan) {
@@ -44,6 +53,15 @@ function StepB({ handleNext }: props) {
       transition={{ duration: 0.6 }}
       className="flex justify-center items-center flex-col h-screen gap-6"
     >
+      <div className="absolute top-0 w-[1000px]">
+        <Lottie
+          options={{
+            loop: false,
+            autoplay: false,
+            animationData: animationData,
+          }}
+        />
+      </div>
       <Image
         src={"/Payment Success.png"}
         width={320}
