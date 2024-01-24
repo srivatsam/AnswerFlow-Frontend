@@ -1,9 +1,10 @@
+import { planNameType } from "@/types/plan";
 import { create } from "zustand";
 type planType = {
-  plan: "basic" | "starter" | "pro";
+  plan: planNameType;
   method: "monthly" | "annual";
   setPlan: (value: {
-    plan: "basic" | "starter" | "pro";
+    plan: planNameType;
     method: "monthly" | "annual";
   }) => void;
 };

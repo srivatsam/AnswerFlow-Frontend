@@ -8,9 +8,12 @@ import { useRouter } from "next/navigation";
 import { useActiveSection } from "@/hooks/use-active-section";
 
 import { userItems } from "@/utils/constData";
+import { useSteps } from "@/hooks/use-steps";
 
 function UserItem() {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
+  const setActiveStep = useSteps((state) => state.setActiveStep);
+
   const [toggle, setToggle] = useState(false);
   const route = useRouter();
   const session = useSession();
@@ -56,6 +59,7 @@ function UserItem() {
               <button
                 key={i}
                 onClick={() => {
+                  setActiveStep("a");
                   signOut();
                 }}
                 className="flex justify-between gap-1 py-1 px-2 w-full capitalize"

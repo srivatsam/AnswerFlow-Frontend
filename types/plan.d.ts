@@ -1,4 +1,6 @@
 export type YourPlanType = {
-  plan: "basic" | "starter" | "pro";
+  plan: planNameType;
   method: "monthly" | "annual";
 };
+
+export type planNameType = "basic" | "starter" | "pro";

@@ -4,9 +4,12 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import { useActiveSection } from "@/hooks/use-active-section";
+import { useSteps } from "@/hooks/use-steps";
 
 function BotSelection({ bots }: { bots: any }) {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
+  const resetToNewBot = useSteps((state) => state.resetToNewBot);
+
   const [toggle, setToggle] = useState(false);
   const route = useRouter();
 
@@ -28,6 +31,7 @@ function BotSelection({ bots }: { bots: any }) {
         <div className="absolute w-[stretch] top-[120%] left-0 py-2 px-4 bg-[#1B1B1B] rounded-[10px] flex flex-col items-start">
           <button
             onClick={() => {
+              resetToNewBot();
               route.push(`/setup`);
             }}
             className="flex justify-between gap-1 py-1 px-2 w-full capitalize"
@@ -57,7 +61,7 @@ function BotSelection({ bots }: { bots: any }) {
               </button>
             ))
           ) : (
-            <p>Ops no bots found</p>
+            <p>0 found</p>
           )}
         </div>
       )}

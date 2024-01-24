@@ -1,5 +1,5 @@
 "use client";
-import React, { useTransition } from "react";
+import React, { useEffect, useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,6 +34,14 @@ function Login() {
       password: "",
     },
   });
+
+  // return to main page (pricing) to select plan
+  useEffect(() => {
+    if (!localStorage.getItem("plan")) {
+      toast.info("You Should Select Plan");
+      route.push("/#pricing");
+    }
+  }, [route]);
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     startTransition(() => {
