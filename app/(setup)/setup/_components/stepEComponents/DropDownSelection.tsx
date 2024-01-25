@@ -20,7 +20,7 @@ export default function DropDownSelection({
 
   return (
     <div className="flex justify-between items-center w-full">
-      <h1 className="text-[40px] font-bold">Connect Data Sources</h1>
+      <h1 className="text-[28px] font-bold">Manage Data Sources</h1>
       <div className="px-10 py-4 rounded-[10px] bg-[#333333] relative w-[300px]">
         <div
           onClick={() => {

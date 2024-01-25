@@ -26,7 +26,7 @@ export function Sections({ botData }: { botData: any }) {
       <div className="flex flex-col gap-6 w-full">
         {activeSection == "Chat" && <Chat botData={botData} />}
         {activeSection == "Past Chat" && <PastChat />}
-        {activeSection == "Data Sources" && <DataSources />}
+        {activeSection == "Data Sources" && <DataSources botData={botData} />}
         {activeSection == "Export" && <Export />}
         {activeSection == "Bot Settings" && <BotSettings botData={botData} />}
       </div>
@@ -35,7 +35,7 @@ export function Sections({ botData }: { botData: any }) {
     return (
       <div className="flex flex-col gap-4 w-full justify-start items-center">
         <div className="text-center bg-red-500 p-4 rounded-md w-full h-fit uppercase font-semibold">
-          there is no bots you have to create one
+          there is no bot have this id you can create new one
         </div>
         <button
           onClick={() => {
