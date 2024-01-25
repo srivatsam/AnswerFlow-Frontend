@@ -64,20 +64,28 @@ function Login() {
   return (
     <div className="absolute left-0 h-screen overflow-y-auto flex justify-center items-center w-full">
       <div className="bg-3"></div>
-      <div className="flex-1 flex justify-center items-center">
-        <h1 className="text-[64px] font-semibold leading-[74px]">
-          Embrace the future of <br /> Custom AI Bots
-        </h1>
+      <div className="flex-1 hidden xl:flex justify-center items-center ">
+        <div className="flex flex-col gap-6 ">
+          <h1 className="text-[64px] font-semibold leading-[74px]">
+            Oh wait, there’s <br />
+            an AI Bot for it..
+          </h1>
+          <p className="text-[24px] text-[#848484]">
+            AnswerFlow AI is the simplest & affordable way to build <br />{" "}
+            custom ChatGPT Bots for any usecase from Data Analytics
+            <br /> to Personal Health Coach
+          </p>
+        </div>
       </div>
 
-      <div className="h-full min-w-[33%] bg-[#0B0B0B] px-20 py-30 flex flex-col justify-center items-center gap-20">
+      <div className="h-full overflow-y-auto py-10 min-w-[33%] xl:bg-[#0B0B0B] p-6 xl:px-20 py-30 flex flex-col justify-center items-center gap-20">
         <Image src={"/logo.svg"} width={250} height={60} alt="logo png" />
         {/* credentials sign in */}
 
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-10 w-full"
+            className="flex flex-col gap-6 xl:gap-10 w-full"
           >
             <div className="flex flex-col gap-4">
               <FormField
