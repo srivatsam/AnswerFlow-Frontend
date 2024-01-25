@@ -10,6 +10,7 @@ const getBotData = async (botId: string) => {
   try {
     const response = await fetch(`${APIBACKEND}/get_bot/${botId}`, {
       method: "GET",
+      cache: "no-cache",
     });
     const data = await response.json();
 
@@ -24,7 +25,6 @@ const getBotData = async (botId: string) => {
 };
 async function Page({ params }: props) {
   const botData = await getBotData(params.botId);
-
   return <Sections botData={botData} />;
 }
 

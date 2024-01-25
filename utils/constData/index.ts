@@ -1,12 +1,10 @@
 export const APIBACKEND =
   process.env.NODE_ENV == "production"
     ? "http://flask:5000"
-    : "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com";
+    : "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/flask";
 
-// export const ChatAPI =
-//   process.env.NODE_ENV == "production"
-//     ? "http://localhost:5000"
-//     : "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com";
+export const ChatAPI =
+  "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com";
 
 export const userItems = ["profile", "billings", "settings", "logout"];
 
@@ -18,7 +16,7 @@ export const limitPlan: { name: string; datatypes: fileTypeSelected[] }[] = [
   },
   {
     name: "Pro",
-    datatypes: ["Documents", "Links", "Database", "Zapier", "ExternalAPI"],
+    datatypes: ["Documents", "Links", "Database", "Zapier"],
   },
 ];
 
@@ -73,6 +71,18 @@ export const planData = [
     ],
   },
 ];
+export const tones = [
+  { id: "1", title: "Empathetic" },
+  { id: "2", title: "Persuasive" },
+  { id: "3", title: "Witty" },
+  { id: "4", title: "Adventurous" },
+  { id: "5", title: "Bold" },
+  { id: "6", title: "Professional" },
+  { id: "7", title: "Relaxed" },
+  { id: "8", title: "Luxury" },
+  { id: "9", title: "Friendly" },
+];
+
 export const countries = [
   { name: "Afghanistan", code: "AF", phone: " 93 " },
   { name: "Aland Islands", code: "AX", phone: " 358 " },
@@ -342,15 +352,4 @@ export const countries = [
   { name: "Yemen", code: "YE", phone: " 967 " },
   { name: "Zambia", code: "ZM", phone: " 260 " },
   { name: "Zimbabwe", code: "ZW", phone: " 263 " },
-];
-export const tones = [
-  { id: "1", title: "Empathetic" },
-  { id: "2", title: "Persuasive" },
-  { id: "3", title: "Witty" },
-  { id: "4", title: "Adventurous" },
-  { id: "5", title: "Bold" },
-  { id: "6", title: "Professional" },
-  { id: "7", title: "Relaxed" },
-  { id: "8", title: "Luxury" },
-  { id: "9", title: "Friendly" },
 ];

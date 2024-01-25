@@ -1,5 +1,6 @@
 import React from "react";
-import { YourPlanType } from "@/types/plan";
+
+import type { YourPlanType } from "@/types/plan";
 import { planData } from "@/utils/constData";
 
 type props = {
@@ -7,6 +8,7 @@ type props = {
   isPending: boolean;
 };
 export function PlanDetails({ planProps, isPending }: props) {
+  // console.log("PlanDetails render");
   if (typeof planProps == "undefined") return null;
 
   const selectedPlan = planData.find(

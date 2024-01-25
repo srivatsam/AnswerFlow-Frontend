@@ -14,11 +14,13 @@ type props = { handleNext: () => void };
 function StepD({ handleNext }: props) {
   const { formData, setBotName, setBotPurpose, setToneOfVoice } =
     useFormContext();
-  const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const createBotHandle = (formDataFrom: FormData) => {
     if (formData.botName || formData.botPurpose || formData.toneOfVoice) {
+      formDataFrom.append("toneOfVoice", formData.toneOfVoice);
       startTransition(() => {
         const setPlanPromise = createBot(formDataFrom).then((response) => {
           if (response.success) {
@@ -34,8 +36,6 @@ function StepD({ handleNext }: props) {
       });
     }
   };
-
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -120,7 +120,6 @@ function StepD({ handleNext }: props) {
                 alt="down Arrow image"
               />
             </button>
-
             {isOpen && (
               <div className="absolute top-[100%] z-10 w-full mt-2 bg-[#232323] rounded-[10px] max-h-40 overflow-y-auto transition-all">
                 <div

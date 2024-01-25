@@ -7,7 +7,8 @@ import { useSteps } from "@/hooks/use-steps";
 import { motion } from "framer-motion";
 
 function StepFinal() {
-  const { resetFormData } = useFormContext();
+  console.log("stepFinally render");
+  const { resetFormData, formData } = useFormContext();
   const resetToNewBot = useSteps((state) => state.resetToNewBot);
   return (
     <motion.div
@@ -21,7 +22,7 @@ function StepFinal() {
         <Image src={"/favicon.png"} width={120} height={120} alt="logoDark" />
       </div>
       <div className="">
-        <h2 className="font-bold text-[36px]">Sales Analysis Bot</h2>
+        <h2 className="font-bold text-[36px]">{formData.botName}</h2>
         <p className="text-[#737373]  text-[20px]">
           Yahoo, your AnswerFlow AI Bot is up and running!
         </p>

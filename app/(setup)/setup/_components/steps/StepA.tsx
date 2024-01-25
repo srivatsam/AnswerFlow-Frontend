@@ -1,11 +1,11 @@
-import { useEffect, useState, useTransition } from "react";
+import React, { useCallback, useEffect, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 import { setPlan } from "@/actions/setPlan";
-import { YourPlanType } from "@/types/plan";
+import type { YourPlanType } from "@/types/plan";
 
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { PlanDetails } from "../stepAComponents/PlanDetails";
 import { CountryInput } from "../stepAComponents/CountryInput";
 import { PhoneInput } from "../stepAComponents/PhoneInput";
@@ -13,12 +13,13 @@ import { PhoneInput } from "../stepAComponents/PhoneInput";
 type props = { handleNext: () => void };
 
 function StepA({ handleNext }: props) {
+  // console.log("stepA render");
   const route = useRouter();
   const [planFromLocal, setPlanFromLocal] = useState<YourPlanType>();
   const [isPending, startTransition] = useTransition();
 
   // retrieving plan from local storage
-  useEffect(() => {
+  const fetchPlanFromLocalStorage = useCallback(() => {
     try {
       const storedPlan = localStorage.getItem("plan");
       if (storedPlan) {
@@ -35,21 +36,30 @@ function StepA({ handleNext }: props) {
     }
   }, [route]);
 
-  const onPlanSubmit = (formData: FormData) => {
-    startTransition(() => {
-      const setPlanPromise = setPlan(
-        formData,
-        planFromLocal?.plan as string
-      ).then((response) => {
-        handleNext();
+  useEffect(() => {
+    // console.log("Effect is running");
+    fetchPlanFromLocalStorage();
+  }, [fetchPlanFromLocalStorage]);
+
+  const onPlanSubmit = useCallback(
+    (formData: FormData) => {
+      startTransition(() => {
+        const setPlanPromise = setPlan(
+          formData,
+          planFromLocal?.plan as string
+        ).then((response) => {
+          handleNext();
+        });
+        toast.promise(setPlanPromise, {
+          loading: "Loading...",
+          success: "Plan Seated Successfully",
+          error: "Something Went Wrong",
+        });
       });
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success: "Plan Seated Successfully",
-        error: "Something Went Wrong",
-      });
-    });
-  };
+    },
+    [startTransition, handleNext, planFromLocal?.plan]
+  );
+
   return (
     <motion.form
       initial={{ opacity: 0 }}
@@ -196,167 +206,8 @@ function StepA({ handleNext }: props) {
       </div>
       {/* plan details  */}
       <PlanDetails planProps={planFromLocal} isPending={isPending} />
-      {/* <div className="min-w-[33%] bg-[#0B0B0B] flex flex-col justify-center gap-8 h-screen fixed top-0 right-0">
-        <h1 className="text-[32px] font-bold text-[#707070] px-20">
-          Plan Details
-        </h1>
-        <div className="flex justify-between px-20">
-          <div className="">
-            <p className="text-[24px] font-medium">{planFromLocal?.plan}</p>
-            <p className="text-[#949494]">
-              Duration:{" "}
-              {planFromLocal?.method == "monthly" ? "1 months" : "12 months"}
-            </p>
-          </div>
-          <div className="text-[24px]">
-            $
-            {planFromLocal?.plan == "basic"
-              ? planFromLocal?.method == "monthly"
-                ? "19"
-                : "205"
-              : ""}
-            {planFromLocal?.plan == "starter"
-              ? planFromLocal?.method == "monthly"
-                ? "99"
-                : "1069"
-              : ""}
-            {planFromLocal?.plan == "pro"
-              ? planFromLocal?.method == "monthly"
-                ? "299"
-                : "3229"
-              : ""}
-          </div>
-        </div>
-        <div className="flex flex-col gap-6 px-20">
-          <div className="flex flex-col gap-2 text-[16px] ">
-            <h2 className="text-[#A595FD] font-bold uppercase">features</h2>
-            <div className="flex flex-col gap-1 pl-10 text-[16px]">
-              {planFromLocal?.plan == "basic" && (
-                <>
-                  <p> Unlimited Chats</p>
-                  <p> 1 Bot</p>
-                  <p> 50 MB Knowledge base</p>
-                  <p> 1 Seat</p>
-                  <p> Share as Link</p>
-                  <p> Use your own OpenAI API Key</p>
-                </>
-              )}
-              {planFromLocal?.plan == "starter" && (
-                <>
-                  <p> Unlimited Chats</p>
-                  <p> 1 Bot</p>
-                  <p> 50 MB Knowledge base</p>
-                  <p> 1 Seat</p>
-                  <p> Share as Link</p>
-                  <p> Use your own OpenAI API Key</p>
-                </>
-              )}
-              {planFromLocal?.plan == "pro" && (
-                <>
-                  <p> Unlimited Chats</p>
-                  <p> 1 Bot</p>
-                  <p> 50 MB Knowledge base</p>
-                  <p> 1 Seat</p>
-                  <p> Share as Link</p>
-                  <p> Use your own OpenAI API Key</p>
-                </>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-col gap-2 text-[16px] ">
-            <h2 className="text-[#A595FD] font-bold uppercase">
-              Supported Data sources
-            </h2>
-            <div className="flex flex-col gap-1 pl-10 text-[16px]">
-              {planFromLocal?.plan == "basic" && (
-                <>
-                  <p> Documents</p>
-                  <p> inks</p>
-                </>
-              )}
-              {planFromLocal?.plan == "starter" && (
-                <>
-                  <p> Documents</p>
-                  <p> Links</p>
-                  <p> Zapier Integration</p>
-                </>
-              )}
-              {planFromLocal?.plan == "pro" && (
-                <>
-                  <p> Documents</p>
-                  <p> Links</p>
-                  <p> Zapier Integration</p>
-                  <p> 1 Database Connection</p>
-                  <p> 2 External API Integrations</p>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-        <p className="bg-gray-600 w-full h-[1px]"></p>
-        <div className="flex flex-col gap-2 text-[16px] px-20">
-          <div className="flex justify-between">
-            <p className="">Subtotal</p>
-            <p className="">
-              $
-              {planFromLocal?.plan == "basic"
-                ? planFromLocal?.method == "monthly"
-                  ? "19"
-                  : "205"
-                : ""}
-              {planFromLocal?.plan == "starter"
-                ? planFromLocal?.method == "monthly"
-                  ? "99"
-                  : "1069"
-                : ""}
-              {planFromLocal?.plan == "pro"
-                ? planFromLocal?.method == "monthly"
-                  ? "299"
-                  : "3229"
-                : ""}
-            </p>
-          </div>
-          <div className="flex justify-between">
-            <div className="">Tax</div>
-            <div className="">$0</div>
-          </div>
-        </div>
-        <p className="bg-gray-600 w-full h-[1px]"></p>
-        <div className="flex justify-between px-20">
-          <div className="">
-            <p className="">Total</p>
-          </div>
-          <div className="text-[32px] font-medium">
-            $
-            {planFromLocal?.plan == "basic"
-              ? planFromLocal?.method == "monthly"
-                ? "19"
-                : "205"
-              : ""}
-            {planFromLocal?.plan == "starter"
-              ? planFromLocal?.method == "monthly"
-                ? "99"
-                : "1069"
-              : ""}
-            {planFromLocal?.plan == "pro"
-              ? planFromLocal?.method == "monthly"
-                ? "299"
-                : "3229"
-              : ""}
-          </div>
-        </div>
-        <div className="flex flex-col gap-3 justify-center px-20">
-          <button
-            type="submit"
-            disabled={isPending}
-            className="btn sec !w-[80%]"
-          >
-            {isPending ? "Loading..." : "Proceed to Payment"}
-          </button>
-        </div>
-      </div> */}
     </motion.form>
   );
 }
 
-export default StepA;
+export default React.memo(StepA);

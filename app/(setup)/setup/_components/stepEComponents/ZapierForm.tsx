@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 type props = { handleNext: () => void };
 
-export function DocumentsForm({ handleNext }: props) {
+export function ZapierForm({ handleNext }: props) {
   const { formData, setFiles } = useFormContext();
   const [isPending, startTransition] = useTransition();
 
@@ -26,24 +26,16 @@ export function DocumentsForm({ handleNext }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Data Added Successfully",
-          error: "This File Not Supported, Try Agin",
+          error: "Something Went Wrong Try Agin",
         });
       });
     }
   };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files;
-
-    if (selectedFile) {
-      const formDataWithFile = new FormData();
-
-      formDataWithFile.append("file", selectedFile[0]);
-
-      addFilesDataSource(formDataWithFile);
-    }
-  };
   return (
-    <form className="flex-1 flex flex-col justify-between w-full">
+    <form
+      action={addFilesDataSource}
+      className="flex-1 flex flex-col justify-between w-full"
+    >
       <div className="flex flex-col gap-10 w-full">
         <label
           htmlFor="file"
@@ -51,18 +43,17 @@ export function DocumentsForm({ handleNext }: props) {
         >
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-[24px] text-[#606060] font-bold">
-              Drag & Drop any Documents
+              Import Data through Zapier
             </h1>
             <p className="text-[16px] text-[#606060]">
-              (Supports doc, docx, xls, xlsx, pdf, ppt, pptx)
+              (Connect your Zapier Account)
             </p>
           </div>
           <div className="btn sec">{` ${
-            formData.files.length > 0 ? "Add more files.." : "Choose files.."
+            formData.files.length > 0 ? "Add more files.." : "_Z Connect Zapier"
           }`}</div>
         </label>
         <input
-          onChange={handleFileChange}
           type="file"
           id="file"
           name="file"
@@ -72,14 +63,17 @@ export function DocumentsForm({ handleNext }: props) {
       </div>
       <div className="flex justify-between w-full items-center">
         <button
-          disabled={
-            isPending || formData.files.length == 0 || formData.urls.length == 0
-          }
-          className={`btn sec flex !justify-around ${
-            ((formData.urls.length == 0 && formData.files.length == 0) ||
-              isPending) &&
-            " opacity-50 cursor-not-allowed"
-          }`}
+          // disabled={formData.files.length > 0 || isPending}
+          type="submit"
+          className={`btn sec flex !justify-around `} //${formData.files.length == 0 && "opacity-50 cursor-not-allowed"}
+        >
+          <p>{isPending ? "Adding Data Source.." : "Add to Data Source"}</p>
+        </button>
+        <button
+          // disabled={
+          //   isPending || formData.files.length > 0 || formData.urls.length > 0
+          // }
+          className={`btn sec flex !justify-around`} // ${formData.urls.length == 0 &&formData.files.length == 0 &&" opacity-50 cursor-not-allowed"}
           onClick={handleNext}
         >
           <p>Finish Setup</p>

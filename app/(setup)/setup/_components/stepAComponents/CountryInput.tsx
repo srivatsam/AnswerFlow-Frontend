@@ -1,7 +1,10 @@
-import { countries } from "@/utils/constData";
 import React, { useState } from "react";
 
+import { countries } from "@/utils/constData";
+
 export function CountryInput() {
+  // console.log("CountryInput render");
+
   const [countrySelected, setCountrySelected] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const searchCountry = countries.filter((country) =>

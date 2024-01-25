@@ -3,5 +3,4 @@ type fileTypeSelected =
   | "Documents"
   | "Links"
   | "Database"
-  | "Zapier"
-  | "ExternalAPI";
+  | "Zapier";

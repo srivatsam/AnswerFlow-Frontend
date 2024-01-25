@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 
 export const addDataSourceDoc = async (formData: FormData, botId: string) => {
+  console.log(formData.get("file"));
   const session = await auth();
   const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
 

@@ -1,7 +1,10 @@
-import { countries } from "@/utils/constData";
 import React, { useState } from "react";
 
+import { countries } from "@/utils/constData";
+
 export function PhoneInput() {
+  // console.log("PhoneInput render");
+
   const [countrySelected, setCountrySelected] = useState("+00");
   const [isOpen, setIsOpen] = useState(false);
   const searchCountry = countries.filter(

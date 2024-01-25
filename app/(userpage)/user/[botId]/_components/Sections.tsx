@@ -28,7 +28,7 @@ export function Sections({ botData }: { botData: any }) {
         {activeSection == "Past Chat" && <PastChat />}
         {activeSection == "Data Sources" && <DataSources />}
         {activeSection == "Export" && <Export />}
-        {activeSection == "Bot Settings" && <BotSettings />}
+        {activeSection == "Bot Settings" && <BotSettings botData={botData} />}
       </div>
     );
   if (!botData)

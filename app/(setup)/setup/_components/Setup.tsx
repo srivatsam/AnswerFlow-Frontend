@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import StepA from "./steps/StepA";
 import StepB from "./steps/StepB";
 import StepC from "./steps/StepC";
@@ -8,10 +6,12 @@ import StepE from "./steps/StepE";
 import StepF from "./steps/StepF";
 import StepFinal from "./steps/StepFinal";
 
-import { AnimatePresence } from "framer-motion";
+import { useSteps } from "@/hooks/use-steps";
 import { useProgressBar } from "@/hooks/use-progressbar-hook";
 import { FormProvider } from "@/context/FormContext";
-import { useSteps } from "@/hooks/use-steps";
+
+import { AnimatePresence } from "framer-motion";
+
 function Setup() {
   const { activeStep, setActiveStep } = useSteps((state) => state);
   const increaseProgress = useProgressBar((state) => state.increaseProgress);
@@ -53,7 +53,7 @@ function Setup() {
   };
 
   return (
-    <div className="relative overflow-hidden w-[100%] ">
+    <div className="relative overflow-hidden w-[100%]">
       <FormProvider>
         <AnimatePresence>
           {activeStep === "a" && <StepA handleNext={handleNext} />}

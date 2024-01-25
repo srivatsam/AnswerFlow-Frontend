@@ -1,4 +1,4 @@
-import React, { useTransition } from "react";
+import React, { useState, useTransition } from "react";
 
 import { addUrlData } from "@/actions/addUrlData";
 import { useFormContext } from "@/context/FormContext";
@@ -6,8 +6,9 @@ import { useFormContext } from "@/context/FormContext";
 import { toast } from "sonner";
 type props = { handleNext: () => void };
 export function LinkForm({ handleNext }: props) {
+  const [Url, setUrl] = useState("");
   const [isPending, startTransition] = useTransition();
-  const { setUrls } = useFormContext();
+  const { setUrls, formData } = useFormContext();
 
   const addUrlDataHandle = async (formDataInputs: FormData) => {
     if (formDataInputs) {
@@ -17,13 +18,14 @@ export function LinkForm({ handleNext }: props) {
           (data) => {
             if (data.success) {
               setUrls(formDataInputs.get("link") as string);
+              setUrl("");
             }
           }
         );
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Data Added Successfully",
-          error: "Something Went Wrong Try Agin",
+          error: "Invalid Url, Try Agin",
         });
       });
     }
@@ -42,6 +44,8 @@ export function LinkForm({ handleNext }: props) {
           id="links"
           required
           name="link"
+          value={Url}
+          onChange={(e) => setUrl(e.target.value)}
           placeholder="https://example.com"
           className="w-full bg-[#0B0B0B] py-4 px-10 outline-none rounded-[10px] text-[20px]"
         />
@@ -52,17 +56,23 @@ export function LinkForm({ handleNext }: props) {
       </div>
       <div className="flex justify-between w-full items-center">
         <button
-          // disabled={formData.urls.length == 0 || isPending}
+          disabled={Url == "" || isPending}
           type="submit"
-          className={`btn sec flex !justify-around `} //${isPending && "opacity-50 cursor-not-allowed"}
+          className={`btn sec flex !justify-around ${
+            (isPending || Url == "") && "opacity-50 cursor-not-allowed"
+          }`}
         >
           <p>{isPending ? "Adding Data Source" : "Add to Data Source"}</p>
         </button>
         <button
-          // disabled={
-          //   isPending || formData.files.length > 0 || formData.urls.length > 0
-          // }
-          className={`btn sec flex !justify-around `} //${formData.urls.length == 0 &&formData.files.length == 0 &&" opacity-50 cursor-not-allowed"}
+          disabled={
+            isPending || formData.files.length == 0 || formData.urls.length == 0
+          }
+          className={`btn sec flex !justify-around ${
+            ((formData.urls.length == 0 && formData.files.length == 0) ||
+              isPending) &&
+            " opacity-50 cursor-not-allowed"
+          }`}
           onClick={handleNext}
         >
           <p>Finish Setup</p>

@@ -1,20 +1,17 @@
-// import { ChatAPI } from "@/utils/constData";
-import { APIBACKEND } from "@/utils/constData";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { useState } from "react";
+
+import { ChatAPI } from "@/utils/constData";
+
 import { toast } from "sonner";
 
 type props = {
   botData: any;
 };
-type ChatItem = {
-  role: string;
-  content: string;
-};
 
 function Chat({ botData }: props) {
-  const [chat, setChat] = useState<ChatItem[] | null>();
+  const [chat, setChat] = useState<ChatItemType[] | null>();
   const [question, setQuestion] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,7 +19,7 @@ function Chat({ botData }: props) {
     setQuestion("");
 
     if (question.length > 0) {
-      const newData: ChatItem[] = [
+      const newData: ChatItemType[] = [
         {
           role: "user",
           content: question,
@@ -31,7 +28,7 @@ function Chat({ botData }: props) {
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
       try {
-        const response = await fetch(`${APIBACKEND}/chat/${botData.key}`, {
+        const response = await fetch(`${ChatAPI}/chat/${botData.key}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -45,7 +42,7 @@ function Chat({ botData }: props) {
         if (responseData.status == "error") {
           throw new Error(`ERROR FROM CLIENT BOT:${responseData.message}`);
         }
-        const newData: ChatItem[] = [
+        const newData: ChatItemType[] = [
           {
             role: "ass",
             content: responseData.response,

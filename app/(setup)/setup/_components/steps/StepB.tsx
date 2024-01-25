@@ -1,15 +1,16 @@
-import { motion } from "framer-motion";
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import Lottie from "react-lottie";
+import Image from "next/image";
+
+import { motion } from "framer-motion";
 import animationData from "@/public/confetti.json";
+import Lottie from "react-lottie";
+
+import type { YourPlanType } from "@/types/plan";
 
 type props = { handleNext: () => void };
-type YourPlanType = {
-  plan: "basic" | "starter" | "pro";
-  method: "monthly" | "annual";
-};
+
 function StepB({ handleNext }: props) {
+  // console.log("StepB render");
   const [planFromLocal, setPlanFromLocal] = useState<YourPlanType | null>(null);
   const animationRef = useRef<any>(null);
 
@@ -35,14 +36,14 @@ function StepB({ handleNext }: props) {
 
   if (planFromLocal?.method == "annual") {
     currentDate.setFullYear(currentDate.getFullYear() + 1);
-    formattedDate = `${
+    formattedDate = `${currentDate.getDate()}/${
       currentDate.getMonth() + 1
-    }/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+    }/${currentDate.getFullYear()}`;
   } else {
     currentDate.setMonth(currentDate.getMonth() + 1);
-    formattedDate = `${
+    formattedDate = `${currentDate.getDate()}/${
       currentDate.getMonth() + 1
-    }/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+    }/${currentDate.getFullYear()}`;
   }
 
   return (
@@ -53,7 +54,7 @@ function StepB({ handleNext }: props) {
       transition={{ duration: 0.6 }}
       className="flex justify-center items-center flex-col h-screen gap-6"
     >
-      <div className="absolute top-0 w-[1000px] z-[-1]">
+      <div className="absolute top-0 w-[700px] z-[-1]">
         <Lottie
           options={{
             loop: false,
@@ -63,13 +64,13 @@ function StepB({ handleNext }: props) {
         />
       </div>
       <Image
-        src={"/Payment Success.png"}
+        src={"/favicon.png"}
         width={320}
         height={320}
         alt="PaymentSuccess png"
       />
-      <h1 className="text-[64px] font-normal">Hoorah, Welcome to AnswerFlow</h1>
-      <p className="text-[#606060] font-normal text-[24px]">
+      <h1 className="text-[48px] font-normal">Hoorah, Welcome to AnswerFlow</h1>
+      <p className="text-[#606060] font-normal text-[21px]">
         Congratulations! You’re Subscription for the Starter Plan in now active.{" "}
         <br />
         Your plan will be automatically renewed on{" "}

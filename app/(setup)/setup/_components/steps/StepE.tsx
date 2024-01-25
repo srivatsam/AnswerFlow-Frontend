@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 type props = { handleNext: () => void };
 
 function StepE({ handleNext }: props) {
+  console.log("stepE render");
   const [userPlan, setUserPlan] = useState();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ function StepE({ handleNext }: props) {
       }
     });
   }, []);
-
+  // console.log(userPlan);
   return (
     <motion.div
       initial={{ opacity: 0 }}

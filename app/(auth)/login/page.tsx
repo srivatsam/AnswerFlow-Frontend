@@ -25,7 +25,6 @@ import {
 import { Input } from "@/components/ui/input";
 
 function Login() {
-  console.log("login render");
   const route = useRouter();
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -80,7 +79,13 @@ function Login() {
       </div>
 
       <div className="h-full overflow-y-auto py-10 min-w-[33%] lg:bg-[#0B0B0B] p-6 lg:px-20 py-30 flex flex-col justify-center items-center gap-12 xl:gap-20">
-        <Image src={"/logo.svg"} width={250} height={60} alt="logo png" priority />
+        <Image
+          src={"/logo.svg"}
+          width={250}
+          height={60}
+          alt="logo png"
+          priority
+        />
         {/* credentials sign in */}
 
         <Form {...form}>

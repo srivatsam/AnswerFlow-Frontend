@@ -43,7 +43,7 @@ export default function DropDownSelection({
           }`}
         >
           {planSelected?.datatypes.map((dataType, i) => (
-            <p
+            <div
               key={i}
               className="cursor-pointer"
               onClick={() => {
@@ -51,8 +51,9 @@ export default function DropDownSelection({
                 setToggle((prev) => !prev);
               }}
             >
-              {dataType}
-            </p>
+              <Image src={dataType} width={14} height={14} alt={dataType} />
+              <p>{dataType}</p>
+            </div>
           ))}
         </div>
       </div>

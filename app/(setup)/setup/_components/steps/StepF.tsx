@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 type props = { handleNext: () => void };
 function StepF({ handleNext }: props) {
+  console.log("stepF render");
   useEffect(() => {
     setTimeout(() => {
       handleNext();

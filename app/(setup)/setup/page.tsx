@@ -2,11 +2,7 @@
 import Setup from "./_components/Setup";
 
 function page() {
-  return (
-    <div>
-      <Setup />
-    </div>
-  );
+  return <Setup />;
 }
 
 export default page;
