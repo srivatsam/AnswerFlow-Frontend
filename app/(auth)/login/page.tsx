@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 function Login() {
+  console.log("login render");
   const route = useRouter();
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -64,13 +65,13 @@ function Login() {
   return (
     <div className="absolute left-0 h-screen overflow-y-auto flex justify-center items-center w-full">
       <div className="bg-3"></div>
-      <div className="flex-1 hidden xl:flex justify-center items-center ">
-        <div className="flex flex-col gap-6 ">
-          <h1 className="text-[64px] font-semibold leading-[74px]">
+      <div className="flex-1 hidden lg:flex justify-center items-center ">
+        <div className="flex flex-col gap-6 px-6">
+          <h1 className="text-[54px] xl:text-[64px] font-semibold leading-[74px]">
             Oh wait, there’s <br />
             an AI Bot for it..
           </h1>
-          <p className="text-[24px] text-[#848484]">
+          <p className="text-[20px] xl:text-[24px] text-[#848484]">
             AnswerFlow AI is the simplest & affordable way to build <br />{" "}
             custom ChatGPT Bots for any usecase from Data Analytics
             <br /> to Personal Health Coach
@@ -78,14 +79,14 @@ function Login() {
         </div>
       </div>
 
-      <div className="h-full overflow-y-auto py-10 min-w-[33%] xl:bg-[#0B0B0B] p-6 xl:px-20 py-30 flex flex-col justify-center items-center gap-20">
-        <Image src={"/logo.svg"} width={250} height={60} alt="logo png" />
+      <div className="h-full overflow-y-auto py-10 min-w-[33%] lg:bg-[#0B0B0B] p-6 lg:px-20 py-30 flex flex-col justify-center items-center gap-12 xl:gap-20">
+        <Image src={"/logo.svg"} width={250} height={60} alt="logo png" priority />
         {/* credentials sign in */}
 
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-6 xl:gap-10 w-full"
+            className="flex flex-col gap-8 lg:gap-10 w-full"
           >
             <div className="flex flex-col gap-4">
               <FormField
