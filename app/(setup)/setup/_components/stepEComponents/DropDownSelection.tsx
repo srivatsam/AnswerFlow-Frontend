@@ -42,24 +42,33 @@ export default function DropDownSelection({
             toggle && " invisible"
           }`}
         >
-          {planSelected?.datatypes.map((dataType, i) => (
-            <div
-              key={i}
-              className="cursor-pointer flex gap-2 items-center "
-              onClick={() => {
-                setFileTypeSelected(dataType);
-                setToggle((prev) => !prev);
-              }}
-            >
-              <Image
-                src={`/${dataType}.png`}
-                width={14}
-                height={14}
-                alt={dataType}
-              />
-              <p>{dataType}</p>
-            </div>
-          ))}
+          {planSelected !== undefined ? (
+            planSelected.datatypes.map((dataType, i) => (
+              <div
+                key={i}
+                className="cursor-pointer flex gap-2 items-center "
+                onClick={() => {
+                  setFileTypeSelected(dataType);
+                  setToggle((prev) => !prev);
+                }}
+              >
+                <Image
+                  src={`/${dataType}.png`}
+                  width={14}
+                  height={14}
+                  alt={dataType}
+                />
+                <p>{dataType}</p>
+              </div>
+            ))
+          ) : (
+            <>
+              <p className="w-[60%] h-6 bg-[#4b4b4b] rounded-[5px]"></p>
+              <p className="w-[30%] h-6 bg-[#4b4b4b] rounded-[5px]"></p>
+              <p className="w-[70%] h-6 bg-[#4b4b4b] rounded-[5px]"></p>
+              <p className="w-[50%] h-6 bg-[#4b4b4b] rounded-[5px]"></p>
+            </>
+          )}
         </div>
       </div>
     </div>

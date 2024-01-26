@@ -1,8 +1,10 @@
+import { useFormContext } from "@/context/FormContext";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect } from "react";
 type props = { handleNext: () => void };
 function StepF({ handleNext }: props) {
+  const { formData } = useFormContext();
   console.log("stepF render");
   useEffect(() => {
     setTimeout(() => {
@@ -22,7 +24,7 @@ function StepF({ handleNext }: props) {
       </div>
       <div className="">
         <h2 className="text-[#606060] font-bold text-[36px]">
-          Sales Analysis Bot is getting ready...
+          {formData.botName} Bot is getting ready...
         </h2>
         <p className="text-[#737373]  text-[20px]">
           Please hold on while I’m learning from your Data Sources..

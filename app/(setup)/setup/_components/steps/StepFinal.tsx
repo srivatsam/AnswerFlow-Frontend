@@ -24,13 +24,15 @@ function StepFinal() {
       <div className="">
         <h2 className="font-bold text-[36px]">{formData.botName}</h2>
         <p className="text-[#737373]  text-[20px]">
-          Yahoo, your AnswerFlow AI Bot is up and running!
+          Your bot is up, continue to chat!
         </p>
       </div>
       <Link
         onClick={() => {
-          resetFormData();
-          resetToNewBot();
+          setTimeout(() => {
+            resetFormData();
+            resetToNewBot();
+          }, 1000);
         }}
         href={`/user/${localStorage.getItem("botId")}`}
         className="btn sec"
