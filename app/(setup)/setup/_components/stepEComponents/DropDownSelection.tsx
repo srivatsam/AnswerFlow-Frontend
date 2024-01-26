@@ -45,13 +45,18 @@ export default function DropDownSelection({
           {planSelected?.datatypes.map((dataType, i) => (
             <div
               key={i}
-              className="cursor-pointer"
+              className="cursor-pointer flex gap-2 items-center "
               onClick={() => {
                 setFileTypeSelected(dataType);
                 setToggle((prev) => !prev);
               }}
             >
-              <Image src={dataType} width={14} height={14} alt={dataType} />
+              <Image
+                src={`/${dataType}.png`}
+                width={14}
+                height={14}
+                alt={dataType}
+              />
               <p>{dataType}</p>
             </div>
           ))}

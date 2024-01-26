@@ -9,20 +9,22 @@ import { useSteps } from "@/hooks/use-steps";
 function BotSelection({ bots }: { bots: any }) {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
   const resetToNewBot = useSteps((state) => state.resetToNewBot);
-  const [botSelected, setBotSelected] = useState("");
+  const [botSelected, setBotSelected] = useState("Bot Name");
 
   const [toggle, setToggle] = useState(false);
   const route = useRouter();
 
   useEffect(() => {
-    const botName = bots.find(
-      (bot: any) => (bot.id as string) == window.localStorage.getItem("botId")
-    );
-    if (botName) {
-      setBotSelected(botName.name);
-    } else {
-      localStorage.setItem("botId", bots[0].id);
-      setBotSelected(bots[0].name);
+    if (bots) {
+      const botName = bots.find(
+        (bot: any) => (bot.id as string) == window.localStorage.getItem("botId")
+      );
+      if (botName) {
+        setBotSelected(botName.name);
+      } else {
+        localStorage.setItem("botId", bots[0].id);
+        setBotSelected(bots[0].name);
+      }
     }
   }, [bots]);
 
@@ -32,13 +34,7 @@ function BotSelection({ bots }: { bots: any }) {
       className="flex justify-between items-center gap-10 py-2 px-4 bg-[#1B1B1B] rounded-[10px] cursor-pointer relative w-[250px]"
     >
       <div className="flex gap-2 items-center">
-        <h1 className="font-medium">
-          {botSelected == "" ? (
-            <p className="h-4 w-32 rounded bg-[#363636]"></p>
-          ) : (
-            botSelected
-          )}
-        </h1>
+        <h1 className="font-medium">{botSelected}</h1>
       </div>
       <Image src={"/downArrow.png"} alt="user image" width={25} height={25} />
 

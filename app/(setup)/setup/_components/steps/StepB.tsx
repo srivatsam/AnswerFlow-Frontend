@@ -36,14 +36,14 @@ function StepB({ handleNext }: props) {
 
   if (planFromLocal?.method == "annual") {
     currentDate.setFullYear(currentDate.getFullYear() + 1);
-    formattedDate = `${currentDate.getDate()}/${
+    formattedDate = `${
       currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()}`;
+    }/${currentDate.getDate()}/${currentDate.getFullYear()}`;
   } else {
     currentDate.setMonth(currentDate.getMonth() + 1);
-    formattedDate = `${currentDate.getDate()}/${
+    formattedDate = `${
       currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()}`;
+    }/${currentDate.getDate()}/${currentDate.getFullYear()}`;
   }
 
   return (
@@ -54,7 +54,7 @@ function StepB({ handleNext }: props) {
       transition={{ duration: 0.6 }}
       className="flex justify-center items-center flex-col h-screen gap-6"
     >
-      <div className="absolute top-0 w-[700px] z-[-1]">
+      <div className="absolute top-0 w-[600px] z-[-1]">
         <Lottie
           options={{
             loop: false,

@@ -26,14 +26,25 @@ export function ZapierForm({ handleNext }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Data Added Successfully",
-          error: "Something Went Wrong Try Agin",
+          error: "This File Not Supported, Try Agin",
         });
       });
     }
   };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files;
+
+    if (selectedFile) {
+      const formDataWithFile = new FormData();
+
+      formDataWithFile.append("file", selectedFile[0]);
+
+      addFilesDataSource(formDataWithFile);
+    }
+  };
   return (
     <form
-      action={addFilesDataSource}
+      // action={addFilesDataSource}
       className="flex-1 flex flex-col justify-between w-full"
     >
       <div className="flex flex-col gap-10 w-full">
@@ -54,6 +65,7 @@ export function ZapierForm({ handleNext }: props) {
           }`}</div>
         </label>
         <input
+          onChange={handleFileChange}
           type="file"
           id="file"
           name="file"
@@ -62,18 +74,23 @@ export function ZapierForm({ handleNext }: props) {
         />
       </div>
       <div className="flex justify-between w-full items-center">
-        <button
+        {/* <button
           // disabled={formData.files.length > 0 || isPending}
           type="submit"
           className={`btn sec flex !justify-around `} //${formData.files.length == 0 && "opacity-50 cursor-not-allowed"}
         >
           <p>{isPending ? "Adding Data Source.." : "Add to Data Source"}</p>
-        </button>
+        </button> */}
         <button
-          // disabled={
-          //   isPending || formData.files.length > 0 || formData.urls.length > 0
-          // }
-          className={`btn sec flex !justify-around`} // ${formData.urls.length == 0 &&formData.files.length == 0 &&" opacity-50 cursor-not-allowed"}
+          disabled={
+            isPending ||
+            (formData.files.length == 0 && formData.urls.length == 0)
+          }
+          className={`btn sec flex !justify-around ${
+            ((formData.urls.length == 0 && formData.files.length == 0) ||
+              isPending) &&
+            " opacity-50 cursor-not-allowed"
+          }`}
           onClick={handleNext}
         >
           <p>Finish Setup</p>
