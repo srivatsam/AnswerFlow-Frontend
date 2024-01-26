@@ -1,5 +1,7 @@
+import { getUserPlan } from "@/actions/getUserPlan";
 import { Sections } from "./_components/Sections";
 import { APIBACKEND } from "@/utils/constData";
+import { getBotResources } from "@/actions/getBotResources";
 
 type props = {
   params: {
@@ -25,7 +27,16 @@ const getBotData = async (botId: string) => {
 };
 async function Page({ params }: props) {
   const botData = await getBotData(params.botId);
-  return <Sections botData={botData} />;
+  const userPlan = (await getUserPlan()).userPlan;
+  const botResources = await getBotResources(params.botId);
+
+  return (
+    <Sections
+      botData={botData}
+      userPlan={userPlan}
+      botResources={botResources}
+    />
+  );
 }
 
 export default Page;

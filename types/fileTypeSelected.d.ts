@@ -1,4 +1,5 @@
 type fileTypeSelected =
+  | ""
   | "Add Data Source"
   | "Documents"
   | "Links"

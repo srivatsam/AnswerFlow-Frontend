@@ -11,7 +11,18 @@ import BotSettings from "./sections/BotSettings";
 import { useSteps } from "@/hooks/use-steps";
 import { useRouter } from "next/navigation";
 
-export function Sections({ botData }: { botData: any }) {
+export function Sections({
+  botData,
+  userPlan,
+  botResources,
+}: {
+  botData: any;
+  userPlan: string;
+  botResources: {
+    success: string;
+    data: any;
+  };
+}) {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
   const activeSection = useActiveSection((state) => state.activeSection);
   const resetToNewBot = useSteps((state) => state.resetToNewBot);
@@ -26,7 +37,13 @@ export function Sections({ botData }: { botData: any }) {
       <div className="flex flex-col gap-6 w-full">
         {activeSection == "Chat" && <Chat botData={botData} />}
         {activeSection == "Past Chat" && <PastChat />}
-        {activeSection == "Data Sources" && <DataSources botData={botData} />}
+        {activeSection == "Data Sources" && (
+          <DataSources
+            botData={botData}
+            userPlan={userPlan}
+            botResources={botResources}
+          />
+        )}
         {activeSection == "Export" && <Export />}
         {activeSection == "Bot Settings" && <BotSettings botData={botData} />}
       </div>

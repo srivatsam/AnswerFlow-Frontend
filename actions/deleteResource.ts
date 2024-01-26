@@ -2,13 +2,13 @@
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 
-export const getBotResources = async (botId: string) => {
+export const deleteResource = async (botId: string, resourceID: string) => {
   const session = await auth();
   const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
   const response = await fetch(
-    `${APIBACKEND}/get_resources/${userId}/${botId}`,
+    `${APIBACKEND}/delete_resource/${userId}/${botId}/${resourceID}`,
     {
-      method: "GET",
+      method: "DELETE",
     }
   );
 
@@ -19,7 +19,7 @@ export const getBotResources = async (botId: string) => {
     throw new Error(`ERROR FROM SERVER :${responseData.message}`);
   }
   return {
-    success: "Get Resources Successfully",
+    success: "Resource Deleted Successfully",
     data: responseData.resources,
   };
 };
