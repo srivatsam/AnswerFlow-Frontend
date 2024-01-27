@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 import { ChatAPI } from "@/utils/constData";
 
@@ -88,22 +90,49 @@ function Chat({ botData }: props) {
       }
     }
   };
-
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [chat]);
   const session = useSession();
   return (
-    <div className="flex-1 bg-[#131313] rounded-[12px] p-10 gap-10 flex flex-col justify-between">
-      <div className="gap-10 flex flex-col max-h-[67vh] overflow-y-auto ">
-        {chat?.map((chat, i) => (
-          <div className="flex gap-4 items-start" key={i}>
-            {chat.role == "user" ? (
-              <Image
-                src={session.data?.user?.image || "/profile.jpg"}
-                alt="user image"
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-            ) : (
+    <div className="flex-1 bg-[#131313] rounded-[12px] p-8 gap-10 flex flex-col justify-between">
+      <div ref={chatContainerRef} className=" relative">
+        <div className="absolute w-full h-4 top-0 left-0 bg-gradient-to-b from-[#131313] to-transparent" />
+        <div className="absolute w-full h-4 bottom-0 left-0 bg-gradient-to-t from-[#131313] to-transparent" />
+        <div className="gap-10 flex flex-col max-h-[65vh] overflow-y-auto p-4 ">
+          {chat?.map((chat, i) => (
+            <div className="flex gap-4 items-start " key={i}>
+              {chat.role == "user" ? (
+                <Image
+                  src={session.data?.user?.image || "/profile.jpg"}
+                  alt="user image"
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              ) : (
+                <Image
+                  src={"/favicon.png"}
+                  alt="favicon image"
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              )}
+              <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px] markdown-container ">
+                {/* <ReactMarkdown remarkPlugins={[gfm]}>
+                {chat.content}
+              </ReactMarkdown> */}
+                {chat.content ? chat.content : "something went wrong try agin"}
+              </p>
+            </div>
+          ))}
+          {loading && (
+            <div className="flex gap-4 items-start">
               <Image
                 src={"/favicon.png"}
                 alt="favicon image"
@@ -111,26 +140,12 @@ function Chat({ botData }: props) {
                 height={40}
                 className="rounded-full"
               />
-            )}
-            <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px]">
-              {chat.content ? chat.content : "something went wrong try agin"}
-            </p>
-          </div>
-        ))}
-        {loading && (
-          <div className="flex gap-4 items-start">
-            <Image
-              src={"/favicon.png"}
-              alt="favicon image"
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-            <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px]">
-              .....
-            </p>
-          </div>
-        )}
+              <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px]">
+                .....
+              </p>
+            </div>
+          )}
+        </div>
       </div>
       <form
         action=""
