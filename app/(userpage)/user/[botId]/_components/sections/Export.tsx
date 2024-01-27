@@ -1,3 +1,4 @@
+import { APIBACKEND } from "@/utils/constData";
 import Image from "next/image";
 import React, { useState } from "react";
 type props = {
@@ -8,10 +9,17 @@ function Export({ botData }: props) {
   const [isCopiedScript, setIsCopiedScript] = useState(false);
 
   const botLink: string = `https://answerflowai.com/user/${botData.id}`;
-  const botScript: string = ``;
+  const botScript: string = `<div
+    id="answerflowbotkey"
+    data-answerflowbotkey="${botData.key}"
+  ></div>
+<script type="text/javascript" src="
+${APIBACKEND}
+/loader.js"></script>`;
+
   const copyScript = () => {
     setIsCopiedScript(true);
-    navigator.clipboard.writeText(botLink);
+    navigator.clipboard.writeText(botScript);
     setTimeout(() => {
       setIsCopiedScript(false);
     }, 3000);
@@ -58,7 +66,7 @@ function Export({ botData }: props) {
       <div className="flex flex-col gap-10 ">
         <div className="flex flex-col gap-4">
           <h1 className="font-bold text-[28px]">Embed on a Website</h1>
-          <p className="text-[16px] text-[#9B9B9B]">{`Copy the code below & paste it inside <head> or any <div> tag on your website `}</p>
+          <p className="text-[16px] text-[#9B9B9B]">{`Copy the code below & paste it inside <body> or any <div> tag on your website `}</p>
         </div>
         <div className="px-10 py-6 rounded-[10px] bg-[#232323] text-[#BABABA] relative">
           <pre className=" whitespace-pre">
