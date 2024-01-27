@@ -4,21 +4,25 @@ type props = {
   botData: any;
 };
 function Export({ botData }: props) {
-  const [botLink, setBotLink] = useState<string>(
-    `https://answerflowai.com/user/${botData.id}`
-  );
-  const [botScript, setBotScript] = useState<string>(`<!DOCTYPE html>
-  <html>
-  <head>
-      <title>Embedded Video</title>
-  </head>
-  <body>
-      <div class="ec8f7ca-cac8-4e39-bab3-4944888b23da-container"></div>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/your-github-username/chatbot-loader/loader.js"></script>  
-  </body>
-  </html>`);
-  const copyLink = () => {};
-  const copyScript = () => {};
+  const [isCopiedLink, setIsCopiedLink] = useState(false);
+  const [isCopiedScript, setIsCopiedScript] = useState(false);
+
+  const botLink: string = `https://answerflowai.com/user/${botData.id}`;
+  const botScript: string = ``;
+  const copyScript = () => {
+    setIsCopiedScript(true);
+    navigator.clipboard.writeText(botLink);
+    setTimeout(() => {
+      setIsCopiedScript(false);
+    }, 3000);
+  };
+  const copyLink = () => {
+    setIsCopiedLink(true);
+    navigator.clipboard.writeText(botLink);
+    setTimeout(() => {
+      setIsCopiedLink(false);
+    }, 3000);
+  };
   return (
     <div className="bg-[#131313] rounded-[12px] p-10 flex flex-col gap-20 items-start w-fit">
       <div className="flex flex-col gap-10 w-full">
@@ -29,9 +33,25 @@ function Export({ botData }: props) {
           </p>
         </div>
         <div className="rounded-[10px] bg-[#232323] py-4 px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
-          <p className="w-[70%] overflow-hidden whitespace-nowrap">{botLink}</p>
+          <p className="w-[80%] whitespace-nowrap text-ellipsis overflow-hidden ">
+            {botLink}
+          </p>
           <button onClick={copyLink}>
-            <Image src={"/copy.png"} width={20} height={20} alt="copy image" />
+            {isCopiedLink ? (
+              <Image
+                src={"/correct.png"}
+                width={20}
+                height={20}
+                alt="copy image"
+              />
+            ) : (
+              <Image
+                src={"/copy.png"}
+                width={20}
+                height={20}
+                alt="copy image"
+              />
+            )}
           </button>
         </div>
       </div>
@@ -42,23 +62,24 @@ function Export({ botData }: props) {
         </div>
         <div className="px-10 py-6 rounded-[10px] bg-[#232323] text-[#BABABA] relative">
           <pre className=" whitespace-pre">
-            <code className="whitespace-pre">
-              {"<!DOCTYPE html>\n"}
-              {"<html>\n"}
-              {"  <head>\n"}
-              {"    <title>Embedded Video</title>\n"}
-              {"  </head>\n"}
-              {"  <body>\n"}
-              {"    <h1>Embedded YouTube Video</h1>\n"}
-              {
-                '    <iframe width="560" height="315" src="https://www.youtube.com/\nembed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>\n'
-              }
-              {"  </body>\n"}
-              {"</html>\n"}
-            </code>
+            <code className="whitespace-pre">{botScript}</code>
           </pre>
           <button onClick={copyScript} className=" absolute top-6 right-6">
-            <Image src={"/copy.png"} width={20} height={20} alt="copy image" />
+            {isCopiedScript ? (
+              <Image
+                src={"/correct.png"}
+                width={20}
+                height={20}
+                alt="copy image"
+              />
+            ) : (
+              <Image
+                src={"/copy.png"}
+                width={20}
+                height={20}
+                alt="copy image"
+              />
+            )}
           </button>
         </div>
       </div>

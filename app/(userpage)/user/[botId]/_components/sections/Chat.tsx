@@ -13,11 +13,14 @@ type props = {
 };
 
 function Chat({ botData }: props) {
+  const session = useSession();
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState<ChatItemType[]>([
     {
       role: "ass",
-      content: "Hello user ",
+      content: `👋 Hello, dear ${session.data?.user.name?.toLocaleUpperCase()} ! I'm your friendly assistant, ${
+        botData.name
+      }. 🤖 How may I assist you today? 🌟`,
     },
   ]);
   const [question, setQuestion] = useState("");
@@ -97,10 +100,10 @@ function Chat({ botData }: props) {
         chatContainerRef.current.scrollHeight;
     }
   }, [chat]);
-  const session = useSession();
+
   return (
     <div className="flex-1 bg-[#131313] rounded-[12px] p-8 gap-10 flex flex-col justify-between">
-      <div ref={chatContainerRef} className=" relative">
+      <div ref={chatContainerRef} className="relative">
         <div className="absolute w-full h-4 top-0 left-0 bg-gradient-to-b from-[#131313] to-transparent" />
         <div className="absolute w-full h-4 bottom-0 left-0 bg-gradient-to-t from-[#131313] to-transparent" />
         <div className="gap-10 flex flex-col max-h-[65vh] overflow-y-auto p-4 ">
