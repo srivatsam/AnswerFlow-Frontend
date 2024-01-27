@@ -80,7 +80,7 @@ function StepD({ handleNext }: props) {
           <div className="flex flex-col gap-2">
             <div className="flex gap-2 items-center">
               <label htmlFor="botPurpose" className="font-medium">
-                Bot Purpose
+                Instructions
               </label>
               <div className="relative group cursor-pointer">
                 <Image src={"/info.png"} width={15} height={15} alt="info" />

@@ -33,7 +33,7 @@ interface FormContextProps {
   setBotPurpose: (botPurpose: string) => void;
   setToneOfVoice: (toneOfVoice: string) => void;
   setOpenAiApiKey: (name: string) => void;
-  setFiles: (file: File) => void;
+  setFiles: (files: File[]) => void;
   setUrls: (url: string) => void;
   resetFormData: () => void;
 }
@@ -108,8 +108,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     setFormData((prev) => ({ ...prev, openAiApiKey }));
   };
 
-  const setFiles = (file: File) => {
-    setFormData((prev) => ({ ...prev, files: [...prev.files, file] }));
+  const setFiles = (files: File[]) => {
+    setFormData((prev) => ({ ...prev, files: [...prev.files, ...files] }));
   };
 
   const setUrls = (url: string) => {
