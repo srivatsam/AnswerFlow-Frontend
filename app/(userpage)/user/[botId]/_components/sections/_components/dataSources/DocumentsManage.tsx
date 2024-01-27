@@ -22,23 +22,17 @@ export function DocumentsManage() {
         );
         toast.promise(setPlanPromise, {
           loading: "Loading...",
-          success: "Data Added Successfully",
-          error: "This File Not Supported, Try Agin",
+          success: "Data Added Successfully.",
+          error: "This File Not Supported, or UNIQUE File",
         });
       });
     }
   };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files;
-
-    if (selectedFile) {
-      const formDataWithFile = new FormData();
-      formDataWithFile.append("file", selectedFile[0]);
-      addFilesDataSource(formDataWithFile);
-    }
-  };
   return (
-    <form className="flex flex-col justify-between w-fit absolute top-[120%] right-0 z-[1]">
+    <form
+      action={addFilesDataSource}
+      className="flex flex-col justify-between w-fit absolute top-[120%] right-0 z-[1]"
+    >
       <div className="flex flex-col gap-10 w-full">
         <label
           htmlFor="file"
@@ -54,9 +48,11 @@ export function DocumentsManage() {
           <div className="bg-[#1C1C1C] text-[16px] px-8 py-2 rounded-[10px]">{` ${
             formData.length > 0 ? "Add more files.." : "Select files.."
           }`}</div>
+          <button type="submit" className="">
+            add
+          </button>
         </label>
         <input
-          onChange={handleFileChange}
           type="file"
           id="file"
           name="file"

@@ -1,4 +1,4 @@
-import React, { useTransition } from "react";
+import React, { useState, useTransition } from "react";
 
 import { addDataSourceDoc } from "@/actions/addDataSourceDoc";
 import { useFormContext } from "@/context/FormContext";
@@ -18,6 +18,7 @@ export function DocumentsForm({ handleNext }: props) {
         const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
           (data) => {
             if (data.success) {
+              setFile(null);
               const fileData = formDataInputs.get("file") as File;
               setFiles(fileData);
             }
@@ -31,19 +32,18 @@ export function DocumentsForm({ handleNext }: props) {
       });
     }
   };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files;
-
-    if (selectedFile) {
-      const formDataWithFile = new FormData();
-
-      formDataWithFile.append("file", selectedFile[0]);
-
-      addFilesDataSource(formDataWithFile);
+  const [file, setFile] = useState<File | null>(null);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = e.target.files;
+    if (selectedFiles && selectedFiles.length > 0) {
+      setFile(selectedFiles[0]);
     }
   };
   return (
-    <form className="flex-1 flex flex-col justify-between w-full">
+    <form
+      action={addFilesDataSource}
+      className="flex-1 flex flex-col justify-between w-full"
+    >
       <div className="flex flex-col gap-10 w-full">
         <label
           htmlFor="file"
@@ -62,15 +62,24 @@ export function DocumentsForm({ handleNext }: props) {
           }`}</div>
         </label>
         <input
-          onChange={handleFileChange}
           type="file"
           id="file"
           name="file"
+          onChange={(e) => handleFileChange(e)}
           required
           placeholder="Select an option"
         />
       </div>
       <div className="flex justify-between w-full items-center">
+        <button
+          disabled={!file || isPending}
+          type="submit"
+          className={`btn sec flex !justify-around ${
+            (isPending || !file) && "opacity-50 cursor-not-allowed"
+          }`}
+        >
+          <p>{isPending ? "Adding Data Source" : "Add to Data Source"}</p>
+        </button>
         <button
           disabled={
             isPending ||

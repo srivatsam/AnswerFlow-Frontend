@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
+import { revalidateTag } from "next/cache";
 
 export const updateBot = async (formData: FormData, botId: string) => {
   console.log(formData, botId);
@@ -25,5 +26,6 @@ export const updateBot = async (formData: FormData, botId: string) => {
     console.log(responseData.message);
     throw new Error(`ERROR FROM SERVER :${responseData.message}`);
   }
+  revalidateTag("bot");
   return { success: "Bot Created Successfully", data: responseData };
 };

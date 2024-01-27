@@ -2,6 +2,7 @@
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 import db from "@/utils/db";
+import { revalidateTag } from "next/cache";
 
 export const setPlan = async (formData: FormData, planFromLocal: string) => {
   const session = await auth();
@@ -41,6 +42,7 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
     }
 
     return { success: "Set The Plan Successfully" };
+    revalidateTag("userPlan");
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
     return new Error("You are not authorized");

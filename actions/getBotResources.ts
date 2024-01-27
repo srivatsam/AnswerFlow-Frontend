@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
+import { revalidateTag } from "next/cache";
 
 export const getBotResources = async (botId: string) => {
   const session = await auth();
@@ -9,6 +10,7 @@ export const getBotResources = async (botId: string) => {
     `${APIBACKEND}/get_resources/${userId}/${botId}`,
     {
       method: "GET",
+      next: { tags: ["resources"] },
     }
   );
 

@@ -38,7 +38,7 @@ export function SideBarSections() {
             src={`/${section}.png`}
             width={30}
             height={30}
-            alt={`/${section} image`}
+            alt={`${section} image`}
           />
           <p>{section}</p>
         </button>

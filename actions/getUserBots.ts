@@ -11,6 +11,7 @@ export const getUserBots = async () => {
   try {
     const response = await fetch(`${APIBACKEND}/get_bots/${userId}`, {
       method: "GET",
+      next: { tags: ["bot"] },
     });
     const responseData = await response.json();
     console.log(responseData);

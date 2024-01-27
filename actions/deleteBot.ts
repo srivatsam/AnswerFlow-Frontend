@@ -1,6 +1,7 @@
 "use server";
 
 import { APIBACKEND } from "@/utils/constData";
+import { revalidateTag } from "next/cache";
 
 export const deleteBot = async (botId: string) => {
   const response = await fetch(`${APIBACKEND}/delete_bot/${botId}`, {
@@ -13,5 +14,6 @@ export const deleteBot = async (botId: string) => {
     console.log(responseData.message);
     throw new Error(`ERROR FROM SERVER :${responseData.message}`);
   }
+  revalidateTag("bot");
   return { success: "Bot Created Successfully", data: responseData };
 };

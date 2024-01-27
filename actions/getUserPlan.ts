@@ -7,6 +7,7 @@ export const getUserPlan = async () => {
   try {
     const response = await fetch(`${APIBACKEND}/get_user/${userId}`, {
       method: "GET",
+      next: { tags: ["userPlan"] },
     });
     const responseData = await response.json();
     if (responseData.status != "success") {

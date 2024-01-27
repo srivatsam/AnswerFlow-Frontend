@@ -11,10 +11,17 @@ type props = {
 };
 
 function Chat({ botData }: props) {
-  const [chat, setChat] = useState<ChatItemType[] | null>();
+  const [loading, setLoading] = useState(false);
+  const [chat, setChat] = useState<ChatItemType[]>([
+    {
+      role: "ass",
+      content: "Hello user ",
+    },
+  ]);
   const [question, setQuestion] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     setQuestion("");
 
@@ -30,26 +37,52 @@ function Chat({ botData }: props) {
       try {
         const response = await fetch(`${ChatAPI}/chat/${botData.key}`, {
           method: "POST",
+          cache: "no-cache",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
             question: question,
-            chat_history: chat,
           }),
         });
         const responseData = await response.json();
+        console.log(responseData);
         if (responseData.status == "error") {
           throw new Error(`ERROR FROM CLIENT BOT:${responseData.message}`);
         }
-        const newData: ChatItemType[] = [
-          {
-            role: "ass",
-            content: responseData.response,
-          },
-        ];
-        setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
+        const lastMessage: ChatItemType = {
+          role: "ass",
+          content: responseData.response,
+        };
+
+        setChat((prevChat) =>
+          prevChat ? [...prevChat, lastMessage] : [lastMessage]
+        );
+        if (lastMessage && lastMessage.role === "ass" && !loading) {
+          const words = lastMessage.content.split(" ");
+          lastMessage.content = words[0];
+          const wordInterval = 200;
+
+          let wordIndex = 0;
+          const intervalId = setInterval(() => {
+            setChat((prevChat) => {
+              const updatedMessages = [...prevChat];
+              const newMessage = { ...updatedMessages[prevChat.length - 1] };
+              newMessage.content += " " + words[wordIndex];
+              updatedMessages[prevChat.length - 1] = newMessage;
+              return updatedMessages;
+            });
+
+            wordIndex += 1;
+            if (wordIndex === words.length - 1) {
+              clearInterval(intervalId);
+            }
+          }, wordInterval);
+        }
+        setLoading(false);
       } catch (error) {
+        toast.error("Something Went Wrong");
+        setLoading(false);
         console.error(error);
         return null;
       }
@@ -84,6 +117,20 @@ function Chat({ botData }: props) {
             </p>
           </div>
         ))}
+        {loading && (
+          <div className="flex gap-4 items-start">
+            <Image
+              src={"/favicon.png"}
+              alt="favicon image"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px]">
+              .....
+            </p>
+          </div>
+        )}
       </div>
       <form
         action=""
@@ -108,7 +155,7 @@ function Chat({ botData }: props) {
             className=" bg-transparent flex-1 outline-none text-[20px]"
           />
         </div>
-        <button>
+        <button type="submit" disabled={loading}>
           <Image
             src={"/send.png"}
             alt="user image"

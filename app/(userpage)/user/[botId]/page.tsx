@@ -2,6 +2,7 @@ import { getUserPlan } from "@/actions/getUserPlan";
 import { Sections } from "./_components/Sections";
 import { APIBACKEND } from "@/utils/constData";
 import { getBotResources } from "@/actions/getBotResources";
+import { revalidateTag } from "next/cache";
 
 type props = {
   params: {
@@ -9,16 +10,17 @@ type props = {
   };
 };
 const getBotData = async (botId: string) => {
+  "use server";
   try {
     const response = await fetch(`${APIBACKEND}/get_bot/${botId}`, {
       method: "GET",
-      cache: "no-cache",
     });
     const data = await response.json();
 
     if (data.status == "error") {
       throw new Error(`ERROR FROM SERVER :${data.message}`);
     }
+    revalidateTag("bot");
     return data.bot;
   } catch (error) {
     console.error(error);

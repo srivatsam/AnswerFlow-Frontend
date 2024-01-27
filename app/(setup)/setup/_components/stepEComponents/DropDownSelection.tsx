@@ -18,7 +18,7 @@ export default function DropDownSelection({
   setFileTypeSelected,
   setToggleDataPopUp,
 }: props) {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   return (
     <>

@@ -44,7 +44,7 @@ export function Sections({
             botResources={botResources}
           />
         )}
-        {activeSection == "Export" && <Export />}
+        {activeSection == "Export" && <Export botData={botData} />}
         {activeSection == "Bot Settings" && <BotSettings botData={botData} />}
       </div>
     );

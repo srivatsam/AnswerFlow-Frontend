@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
+import { revalidateTag } from "next/cache";
 
 export const addUrlData = async (formData: FormData, botId: string) => {
   const session = await auth();
@@ -23,5 +24,6 @@ export const addUrlData = async (formData: FormData, botId: string) => {
     console.error(responseData.message);
     throw new Error(`ERROR FROM SERVER :${responseData.message}`);
   }
+  revalidateTag("resources");
   return { success: "Data Added Successfully" };
 };

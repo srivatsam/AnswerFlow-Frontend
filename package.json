@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "postinstall": "prisma generate",
     "build": "next build",
-    "start": "next start",
+    "start": "npm run check:db && npm run migrate && next start",
+    "check:db": "node prisma/migrate.js",
+    "migrate": "npx prisma generate && npx prisma migrate deploy",
     "lint": "next lint"
   },
   "dependencies": {
@@ -37,7 +38,8 @@
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4",
-    "zustand": "^4.4.7"
+    "zustand": "^4.4.7",
+    "pg-promise": "^11.5.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
