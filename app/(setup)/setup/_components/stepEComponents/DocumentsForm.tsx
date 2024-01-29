@@ -50,10 +50,7 @@ export function DocumentsForm({ handleNext }: props) {
       className="flex-1 flex flex-col justify-between w-full"
     >
       <div className="flex flex-col gap-10 w-full">
-        <label
-          htmlFor="file"
-          className="bg-[#0B0B0B] rounded-[10px] px-8 py-4 outline-none w-[100%] h-[450px] flex flex-col gap-6 justify-center items-center cursor-pointer"
-        >
+        <div className="bg-[#0B0B0B] rounded-[10px] px-8 py-4 outline-none w-[100%] h-[450px] flex flex-col gap-6 justify-center items-center">
           <div className="flex flex-col gap-2 text-center items-center">
             <h1 className="text-[24px] text-[#606060] font-bold">
               Drag & Drop any Documents
@@ -89,10 +86,10 @@ export function DocumentsForm({ handleNext }: props) {
               </div>
             </div>
           </div>
-          <div className="btn sec">{` ${
+          <label htmlFor="file" className="btn sec cursor-pointer">{` ${
             formData.files.length > 0 ? "Add more files.." : "Choose files.."
-          }`}</div>
-        </label>
+          }`}</label>
+        </div>
         <input
           multiple
           type="file"

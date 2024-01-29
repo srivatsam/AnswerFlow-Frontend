@@ -19,7 +19,7 @@ export function ZapierForm({ handleNext }: props) {
           (data) => {
             if (data.success) {
               const fileData = formDataInputs.get("file") as File;
-              setFiles(fileData);
+              // setFiles(fileData);
             }
           }
         );
