@@ -16,7 +16,7 @@ export const RegisterSchema = z
       .string()
       .min(6, { message: "Password is required" })
       .refine((value) => passwordRegex.test(value), {
-        message: `Must contain at least 1A , 1a ,1# `,
+        message: `Your password must be at least 8 characters long, contain at least one number or a mix of alphabets & special characters`,
       }),
     confirmPassword: z.string().min(6, { message: "Password not match" }),
   })
