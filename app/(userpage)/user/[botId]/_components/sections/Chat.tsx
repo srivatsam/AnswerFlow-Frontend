@@ -42,7 +42,7 @@ function Chat({ botData }: props) {
       try {
         const response = await fetch(`${ChatAPI}/flask/chat/${botData.key}`, {
           method: "POST",
-          cache: "no-cache",
+          // cache: "no-cache",
           headers: {
             "Content-Type": "application/json",
           },
@@ -52,40 +52,42 @@ function Chat({ botData }: props) {
             user_id: "1",
           }),
         });
-        const responseData = await response.json();
-        console.log(responseData);
-        if (responseData.status == "error") {
-          throw new Error(`ERROR FROM CLIENT BOT:${responseData.message}`);
-        }
-        const lastMessage: ChatItemType = {
+        const reader = response.body!.getReader();
+        const textDecoder = new TextDecoder("utf-8");
+
+        let lastMessage: ChatItemType = {
           role: "ass",
-          content: responseData.response,
+          content: "",
         };
+        setChat((prevChat) => [...prevChat, lastMessage]);
 
-        setChat((prevChat) =>
-          prevChat ? [...prevChat, lastMessage] : [lastMessage]
-        );
-        if (lastMessage && lastMessage.role === "ass" && !loading) {
-          const words = lastMessage.content.split(" ");
-          lastMessage.content = words[0];
-          const wordInterval = 200;
+        // let done = false;
+        let chunks: string[] = [];
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
 
-          let wordIndex = 0;
-          const intervalId = setInterval(() => {
-            setChat((prevChat) => {
-              const updatedMessages = [...prevChat];
-              const newMessage = { ...updatedMessages[prevChat.length - 1] };
-              newMessage.content += " " + words[wordIndex];
-              updatedMessages[prevChat.length - 1] = newMessage;
-              return updatedMessages;
-            });
+          setChat((prevChat) => {
+            let lastMessageBot = prevChat[prevChat.length - 1];
 
-            wordIndex += 1;
-            if (wordIndex === words.length - 1) {
-              clearInterval(intervalId);
-            }
-          }, wordInterval);
+            lastMessageBot.content += textDecoder.decode(value);
+            prevChat[prevChat.length - 1] = lastMessageBot;
+            return prevChat;
+          });
+          chunks.push(textDecoder.decode(value));
+          console.log(textDecoder.decode(value));
         }
+
+        // const responseData = JSON.parse(chunks.join(""));
+        // console.log(textDecoder.decode(value));
+        // console.log(chunks);
+
+        // lastMessage.content = responseData.response;
+        // setChat((prevChat) => [...prevChat, lastMessage]);
+        // if (responseData.status == "error") {
+        //   throw new Error(`ERROR FROM CLIENT BOT:${responseData.message}`);
+        // }
+
         setLoading(false);
       } catch (error) {
         toast.error("Something Went Wrong");
