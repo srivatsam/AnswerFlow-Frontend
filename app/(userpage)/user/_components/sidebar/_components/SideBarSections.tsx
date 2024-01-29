@@ -20,8 +20,8 @@ export function SideBarSections() {
     (state) => state
   );
   const onClickSection = (section: activeSectionType) => {
-    setActiveSection(section);
     route.push(`/user/${localStorage.getItem("botId")}`);
+    setActiveSection(section);
   };
 
   return (
@@ -39,6 +39,7 @@ export function SideBarSections() {
             width={30}
             height={30}
             alt={`${section} image`}
+            loading="lazy"
           />
           <p>{section}</p>
         </button>

@@ -12,6 +12,7 @@ function Export({ botData }: props) {
   const botScript: string = `<div
     id="answerflowbotkey"
     data-answerflowbotkey="${botData.key}"
+    data-answerflowbotname="${botData.name}"
   ></div>
 <script type="text/javascript" src="
 ${APIBACKEND}

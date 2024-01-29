@@ -1,16 +1,23 @@
+"use client";
 import React, { useState } from "react";
-
 import { countries } from "@/utils/constData";
 
-export function PhoneInput() {
-  // console.log("PhoneInput render");
-
-  const [countrySelected, setCountrySelected] = useState("+00");
+type props = {
+  handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  phoneCode?: string | null;
+  phoneNumber?: string | null;
+};
+export function PhoneInput({
+  handleInputChange,
+  phoneCode,
+  phoneNumber,
+}: props) {
+  const [countrySelected, setCountrySelected] = useState(phoneCode as string);
   const [isOpen, setIsOpen] = useState(false);
   const searchCountry = countries.filter(
     (country) =>
-      country.name.toLowerCase().includes(countrySelected.toLowerCase()) ||
-      country.phone.includes(countrySelected.slice(1))
+      country.name.toLowerCase().includes(countrySelected?.toLowerCase()) ||
+      country.phone.includes(countrySelected?.slice(1))
   );
   return (
     <div className="relative">
@@ -20,8 +27,13 @@ export function PhoneInput() {
         </label>
         <div className="flex gap-4">
           <input
+            id="phoneCode"
+            name="phoneCode"
             onClick={() => setIsOpen(true)}
-            onChange={(e) => setCountrySelected(e.target.value)}
+            onChange={(e) => {
+              handleInputChange!(e);
+              setCountrySelected(e.target.value);
+            }}
             value={countrySelected}
             required
             className="bg-[#232323] rounded-[10px] p-4 outline-none w-20 text-center"
@@ -30,6 +42,8 @@ export function PhoneInput() {
             type="text"
             id="phoneNumber"
             name="phoneNumber"
+            value={phoneNumber || ""}
+            onChange={handleInputChange}
             required
             placeholder="Enter your phone number"
             className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none w-full"

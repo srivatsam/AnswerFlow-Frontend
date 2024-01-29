@@ -1,14 +1,11 @@
 "use server";
 import { auth } from "@/auth";
-import { APIBACKEND } from "@/utils/constData";
 import db from "@/utils/db";
 import { revalidateTag } from "next/cache";
 
-export const setPlan = async (formData: FormData, planFromLocal: string) => {
+export const updateBillingInfo = async (formData: FormData) => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
-  const planId =
-    planFromLocal == "pro" ? "3" : planFromLocal == "starter" ? "2" : "1";
+  const userId = true ? session?.user.id : "1";
 
   if (formData && userId) {
     const billingData = {
@@ -20,31 +17,19 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
       address: formData.get("address") as string,
       country: formData.get("country") as string,
       phoneNumber: formData.get("phoneNumber") as string,
+      phoneCode: formData.get("phoneCode") as string,
       pinCode: formData.get("pinCode") as string,
-      email: formData.get("email") as string,
       userId: session?.user.id as string,
     };
 
     try {
-      await db.billingInfo.create({ data: billingData });
+      await db.billingInfo.update({ where: { userId }, data: billingData });
+      revalidateTag("billingInfo");
+      return { success: "Updated Billing Info Successfully" };
     } catch (error) {
       console.error(error);
       return new Error("Something went Wrong User Should Be Uniq");
     }
-
-    const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
-      method: "PUT",
-    });
-
-    const responseData = await response.json();
-
-    if (responseData.status === "error") {
-      console.error(responseData.message);
-      throw new Error(`ERROR FROM SERVER :${responseData.message}`);
-    }
-
-    revalidateTag("userPlan");
-    return { success: "Set The Plan Successfully" };
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
     return new Error("You are not authorized");

@@ -33,10 +33,12 @@ function BotSelection({ bots }: { bots: any }) {
       <div className="bg-[#1B1B1B] rounded-[10px] relative w-[250px] z-[2]">
         <div
           onClick={() => setToggle((prev) => !prev)}
-          className="flex justify-between items-center gap-10 py-2 px-4 cursor-pointer "
+          className="flex justify-between items-center py-2 px-4 cursor-pointer "
         >
-          <div className="flex gap-2 items-center">
-            <h1 className="font-medium">{botSelected}</h1>
+          <div className="flex gap-2 items-center w-[80%]">
+            <h1 className="font-medium whitespace-nowrap text-ellipsis overflow-hidden">
+              {botSelected}
+            </h1>
           </div>
           <Image
             src={"/downArrow.png"}
@@ -75,9 +77,11 @@ function BotSelection({ bots }: { bots: any }) {
                     setBotSelected(item.name);
                     localStorage.setItem("botId", `${item.id}`);
                   }}
-                  className="flex justify-between gap-1 py-1 px-2 w-full capitalize"
+                  className="flex justify-between gap-1 py-1 px-2 w-[90%] capitalize "
                 >
-                  <p>{item.name}</p>
+                  <p className="whitespace-nowrap text-ellipsis overflow-hidden">
+                    {item.name}
+                  </p>
                 </button>
               ))
             ) : (

@@ -80,10 +80,12 @@ model BillingInfo {
   email       String?
   company     String?
   address     String?
+  state       String?
   city        String?
   country     String?
   pinCode     String?
   phoneNumber String?
+  phoneCode   String?
 
   user User @relation(fields: [userId], references: [id])
 }

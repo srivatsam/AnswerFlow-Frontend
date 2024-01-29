@@ -66,7 +66,7 @@ function BotSettings({ botData }: props) {
   };
 
   return (
-    <div className="flex-1 flex flex-col w-fit bg-[#131313] rounded-[12px] p-12 gap-20">
+    <div className="flex flex-col w-fit bg-[#131313] rounded-[12px] p-12 gap-20">
       <form
         action={updateBotHandle}
         className="flex flex-1 flex-col gap-12 items-start w-full "

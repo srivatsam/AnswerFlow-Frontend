@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
+import { revalidateTag } from "next/cache";
 
 export const setAiKey = async (formData: FormData) => {
   const session = await auth();
@@ -24,6 +25,7 @@ export const setAiKey = async (formData: FormData) => {
       console.error(responseData.message);
       throw new Error(`ERROR FROM SERVER :${responseData.message}`);
     }
+    revalidateTag("user");
     return { success: "AI Key Added Successfully" };
   }
   throw new Error(`ERROR FROM SERVER :AI Key  not found `);

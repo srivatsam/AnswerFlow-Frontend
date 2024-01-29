@@ -1,11 +1,16 @@
+"use client";
 import React, { useState } from "react";
 
 import { countries } from "@/utils/constData";
 
-export function CountryInput() {
+type props = {
+  handleInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  country?: string | null;
+};
+export function CountryInput({ handleInputChange, country }: props) {
   // console.log("CountryInput render");
 
-  const [countrySelected, setCountrySelected] = useState("");
+  const [countrySelected, setCountrySelected] = useState(country as string);
   const [isOpen, setIsOpen] = useState(false);
   const searchCountry = countries.filter((country) =>
     country.name.toLowerCase().includes(countrySelected.toLowerCase())
@@ -21,7 +26,10 @@ export function CountryInput() {
           id="country"
           name="country"
           onFocus={() => setIsOpen(true)}
-          onChange={(e) => setCountrySelected(e.target.value)}
+          onChange={(e) => {
+            handleInputChange!(e);
+            setCountrySelected(e.target.value);
+          }}
           value={countrySelected}
           required
           placeholder="Enter country"
