@@ -15,10 +15,10 @@ type billingInfoType = {
   email: string | null;
   company: string | null;
   address: string | null;
+  state: string | null;
   city: string | null;
   country: string | null;
   pinCode: string | null;
-  state: string | null;
   phoneNumber: string | null;
   phoneCode: string | null;
 };
