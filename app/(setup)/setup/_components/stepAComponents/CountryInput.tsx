@@ -8,12 +8,10 @@ type props = {
   country?: string | null;
 };
 export function CountryInput({ handleInputChange, country }: props) {
-  // console.log("CountryInput render");
-
   const [countrySelected, setCountrySelected] = useState(country as string);
   const [isOpen, setIsOpen] = useState(false);
   const searchCountry = countries.filter((country) =>
-    country.name.toLowerCase().includes(countrySelected.toLowerCase())
+    country.name.toLowerCase().includes(countrySelected?.toLowerCase())
   );
   return (
     <div className="relative">
@@ -27,7 +25,7 @@ export function CountryInput({ handleInputChange, country }: props) {
           name="country"
           onFocus={() => setIsOpen(true)}
           onChange={(e) => {
-            handleInputChange!(e);
+            if (handleInputChange) handleInputChange(e);
             setCountrySelected(e.target.value);
           }}
           value={countrySelected}

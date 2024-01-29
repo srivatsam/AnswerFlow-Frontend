@@ -12,7 +12,7 @@ export function PhoneInput({
   phoneCode,
   phoneNumber,
 }: props) {
-  const [countrySelected, setCountrySelected] = useState(phoneCode as string);
+  const [countrySelected, setCountrySelected] = useState(phoneCode || "+ 00");
   const [isOpen, setIsOpen] = useState(false);
   const searchCountry = countries.filter(
     (country) =>
@@ -31,23 +31,37 @@ export function PhoneInput({
             name="phoneCode"
             onClick={() => setIsOpen(true)}
             onChange={(e) => {
-              handleInputChange!(e);
+              if (handleInputChange) handleInputChange(e);
+
               setCountrySelected(e.target.value);
             }}
             value={countrySelected}
             required
             className="bg-[#232323] rounded-[10px] p-4 outline-none w-20 text-center"
           />
-          <input
-            type="text"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={phoneNumber || ""}
-            onChange={handleInputChange}
-            required
-            placeholder="Enter your phone number"
-            className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none w-full"
-          />
+          {phoneCode ? (
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={phoneNumber || ""}
+              onChange={(e) => {
+                if (handleInputChange) handleInputChange(e);
+              }}
+              required
+              placeholder="Enter your phone number"
+              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none w-full"
+            />
+          ) : (
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              required
+              placeholder="Enter your phone number"
+              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none w-full"
+            />
+          )}
         </div>
       </div>
       {isOpen && (

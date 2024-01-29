@@ -52,7 +52,7 @@ function StepB({ handleNext }: props) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6 }}
-      className="flex justify-center items-center flex-col h-screen gap-6"
+      className="flex justify-center items-center flex-col h-screen gap-6 text-center px-6"
     >
       <div className="absolute top-0 w-[600px] z-[-1]">
         <Lottie
@@ -69,8 +69,10 @@ function StepB({ handleNext }: props) {
         height={320}
         alt="PaymentSuccess png"
       />
-      <h1 className="text-[48px] font-normal">Hoorah, Welcome to AnswerFlow</h1>
-      <p className="text-[#606060] font-normal text-[21px]">
+      <h1 className="text-[28px] md:text-[48px] font-normal">
+        Hoorah, Welcome to AnswerFlow
+      </h1>
+      <p className="text-[#606060] font-normal text-[16px] md:text-[21px] ">
         Congratulations! You’re Subscription for the Starter Plan in now active.{" "}
         <br />
         Your plan will be automatically renewed on{" "}

@@ -36,7 +36,7 @@ export function Sections({
     return (
       <div className="flex flex-col gap-6 w-full">
         {activeSection == "Chat" && <Chat botData={botData} />}
-        {activeSection == "Past Chat" && <PastChat />}
+        {activeSection == "Past Chat" && <PastChat botData={botData} />}
         {activeSection == "Data Sources" && (
           <DataSources
             botData={botData}

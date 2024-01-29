@@ -68,13 +68,22 @@ function DataSources({ botData, userPlan, botResources }: props) {
         {botResources.data ? (
           botResources.data.map((resource: any) => (
             <div key={resource.id} className="w-full flex justify-between ">
-              <div className="flex gap-6">
-                <Image
-                  src={"/file.png"}
-                  width={24}
-                  height={24}
-                  alt="doc image"
-                />
+              <div className="flex gap-6 items-center">
+                {resource.type == "url" ? (
+                  <Image
+                    src={"/Links.png"}
+                    width={24}
+                    height={24}
+                    alt="doc image"
+                  />
+                ) : (
+                  <Image
+                    src={"/file.png"}
+                    width={24}
+                    height={24}
+                    alt="doc image"
+                  />
+                )}
                 <h1>{resource.name}</h1>
               </div>
               <div className="flex gap-4">

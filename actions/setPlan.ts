@@ -20,6 +20,7 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
       address: formData.get("address") as string,
       country: formData.get("country") as string,
       phoneNumber: formData.get("phoneNumber") as string,
+      phoneCode: formData.get("phoneCode") as string,
       pinCode: formData.get("pinCode") as string,
       email: formData.get("email") as string,
       userId: session?.user.id as string,

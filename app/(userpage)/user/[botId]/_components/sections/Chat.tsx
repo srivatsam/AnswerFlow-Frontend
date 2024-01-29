@@ -40,7 +40,7 @@ function Chat({ botData }: props) {
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
       try {
-        const response = await fetch(`${ChatAPI}/chat/${botData.key}`, {
+        const response = await fetch(`${ChatAPI}/flask/chat/${botData.key}`, {
           method: "POST",
           cache: "no-cache",
           headers: {
@@ -48,6 +48,8 @@ function Chat({ botData }: props) {
           },
           body: JSON.stringify({
             question: question,
+            streaming: false,
+            user_id: "1",
           }),
         });
         const responseData = await response.json();

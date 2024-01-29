@@ -82,10 +82,13 @@ export function BillingInfoForm({ billingInfo }: props) {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 relative group">
         <label htmlFor="email" className="font-medium">
           Email Address
         </label>
+        <div className="bg-[#424242] w-[240px] text-[12px] py-4 px-8 rounded-md absolute text-center bottom-[10%] left-[130%] translate-x-[-50%] invisible  group-hover:visible">
+          You can change it from settings
+        </div>
         <input
           disabled
           type="email"
