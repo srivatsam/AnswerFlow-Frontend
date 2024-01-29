@@ -11,7 +11,16 @@ export const {
   signOut,
 } = NextAuth({
   callbacks: {
-    // @ts-ignore
+    async signIn({ user }) {
+      const userExist = await getUserById(user.id as string);
+      if (!userExist || !userExist.emailVerified) {
+        return false;
+      }
+      if (userExist.password == null) {
+        return false;
+      }
+      return true;
+    }, // @ts-ignore
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;

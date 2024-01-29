@@ -75,7 +75,7 @@ function Register() {
       </div>
 
       {/* side bar */}
-      <div className="h-full overflow-y-auto py-10 min-w-[33%] lg:bg-[#0B0B0B] p-6 lg:px-20 py-30 flex flex-col justify-start items-center gap-12 xl:gap-20">
+      <div className="h-full overflow-y-auto py-10 sm:max-w-[90%] md:max-w-[70%] lg:max-w-[50%] xl:max-w-[45%] 2xl:w-[33%] lg:bg-[#0B0B0B] p-6 lg:px-20 py-30 flex flex-col justify-start items-center gap-12 xl:gap-20">
         <Image
           src={"/logo.svg"}
           width={250}
@@ -171,7 +171,7 @@ function Register() {
                 {isPending ? "Creating user..." : "Register"}
               </button>
               <p className="text-[#518EF8]">
-                <Link href={"/login"}>Have an Account?</Link>
+                <Link href={"/login"}>Already have an account?</Link>
               </p>
             </div>
             <span className="bg-[#252525] h-[1px] w-full" />

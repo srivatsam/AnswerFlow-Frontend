@@ -138,8 +138,9 @@ function Login() {
                 {isPending ? "Login..." : "Login"}
               </button>
               <p className="text-[#518EF8]">
-                New Here? <Link href={"/register"}>Create an Account</Link>
+                <Link href={"/register"}>New Here? Create an Account</Link>
               </p>
+              <p className="text-[#518EF8]">Forgot Password?</p>
             </div>
             <span className="bg-[#252525] h-[1px] w-full" />
           </form>
