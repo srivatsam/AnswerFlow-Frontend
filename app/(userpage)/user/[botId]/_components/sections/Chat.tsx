@@ -10,9 +10,11 @@ import { toast } from "sonner";
 
 type props = {
   botData: any;
+  chatIdProp?: string;
 };
 
-function Chat({ botData }: props) {
+function Chat({ botData, chatIdProp }: props) {
+  const [chatId, setChatId] = useState(chatIdProp);
   const session = useSession();
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState<ChatItemType[]>([
@@ -39,62 +41,48 @@ function Chat({ botData }: props) {
       ];
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
-      try {
-        const response = await fetch(`${ChatAPI}/flask/chat/${botData.key}`, {
-          method: "POST",
-          // cache: "no-cache",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            question: question,
-            streaming: false,
-            user_id: "1",
-          }),
-        });
-        const reader = response.body!.getReader();
-        const textDecoder = new TextDecoder("utf-8");
+      await fetch(`${ChatAPI}/flask/chat/${botData.key}`, {
+        method: "POST",
+        // cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: question,
+          streaming: true,
+          user_id: "1",
+          chat_id: chatId,
+        }),
+      })
+        .then((stream) => {
+          // let lastMessage: ChatItemType = {
+          //   role: "ass",
+          //   content: "",
+          // };
+          // setChat((prevChat) => [...prevChat, lastMessage]);
+          const reader = stream.body!.getReader();
+          const textDecoder = new TextDecoder("utf-8");
+          function readChunk() {
+            reader.read().then(({ done, value }) => {
+              if (done) {
+                console.log("End of stream");
+                return;
+              }
+              console.log(textDecoder.decode(value));
+              // setChat((prevChat) => {
+              //   let lastMessageBot = prevChat[prevChat.length - 1];
 
-        let lastMessage: ChatItemType = {
-          role: "ass",
-          content: "",
-        };
-        setChat((prevChat) => [...prevChat, lastMessage]);
-
-        // let done = false;
-        let chunks: string[] = [];
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          setChat((prevChat) => {
-            let lastMessageBot = prevChat[prevChat.length - 1];
-
-            lastMessageBot.content += textDecoder.decode(value);
-            prevChat[prevChat.length - 1] = lastMessageBot;
-            return prevChat;
-          });
-          chunks.push(textDecoder.decode(value));
-          console.log(textDecoder.decode(value));
-        }
-
-        // const responseData = JSON.parse(chunks.join(""));
-        // console.log(textDecoder.decode(value));
-        // console.log(chunks);
-
-        // lastMessage.content = responseData.response;
-        // setChat((prevChat) => [...prevChat, lastMessage]);
-        // if (responseData.status == "error") {
-        //   throw new Error(`ERROR FROM CLIENT BOT:${responseData.message}`);
-        // }
-
-        setLoading(false);
-      } catch (error) {
-        toast.error("Something Went Wrong");
-        setLoading(false);
-        console.error(error);
-        return null;
-      }
+              //   lastMessageBot.content += textDecoder.decode(value);
+              //   prevChat[prevChat.length - 1] = lastMessageBot;
+              //   return prevChat;
+              // });
+              readChunk();
+            });
+          }
+          readChunk();
+        })
+        .catch((error) => console.error(error));
+      setLoading(false);
     }
   };
   const chatContainerRef = useRef<HTMLDivElement | null>(null);

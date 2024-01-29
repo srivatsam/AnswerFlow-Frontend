@@ -8,7 +8,10 @@ import Image from "next/image";
 export function DocumentsManage() {
   const [isPending, startTransition] = useTransition();
   const [file, setFile] = useState<File[]>([]);
-  const addFilesDataSource = async (formDataInputs: FormData) => {
+  const addFilesDataSource = async () => {
+    const formDataInputs = new FormData();
+    file.map((file) => formDataInputs.append("file", file));
+
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
       startTransition(() => {

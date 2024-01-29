@@ -19,6 +19,7 @@ export function SideBarSections() {
   const { activeSection, setActiveSection } = useActiveSection(
     (state) => state
   );
+
   const onClickSection = (section: activeSectionType) => {
     route.push(`/user/${localStorage.getItem("botId")}`);
     setActiveSection(section);
@@ -31,7 +32,7 @@ export function SideBarSections() {
           key={i}
           onClick={() => onClickSection(section)}
           className={`flex gap-4 items-center cursor-pointer hover:brightness-100 brightness-50 transition-all py-4 px-4 hover:bg-[#111111] ${
-            activeSection == section && "!brightness-100 bg-[#111111]"
+            activeSection === section && "!brightness-100 bg-[#111111]"
           }`}
         >
           <Image

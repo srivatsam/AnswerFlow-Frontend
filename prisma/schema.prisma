@@ -37,7 +37,7 @@ enum UserRole {
 model Plan {
   id       String  @id @default(cuid())
   name     String?
-  limit    Limit   @relation(fields: [limit_id], references: [id])
+  limit    Limits  @relation(fields: [limit_id], references: [id])
   limit_id String
   price    Float
   User     User[]
@@ -45,14 +45,14 @@ model Plan {
   @@map(name: "plan")
 }
 
-model Limit {
+model Limits {
   id        String @id @default(cuid())
   botsNum   Int?
   docsSize  Int?
   docsTypes String
   Plan      Plan[]
 
-  @@map(name: "limit")
+  @@map(name: "limits")
 }
 
 model User {
@@ -71,14 +71,16 @@ model User {
 
   @@map(name: "user")
 }
+
 model VerificationToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
   expires DateTime
 
   @@unique([email, token])
 }
+
 model BillingInfo {
   id          String  @id @default(cuid())
   userId      String  @unique

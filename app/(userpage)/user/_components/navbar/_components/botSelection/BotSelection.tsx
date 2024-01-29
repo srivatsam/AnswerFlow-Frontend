@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useSteps } from "@/hooks/use-steps";
+import { activeSectionType } from "@/types/activeSection";
 
 function BotSelection({ bots }: { bots: any }) {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);

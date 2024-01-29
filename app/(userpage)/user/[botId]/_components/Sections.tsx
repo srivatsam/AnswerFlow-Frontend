@@ -10,13 +10,16 @@ import Export from "./sections/Export";
 import BotSettings from "./sections/BotSettings";
 import { useSteps } from "@/hooks/use-steps";
 import { useRouter } from "next/navigation";
+import { activeSectionType } from "@/types/activeSection";
 
 export function Sections({
   botData,
   userPlan,
   botResources,
+  pastChat,
 }: {
   botData: any;
+  pastChat: any;
   userPlan: string;
   botResources: {
     success: string;
@@ -29,14 +32,18 @@ export function Sections({
   const route = useRouter();
 
   useEffect(() => {
-    setActiveSection("Chat");
+    setActiveSection(
+      localStorage.getItem("activeSection") as activeSectionType
+    );
   }, [setActiveSection]);
 
   if (botData)
     return (
       <div className="flex flex-col gap-6 w-full">
         {activeSection == "Chat" && <Chat botData={botData} />}
-        {activeSection == "Past Chat" && <PastChat botData={botData} />}
+        {activeSection == "Past Chat" && (
+          <PastChat pastChat={pastChat} botData={botData} />
+        )}
         {activeSection == "Data Sources" && (
           <DataSources
             botData={botData}

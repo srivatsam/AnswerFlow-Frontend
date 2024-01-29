@@ -12,7 +12,10 @@ export function DocumentsForm({ handleNext }: props) {
   const { formData, setFiles } = useFormContext();
   const [isPending, startTransition] = useTransition();
 
-  const addFilesDataSource = async (formDataInputs: FormData) => {
+  const addFilesDataSource = async () => {
+    const formDataInputs = new FormData();
+    file.map((file) => formDataInputs.append("file", file));
+
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
       startTransition(() => {
