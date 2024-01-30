@@ -33,12 +33,7 @@ function Steps() {
               <p>Database</p>
             </div>
             <div className="flex items-center justify-start flex-row gap-4  ">
-              <Image
-                src={"/Links.png"}
-                alt="downArrow"
-                width={20}
-                height={20}
-              />
+              <Image src={"/url.png"} alt="downArrow" width={20} height={20} />
               <p>Link</p>
             </div>
             <div className="">...........</div>

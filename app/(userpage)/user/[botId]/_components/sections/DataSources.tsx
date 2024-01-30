@@ -69,37 +69,30 @@ function DataSources({ botData, userPlan, botResources }: props) {
           botResources.data.map((resource: any) => (
             <div key={resource.id} className="w-full flex justify-between ">
               <div className="flex gap-6 items-center">
-                {resource.type == "url" ? (
-                  <Image
-                    src={"/Links.png"}
-                    width={24}
-                    height={24}
-                    alt="doc image"
-                  />
-                ) : (
-                  <Image
-                    src={`/${resource.type}.png`}
-                    width={24}
-                    height={24}
-                    alt={resource.type}
-                  />
-                )}
+                <Image
+                  src={`/${resource.type}.png`}
+                  width={24}
+                  height={24}
+                  alt={resource.type}
+                />
                 <h1>{resource.name}</h1>
               </div>
               <div className="flex gap-4">
-                <button>
-                  <Image
-                    src={"/settings2.png"}
-                    width={18}
-                    height={18}
-                    alt="settings image"
-                  />
-                </button>
+                {resource.name == "zip" && (
+                  <button>
+                    <Image
+                      src={"/settings2.png"}
+                      width={18}
+                      height={18}
+                      alt="settings image"
+                    />
+                  </button>
+                )}
                 <button onClick={() => deleteHandle(resource.id)}>
                   <Image
                     src={"/delete.png"}
-                    width={18}
-                    height={18}
+                    width={17}
+                    height={17}
                     alt="delete image"
                   />
                 </button>
@@ -107,7 +100,7 @@ function DataSources({ botData, userPlan, botResources }: props) {
             </div>
           ))
         ) : (
-          <p>
+          <p className="bg-red-500 p-6 rounded-[10px] font-bold uppercase">
             No Data Source Founded, You Have To Add At Least For Better Answers
           </p>
         )}

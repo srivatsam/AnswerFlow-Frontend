@@ -4,7 +4,10 @@ import { APIBACKEND } from "@/utils/constData";
 import { getUserPlan } from "./getUserPlan";
 export const getUserBots = async () => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clrzn68tz0000pckk65117wnz";
   console.log("userId", userId);
   const userPlan = (await getUserPlan()).userPlan;
   console.log(userPlan);

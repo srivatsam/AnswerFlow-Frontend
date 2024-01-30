@@ -5,7 +5,10 @@ import { revalidateTag } from "next/cache";
 
 export const deleteResource = async (botId: string, resourceID: string) => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clrzn68tz0000pckk65117wnz";
   const response = await fetch(
     `${APIBACKEND}/delete_resource/${userId}/${botId}/${resourceID}`,
     {

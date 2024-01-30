@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { SideBarSections } from "./_components/SideBarSections";
 import { Usage } from "./_components/Usage";
 

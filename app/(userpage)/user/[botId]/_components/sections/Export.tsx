@@ -73,22 +73,11 @@ ${APIBACKEND}
           <pre className=" whitespace-pre">
             <code className="whitespace-pre">{botScript}</code>
           </pre>
-          <button onClick={copyScript} className=" absolute top-6 right-6">
-            {isCopiedScript ? (
-              <Image
-                src={"/correct.png"}
-                width={20}
-                height={20}
-                alt="copy image"
-              />
-            ) : (
-              <Image
-                src={"/copy.png"}
-                width={20}
-                height={20}
-                alt="copy image"
-              />
-            )}
+          <button
+            onClick={copyScript}
+            className=" absolute top-4 right-4 px-2 py-1 bg-[#1A1A1A] rounded-[6px] text-[14px]"
+          >
+            {isCopiedScript ? "Copied .." : "Copy Code"}
           </button>
         </div>
       </div>

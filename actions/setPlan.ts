@@ -6,7 +6,10 @@ import { revalidateTag } from "next/cache";
 
 export const setPlan = async (formData: FormData, planFromLocal: string) => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clrzn68tz0000pckk65117wnz";
   const planId =
     planFromLocal == "pro" ? "3" : planFromLocal == "starter" ? "2" : "1";
 

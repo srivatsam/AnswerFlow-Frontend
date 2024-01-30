@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 export const updateBot = async (formData: FormData, botId: string) => {
   console.log(formData, botId);
   const session = await auth();
-  // const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  // const userId = process.env.NODE_ENV == "production" ? session?.user.id : "clrzn68tz0000pckk65117wnz";
   const response = await fetch(`${APIBACKEND}/update_bot/${botId}`, {
     method: "PUT",
     headers: {

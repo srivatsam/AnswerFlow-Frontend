@@ -4,9 +4,9 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 
-import { ChatAPI } from "@/utils/constData";
-
-import { toast } from "sonner";
+import { APIBACKEND, ChatAPI } from "@/utils/constData";
+import { getHistoryAction } from "@/actions/getHistoryAction";
+import { revalidateTag } from "next/cache";
 
 type props = {
   botData: any;
@@ -14,18 +14,43 @@ type props = {
 };
 
 function Chat({ botData, chatIdProp }: props) {
-  const [chatId, setChatId] = useState(chatIdProp);
   const session = useSession();
-  const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState<ChatItemType[]>([
     {
-      role: "ass",
+      role: "assistant",
       content: `👋 Hello, dear ${session.data?.user.name?.toLocaleUpperCase()} ! I'm your friendly assistant, ${
         botData.name
       }. 🤖 How may I assist you today? 🌟`,
     },
   ]);
+  const getHistory = async (chatId: string) => {
+    try {
+      const data = await getHistoryAction(chatId);
+      return data;
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+      throw error;
+    }
+  };
+  useEffect(() => {
+    if (chatIdProp) {
+      const fetchChatHistory = async () => {
+        try {
+          const historyData = await getHistory(chatIdProp);
+          setChat(historyData);
+        } catch (error) {
+          console.error("Error updating chat history:", error);
+        }
+      };
+
+      fetchChatHistory();
+    }
+  }, [chatIdProp]);
   const [question, setQuestion] = useState("");
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const [response, setResponse] = useState("");
+  const [chatId, setChatId] = useState(chatIdProp);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -41,57 +66,74 @@ function Chat({ botData, chatIdProp }: props) {
       ];
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
-      await fetch(`${ChatAPI}/flask/chat/${botData.key}`, {
+      const DILIMETER = "44eabd710f0f455ea12c17564663d175";
+      await fetch(`${ChatAPI}/chat/${botData.key}`, {
         method: "POST",
-        // cache: "no-cache",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           question: question,
           streaming: true,
-          user_id: "1",
+          user_id: "clrzn68tz0000pckk65117wnz",
           chat_id: chatId,
         }),
       })
         .then((stream) => {
-          // let lastMessage: ChatItemType = {
-          //   role: "ass",
-          //   content: "",
-          // };
-          // setChat((prevChat) => [...prevChat, lastMessage]);
+          let lastMessage: ChatItemType = {
+            role: "assistant",
+            content: "",
+          };
+          setChat((prevChat) => [...prevChat, lastMessage]);
+
           const reader = stream.body!.getReader();
           const textDecoder = new TextDecoder("utf-8");
-          function readChunk() {
+
+          const readChunk = () => {
             reader.read().then(({ done, value }) => {
               if (done) {
                 console.log("End of stream");
                 return;
               }
-              console.log(textDecoder.decode(value));
-              // setChat((prevChat) => {
-              //   let lastMessageBot = prevChat[prevChat.length - 1];
-
-              //   lastMessageBot.content += textDecoder.decode(value);
-              //   prevChat[prevChat.length - 1] = lastMessageBot;
-              //   return prevChat;
-              // });
+              let val = textDecoder.decode(value);
+              let values = val.split(DILIMETER);
+              if (values.length === 1) {
+                setResponse((prev) => prev + values[0]);
+                // console.log(values[0]);
+              } else if (values.length > 1) {
+                // console.log(values[0]);
+                console.log(JSON.parse(values[1].trim()));
+                const responseData = JSON.parse(values[1].trim());
+                setChatId(responseData.chat_id);
+              }
               readChunk();
             });
-          }
+          };
           readChunk();
+          setResponse("");
         })
-        .catch((error) => console.error(error));
-      setLoading(false);
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
     }
   };
-  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+      const container = chatContainerRef.current;
+      container.scrollTop = container.scrollHeight;
     }
   }, [chat]);
+  useEffect(() => {
+    setChat((prevChat) => {
+      if (prevChat.length > 2) {
+        let lastMessageBot = prevChat[prevChat.length - 1];
+        lastMessageBot.content = response;
+        prevChat[prevChat.length - 1] = lastMessageBot;
+        return prevChat;
+      }
+      return prevChat;
+    });
+  }, [response]);
 
   return (
     <div className="flex-1 bg-[#131313] rounded-[12px] p-8 gap-10 flex flex-col justify-between">
@@ -111,7 +153,7 @@ function Chat({ botData, chatIdProp }: props) {
                 />
               ) : (
                 <Image
-                  src={"/favicon.png"}
+                  src={"/bot.png"}
                   alt="favicon image"
                   width={40}
                   height={40}
@@ -119,10 +161,9 @@ function Chat({ botData, chatIdProp }: props) {
                 />
               )}
               <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px] markdown-container ">
-                {/* <ReactMarkdown remarkPlugins={[gfm]}>
-                {chat.content}
-              </ReactMarkdown> */}
-                {chat.content ? chat.content : "something went wrong try agin"}
+                <ReactMarkdown remarkPlugins={[gfm]}>
+                  {chat.content}
+                </ReactMarkdown>
               </p>
             </div>
           ))}

@@ -2,7 +2,8 @@ import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 import BotSelection from "./BotSelection";
 const getBots = async (id: string) => {
-  const userId = process.env.NODE_ENV == "production" ? id : "1";
+  const userId =
+    process.env.NODE_ENV == "production" ? id : "clrzn68tz0000pckk65117wnz";
   try {
     const response = await fetch(`${APIBACKEND}/get_bots/${userId}`, {
       method: "GET",

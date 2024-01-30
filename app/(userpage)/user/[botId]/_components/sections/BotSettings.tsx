@@ -22,8 +22,15 @@ function BotSettings({ botData }: props) {
   const [selectedOption, setSelectedOption] = useState<string>(botData.tone);
   const [isPending, startTransition] = useTransition();
 
+  const isChanged =
+    botName !== botData.name ||
+    botPurpose !== botData.system_prompt ||
+    botTone !== botData.tone;
+  const isValid =
+    botName.trim() !== "" && botPurpose.trim() !== "" && botTone.trim() !== "";
+
   const updateBotHandle = (formDataFrom: FormData) => {
-    if (formDataFrom) {
+    if (formDataFrom && isValid && isChanged) {
       formDataFrom.append("toneOfVoice", selectedOption as string);
       startTransition(() => {
         const setPlanPromise = updateBot(
@@ -159,8 +166,11 @@ function BotSettings({ botData }: props) {
         <div className="flex justify-center items-center flex-col gap-4">
           <button
             type="submit"
-            disabled={isPending}
-            className={`btn sec flex !justify-around `}
+            disabled={isPending || !isValid || !isChanged}
+            className={`btn sec flex !justify-around ${
+              (!isValid || isPending || !isChanged) &&
+              " opacity-50 cursor-not-allowed"
+            } `}
           >
             <p>{isPending ? "Saving..." : "Save Changes"}</p>
           </button>

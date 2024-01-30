@@ -6,7 +6,10 @@ import { revalidateTag } from "next/cache";
 
 export const setAiKey = async (formData: FormData) => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clrzn68tz0000pckk65117wnz";
 
   if (formData.get("aiKey")) {
     const response = await fetch(`${APIBACKEND}/update_user/${userId}`, {

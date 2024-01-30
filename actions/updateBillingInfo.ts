@@ -5,7 +5,7 @@ import { revalidateTag } from "next/cache";
 
 export const updateBillingInfo = async (formData: FormData) => {
   const session = await auth();
-  const userId = true ? session?.user.id : "1";
+  const userId = true ? session?.user.id : "clrzn68tz0000pckk65117wnz";
 
   if (formData && userId) {
     const billingData = {

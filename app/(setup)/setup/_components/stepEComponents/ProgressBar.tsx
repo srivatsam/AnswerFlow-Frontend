@@ -47,7 +47,7 @@ export default function ProgressBar() {
                 {formData.urls.map((url, i) => (
                   <div key={i} className="flex gap-2 items-center">
                     <Image
-                      src={"/Links.png"}
+                      src={"/url.png"}
                       width={26}
                       height={26}
                       alt="link image"
