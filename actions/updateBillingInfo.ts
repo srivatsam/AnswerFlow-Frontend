@@ -24,6 +24,10 @@ export const updateBillingInfo = async (formData: FormData) => {
 
     try {
       await db.billingInfo.update({ where: { userId }, data: billingData });
+      await db.user.update({
+        where: { id: userId },
+        data: { image: formData.get("image") as string },
+      });
       revalidateTag("billingInfo");
       return { success: "Updated Billing Info Successfully" };
     } catch (error) {

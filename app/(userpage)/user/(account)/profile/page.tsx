@@ -1,6 +1,7 @@
 import React from "react";
-import { BillingInfoForm } from "./BillingInfoForm";
+import { BillingInfoForm } from "../../_components/account/BillingInfoForm";
 import { getBillingInfo } from "@/actions/getBillingInfo";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 export default async function Profile() {
   try {
@@ -9,7 +10,9 @@ export default async function Profile() {
       return (
         <div className="flex flex-col bg-[rgb(19,19,19)] rounded-[10px] p-12 gap-10 justify-start items-start">
           <h1 className="text-[28px] font-bold">Profile Settings</h1>
-          <BillingInfoForm billingInfo={billingInfo.billingInfo} />
+          <EdgeStoreProvider>
+            <BillingInfoForm billingInfo={billingInfo.billingInfo} />
+          </EdgeStoreProvider>
         </div>
       );
     } else {

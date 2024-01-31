@@ -5,11 +5,13 @@ import React from "react";
 import { useFormContext } from "@/context/FormContext";
 import { useSteps } from "@/hooks/use-steps";
 import { motion } from "framer-motion";
+import { useActiveSection } from "@/hooks/use-active-section";
 
 function StepFinal() {
   console.log("stepFinally render");
   const { resetFormData, formData } = useFormContext();
   const resetToNewBot = useSteps((state) => state.resetToNewBot);
+  const setActiveSection = useActiveSection((state) => state.setActiveSection);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -29,8 +31,9 @@ function StepFinal() {
       </div>
       <Link
         onClick={() => {
+          setActiveSection("Chat");
+          resetFormData();
           setTimeout(() => {
-            resetFormData();
             resetToNewBot();
           }, 1500);
         }}

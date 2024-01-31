@@ -39,13 +39,13 @@ function StepC({ handleNext }: props) {
       >
         <Image src={"/logo.svg"} width={250} height={60} alt="logo png" />
         <div className="flex flex-col gap-3">
-          <label htmlFor="APIKey" className="font-medium">
+          <label htmlFor="openai_api_key" className="font-medium">
             OpenAI API Key
           </label>
           <input
             type="text"
-            id="APIKey"
-            name="aiKey"
+            id="openai_api_key"
+            name="openai_api_key"
             value={formData.openAiApiKey}
             onChange={(e) => setOpenAiApiKey(e.target.value)}
             required

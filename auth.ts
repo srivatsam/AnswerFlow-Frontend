@@ -25,6 +25,7 @@ export const {
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
+        session.user.image = token.image;
       }
       if (token.role && session.user) {
         session.user.role = token.role;
@@ -37,6 +38,8 @@ export const {
       const exitUser = await getUserById(token.sub);
       if (!exitUser) return token;
       token.role = exitUser.role;
+      token.image = exitUser.image;
+
       // console.log(token);
       return token;
     },

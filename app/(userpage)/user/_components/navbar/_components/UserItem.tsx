@@ -23,7 +23,7 @@ function UserItem() {
       <div className="relative z-[4]">
         <button onClick={() => setToggle((prev) => !prev)}>
           <UserData />
-        </button>{" "}
+        </button>
         {toggle && (
           <div className="absolute w-[stretch] top-[120%] left-0 py-2 px-4 bg-[#1B1B1B] rounded-[10px] flex flex-col items-start">
             {userItems.map((item, i) =>

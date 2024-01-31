@@ -4,6 +4,9 @@ import { CountryInput } from "@/app/(setup)/setup/_components/stepAComponents/Co
 import { PhoneInput } from "@/app/(setup)/setup/_components/stepAComponents/PhoneInput";
 import { toast } from "sonner";
 import { updateBillingInfo } from "@/actions/updateBillingInfo";
+import UploadImage from "./UploadImage";
+import { useSession } from "next-auth/react";
+import UserImage from "./UserImage";
 type props = {
   billingInfo: billingInfoType;
 };
@@ -23,9 +26,12 @@ type billingInfoType = {
   phoneCode: string | null;
 };
 export function BillingInfoForm({ billingInfo }: props) {
+  const session = useSession();
+  const [imageUrl, setImageUrl] = useState(session.data?.user.image || null);
   const [isPending, startTransition] = useTransition();
   const [billingInfoState, setBillingInfoState] =
     useState<billingInfoType>(billingInfo);
+
   const updateBillingInfoField = (field: string, value: string) => {
     setBillingInfoState((prevBillingInfo) => ({
       ...prevBillingInfo,
@@ -39,6 +45,9 @@ export function BillingInfoForm({ billingInfo }: props) {
   };
 
   const formHandle = (e: FormData) => {
+    if (imageUrl) {
+      e.append("image", imageUrl);
+    }
     startTransition(() => {
       const setPlanPromise = updateBillingInfo(e);
       toast.promise(setPlanPromise, {
@@ -50,6 +59,12 @@ export function BillingInfoForm({ billingInfo }: props) {
   };
   return (
     <form action={formHandle} className="flex flex-col gap-6 ">
+      {imageUrl ? (
+        <UserImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
+      ) : (
+        <UploadImage setImageUrl={setImageUrl} imageUrl={imageUrl} />
+      )}
+
       <div className="flex justify-between gap-4">
         <div className="flex flex-col gap-1 w-[230px]">
           <label htmlFor="firstName" className="font-medium">
