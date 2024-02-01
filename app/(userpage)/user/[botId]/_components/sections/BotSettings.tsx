@@ -13,7 +13,10 @@ type props = {
   botData: any;
 };
 function BotSettings({ botData }: props) {
+  const deleteConfirm = `DELETE/${botData.name}`;
+  const [deleteMassage, setDeleteMassage] = useState("");
   const route = useRouter();
+  const [deletePopUp, setDeletePopUp] = useState(false);
   const [botName, setBotName] = useState<string>(botData.name);
   const [botPurpose, setBotPurpose] = useState<string>(botData.system_prompt);
   const [botTone, setBotTone] = useState<string>(botData.tone);
@@ -70,6 +73,10 @@ function BotSettings({ botData }: props) {
     setBotTone(option);
     setSelectedOption(option);
     setIsOpen(false);
+  };
+
+  const popupDelete = () => {
+    setDeletePopUp(true);
   };
 
   return (
@@ -202,15 +209,60 @@ function BotSettings({ botData }: props) {
               users and invited members will loose access to the bot.
             </p>
           </div>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              deleteHandle();
-            }}
+          <div
+            onClick={popupDelete}
             className="bg-[#232323] rounded-[10px] py-4 px-10 w-fit"
           >
             {isPendingDelete ? "Deleting Bot ..." : "Delete Sales Bot"}
-          </button>
+          </div>
+          {deletePopUp && (
+            <div className="fixed z-50 inset-0 overflow-hidden backdrop-blur-3xl flex justify-center items-center ">
+              <div className="flex flex-col justify-start items-start gap-4 px-12 py-8 bg-black/60 rounded-[10px]">
+                <label htmlFor="deleteConfirm" className="select-none">
+                  All the information in the bot will be deleted. <br />
+                  Type <span className="font-bold">{deleteConfirm}</span> to
+                  confirm.
+                </label>
+                <input
+                  type="text"
+                  name="deleteConfirm"
+                  id="deleteConfirm"
+                  value={deleteMassage}
+                  onChange={(e) => setDeleteMassage(e.target.value)}
+                  placeholder={deleteConfirm}
+                  className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+                />
+                <div className=" flex justify-between items-center w-full">
+                  <button
+                    disabled={deleteMassage !== deleteConfirm}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      deleteHandle();
+                    }}
+                    className={`${
+                      deleteMassage !== deleteConfirm &&
+                      "opacity-40 cursor-not-allowed"
+                    } bg-[#fa5555] rounded-[10px] py-4 px-10 w-fit`}
+                  >
+                    {isPendingDelete ? "Deleting Bot ..." : "Delete Sales Bot"}
+                  </button>
+                  <button
+                    className="bg-[#232323] rounded-[10px] py-4 px-10 w-fit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setDeletePopUp(false);
+                    }}
+                  >
+                    cancel
+                  </button>
+                </div>
+              </div>
+              <div
+                onClick={() => setDeletePopUp(false)}
+                className="fixed z-[-10] inset-0 cursor-pointer"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

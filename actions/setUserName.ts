@@ -18,6 +18,7 @@ export const setUserName = async (formData: FormData) => {
       data: {
         firstName: formData.get("firstName") as string,
         lastName: formData.get("lastName") as string,
+        image: formData.get("image") as string,
       },
     });
     revalidateTag("user");
