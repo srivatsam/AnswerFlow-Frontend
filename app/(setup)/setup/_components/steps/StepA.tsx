@@ -93,6 +93,7 @@ function StepA({ handleNext }: props) {
                 id="firstName"
                 name="firstName"
                 value={firstName || ""}
+                autoComplete="first name"
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 placeholder="Enter your first name"
@@ -107,6 +108,7 @@ function StepA({ handleNext }: props) {
                 type="text"
                 id="lastName"
                 name="lastName"
+                autoComplete="last name"
                 value={lastName || ""}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -142,6 +144,7 @@ function StepA({ handleNext }: props) {
               type="text"
               id="company"
               name="company"
+              autoComplete="company"
               required
               placeholder="Enter your company name"
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -155,6 +158,7 @@ function StepA({ handleNext }: props) {
               type="text"
               id="address"
               name="address"
+              autoComplete="address"
               required
               placeholder="Apartment, Suite etc.."
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -169,6 +173,7 @@ function StepA({ handleNext }: props) {
                 type="text"
                 id="city"
                 name="city"
+                autoComplete="city"
                 required
                 placeholder="Enter your city"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -182,6 +187,7 @@ function StepA({ handleNext }: props) {
                 type="text"
                 id="state"
                 name="state"
+                autoComplete="state"
                 required
                 placeholder="Enter state"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -198,6 +204,7 @@ function StepA({ handleNext }: props) {
                 type="text"
                 id="pinCode"
                 name="pinCode"
+                autoComplete="pinCode"
                 required
                 placeholder="Enter your PinCode"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -205,19 +212,6 @@ function StepA({ handleNext }: props) {
             </div>
           </div>
           <PhoneInput />
-          {/* <div className="flex flex-col gap-1">
-            <label htmlFor="phoneNumber" className="font-medium">
-              Phone Number
-            </label>
-            <input
-              type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              required
-              placeholder="Enter your phone number"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
-            />
-          </div> */}
         </div>
       </div>
       {/* plan details  */}

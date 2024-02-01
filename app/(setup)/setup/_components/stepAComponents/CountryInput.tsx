@@ -23,6 +23,7 @@ export function CountryInput({ handleInputChange, country }: props) {
           type="text"
           id="country"
           name="country"
+          autoComplete="country"
           onFocus={() => setIsOpen(true)}
           onChange={(e) => {
             if (handleInputChange) handleInputChange(e);

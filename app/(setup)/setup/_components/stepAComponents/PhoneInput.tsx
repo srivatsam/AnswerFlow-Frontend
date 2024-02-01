@@ -29,6 +29,7 @@ export function PhoneInput({
           <input
             id="phoneCode"
             name="phoneCode"
+            autoComplete="country code"
             onClick={() => setIsOpen(true)}
             onChange={(e) => {
               if (handleInputChange) handleInputChange(e);
@@ -44,6 +45,7 @@ export function PhoneInput({
               type="text"
               id="phoneNumber"
               name="phoneNumber"
+              autoComplete="phone number"
               value={phoneNumber || ""}
               onChange={(e) => {
                 if (handleInputChange) handleInputChange(e);
