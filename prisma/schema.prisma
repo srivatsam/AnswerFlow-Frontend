@@ -57,7 +57,9 @@ model Limits {
 
 model User {
   id             String       @id @default(cuid())
-  name           String?
+  name           String? 
+  firstName      String?
+  lastName       String?
   email          String?      @unique
   emailVerified  DateTime?
   image          String?
@@ -84,9 +86,6 @@ model VerificationToken {
 model BillingInfo {
   id          String  @id @default(cuid())
   userId      String  @unique
-  firstName   String?
-  lastName    String?
-  email       String?
   company     String?
   address     String?
   state       String?

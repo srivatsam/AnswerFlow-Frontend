@@ -6,7 +6,7 @@ type props = {
   setImageUrl: React.Dispatch<React.SetStateAction<string | null>>;
   imageUrl: string;
 };
-export default function UserImage({ setImageUrl, imageUrl }: props) {
+export function UserImage({ setImageUrl, imageUrl }: props) {
   const [toggle, setToggle] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
 

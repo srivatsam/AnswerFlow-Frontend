@@ -38,7 +38,7 @@ function Upgrade() {
         Upgrade ✨
       </div>
       {toggle && (
-        <div className="absolute top-0 left-0 w-full  flex justify-center items-center z-[999] bg-black/40 backdrop-blur-sm ">
+        <div className="absolute top-0 left-0 w-full  flex justify-center items-center z-[999] bg-black/40 backdrop-blur-lg">
           <section
             id="pricing"
             className="section relative flex justify-center items-center flex-col gap-10 p-4"

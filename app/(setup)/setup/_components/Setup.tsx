@@ -1,3 +1,4 @@
+"use client";
 import StepA from "./steps/StepA";
 import StepB from "./steps/StepB";
 import StepC from "./steps/StepC";

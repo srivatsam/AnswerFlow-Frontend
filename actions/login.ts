@@ -13,7 +13,11 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
   const { email, password } = validations.data;
   try {
-    await signIn("credentials", { email, password, redirectTo: "/setup" });
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: "/setup",
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

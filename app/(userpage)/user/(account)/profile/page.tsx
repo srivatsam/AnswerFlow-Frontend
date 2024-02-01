@@ -1,18 +1,21 @@
 import React from "react";
-import { BillingInfoForm } from "../../_components/account/BillingInfoForm";
+
 import { getBillingInfo } from "@/actions/getBillingInfo";
-import { EdgeStoreProvider } from "@/lib/edgestore";
+import { getUserData } from "@/actions/getUserData";
+import { ProfileForm } from "../_components/ProfileForm";
 
 export default async function Profile() {
+  const billingInfo = await getBillingInfo();
+  const userInfo = await getUserData();
   try {
-    const billingInfo = await getBillingInfo();
-    if ("billingInfo" in billingInfo && billingInfo.billingInfo) {
+    if (billingInfo && userInfo) {
       return (
-        <div className="flex flex-col bg-[rgb(19,19,19)] rounded-[10px] p-12 gap-10 justify-start items-start">
+        <div className="flex flex-col bg-[rgb(19,19,19)] rounded-[10px] p-12 gap-10 justify-start items-start w-[600px]">
           <h1 className="text-[28px] font-bold">Profile Settings</h1>
-          <EdgeStoreProvider>
-            <BillingInfoForm billingInfo={billingInfo.billingInfo} />
-          </EdgeStoreProvider>
+          <ProfileForm
+            userInfo={userInfo}
+            billingInfo={billingInfo.billingInfo!}
+          />
         </div>
       );
     } else {

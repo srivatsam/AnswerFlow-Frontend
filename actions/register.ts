@@ -1,11 +1,12 @@
 "use server";
 
-import { RegisterSchema } from "@/schemas";
-import db from "@/utils/db";
-import { z } from "zod";
-
-import bcrypt from "bcryptjs";
 import { getUserByEmail } from "@/utils/dbFunctions/user";
+import { RegisterSchema } from "@/schemas";
+
+import { z } from "zod";
+import db from "@/utils/db";
+import bcrypt from "bcryptjs";
+
 import { APIBACKEND } from "@/utils/constData";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
@@ -14,7 +15,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     console.error(`ERROR FROM SERVER Invalid Inputs`);
     return new Error("Invalid Inputs");
   }
-  const { name, email, password } = validations.data;
+  const { email, password } = validations.data;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const exitUser = await getUserByEmail(email);
@@ -23,7 +24,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return new Error("Email taken");
   }
   try {
-    await db.user.create({ data: { name, email, password: hashedPassword } });
+    await db.user.create({ data: { email, password: hashedPassword } });
   } catch (error) {
     console.error(`ERROR FROM SERVER :${error}`);
     return new Error("Email taken");

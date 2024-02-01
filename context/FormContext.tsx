@@ -124,7 +124,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
       files: [],
       urls: [],
     });
-    // localStorage.removeItem(LOCAL_STORAGE_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
   };
 
   return (

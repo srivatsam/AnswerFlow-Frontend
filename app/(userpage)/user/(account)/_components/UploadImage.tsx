@@ -9,7 +9,7 @@ type props = {
   setImageUrl: React.Dispatch<React.SetStateAction<string | null>>;
   imageUrl: string | null;
 };
-function UploadImage({ setImageUrl, imageUrl }: props) {
+export function UploadImage({ setImageUrl, imageUrl }: props) {
   const [toggle, setToggle] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
   const { edgestore } = useEdgeStore();
@@ -66,5 +66,3 @@ function UploadImage({ setImageUrl, imageUrl }: props) {
     </div>
   );
 }
-
-export default UploadImage;

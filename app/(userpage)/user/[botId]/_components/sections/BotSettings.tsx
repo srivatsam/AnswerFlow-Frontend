@@ -21,6 +21,7 @@ function BotSettings({ botData }: props) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>(botData.tone);
   const [isPending, startTransition] = useTransition();
+  const [isPendingDelete, startTransitionDelete] = useTransition();
 
   const isChanged =
     botName !== botData.name ||
@@ -47,10 +48,9 @@ function BotSettings({ botData }: props) {
   };
 
   const deleteHandle = () => {
-    startTransition(() => {
+    startTransitionDelete(() => {
       const setPlanPromise = deleteBot(localStorage.getItem("botId")!).then(
         () => {
-          // localStorage.setItem("botId", "-");
           route.push("/user/profile");
         }
       );
@@ -203,10 +203,13 @@ function BotSettings({ botData }: props) {
             </p>
           </div>
           <button
-            onClick={deleteHandle}
+            onClick={(e) => {
+              e.preventDefault();
+              deleteHandle();
+            }}
             className="bg-[#232323] rounded-[10px] py-4 px-10 w-fit"
           >
-            Delete Sales Bot
+            {isPendingDelete ? "Deleting Bot ..." : "Delete Sales Bot"}
           </button>
         </div>
       </div>

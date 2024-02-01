@@ -2,15 +2,14 @@
 import { auth } from "@/auth";
 import db from "@/utils/db";
 import { revalidateTag } from "next/cache";
+import { setUserName } from "./setUserName";
 
-export const updateBillingInfo = async (formData: FormData) => {
+export const updateInfo = async (formData: FormData) => {
   const session = await auth();
   const userId = true ? session?.user.id : "clrzn68tz0000pckk65117wnz";
 
   if (formData && userId) {
     const billingData = {
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
       city: formData.get("city") as string,
       state: formData.get("state") as string,
       company: formData.get("company") as string,
@@ -24,10 +23,7 @@ export const updateBillingInfo = async (formData: FormData) => {
 
     try {
       await db.billingInfo.update({ where: { userId }, data: billingData });
-      await db.user.update({
-        where: { id: userId },
-        data: { image: formData.get("image") as string },
-      });
+      await setUserName(formData);
       revalidateTag("billingInfo");
       return { success: "Updated Billing Info Successfully" };
     } catch (error) {

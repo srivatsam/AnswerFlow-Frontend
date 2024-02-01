@@ -25,7 +25,7 @@ export function LinkForm({ handleNext }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Data Added Successfully",
-          error: "Invalid Url, Try Agin",
+          error: "please enter a valid URL",
         });
       });
     }

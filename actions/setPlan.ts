@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 import db from "@/utils/db";
 import { revalidateTag } from "next/cache";
+import { setUserName } from "./setUserName";
 
 export const setPlan = async (formData: FormData, planFromLocal: string) => {
   const session = await auth();
@@ -15,8 +16,6 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
 
   if (formData && userId) {
     const billingData = {
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
       city: formData.get("city") as string,
       state: formData.get("state") as string,
       company: formData.get("company") as string,
@@ -25,11 +24,11 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
       phoneNumber: formData.get("phoneNumber") as string,
       phoneCode: formData.get("phoneCode") as string,
       pinCode: formData.get("pinCode") as string,
-      email: formData.get("email") as string,
       userId: session?.user.id as string,
     };
 
     try {
+      await setUserName(formData);
       await db.billingInfo.create({ data: billingData });
     } catch (error) {
       console.error(error);

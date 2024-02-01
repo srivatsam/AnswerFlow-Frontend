@@ -9,7 +9,7 @@ export const getBillingInfo = async () => {
   const exitUser = await getUserById(session?.user.id as string);
   if (!exitUser) {
     console.error(`Not authorized`);
-    return new Error("Not Authorized");
+    return null;
   }
   try {
     const billingInfo = await db.billingInfo.findUnique({
@@ -21,6 +21,6 @@ export const getBillingInfo = async () => {
     };
   } catch (error) {
     console.error(`ERROR FROM SERVER :${error}`);
-    return new Error("Something Went Wrong Try Again");
+    return null;
   }
 };

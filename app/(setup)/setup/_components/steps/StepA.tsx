@@ -9,16 +9,19 @@ import { motion } from "framer-motion";
 import { PlanDetails } from "../stepAComponents/PlanDetails";
 import { CountryInput } from "../stepAComponents/CountryInput";
 import { PhoneInput } from "../stepAComponents/PhoneInput";
+import { useSession } from "next-auth/react";
 
 type props = { handleNext: () => void };
 
 function StepA({ handleNext }: props) {
-  // console.log("stepA render");
+  const session = useSession();
+  const [email, setEmail] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const route = useRouter();
   const [planFromLocal, setPlanFromLocal] = useState<YourPlanType>();
   const [isPending, startTransition] = useTransition();
 
-  // retrieving plan from local storage
   const fetchPlanFromLocalStorage = useCallback(() => {
     try {
       const storedPlan = localStorage.getItem("plan");
@@ -37,7 +40,11 @@ function StepA({ handleNext }: props) {
   }, [route]);
 
   useEffect(() => {
-    // console.log("Effect is running");
+    setEmail(session.data?.user.email || "");
+    setLastName(session.data?.user.name?.split(" ")[1] || "");
+    setFirstName(session.data?.user.name?.split(" ")[0] || "");
+  }, [session]);
+  useEffect(() => {
     fetchPlanFromLocalStorage();
   }, [fetchPlanFromLocalStorage]);
 
@@ -85,6 +92,8 @@ function StepA({ handleNext }: props) {
                 type="text"
                 id="firstName"
                 name="firstName"
+                value={firstName || ""}
+                onChange={(e) => setFirstName(e.target.value)}
                 required
                 placeholder="Enter your first name"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
@@ -98,23 +107,30 @@ function StepA({ handleNext }: props) {
                 type="text"
                 id="lastName"
                 name="lastName"
+                value={lastName || ""}
+                onChange={(e) => setLastName(e.target.value)}
                 required
                 placeholder="Enter your last name"
                 className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
               />
             </div>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 relative group">
             <label htmlFor="email" className="font-medium">
               Email Address
             </label>
+            <div className="bg-[#424242] w-[240px] text-[12px] py-4 px-8 rounded-md absolute text-center bottom-[110%] left-[10%] translate-x-[-50%] invisible  group-hover:visible">
+              You can change it from settings
+            </div>
             <input
+              disabled
               type="email"
               id="email"
               name="email"
+              value={email || ""}
               required
               placeholder="Enter your work email"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none opacity-40 cursor-not-allowed"
             />
           </div>
           <h1 className="text-[#777777] text-[24px] font-bold">Billing Info</h1>

@@ -147,16 +147,16 @@ function Chat({ botData, chatIdProp }: props) {
                 <Image
                   src={session.data?.user?.image || "/profile.jpg"}
                   alt="user image"
-                  width={40}
-                  height={40}
-                  className="rounded-full"
+                  width={48}
+                  height={48}
+                  className="rounded-full "
                 />
               ) : (
                 <Image
-                  src={"/bot.png"}
+                  src={"/favicon.png"}
                   alt="favicon image"
-                  width={40}
-                  height={40}
+                  width={48}
+                  height={48}
                   className="rounded-full"
                 />
               )}

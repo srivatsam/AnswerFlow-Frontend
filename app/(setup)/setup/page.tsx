@@ -1,4 +1,3 @@
-"use client";
 import Setup from "./_components/Setup";
 
 function page() {

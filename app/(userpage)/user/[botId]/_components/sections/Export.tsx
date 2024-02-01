@@ -18,20 +18,32 @@ function Export({ botData }: props) {
 ${APIBACKEND}
 /loader.js"></script>`;
 
-  const copyScript = () => {
-    setIsCopiedScript(true);
-    navigator.clipboard.writeText(botScript);
-    setTimeout(() => {
+  const copyScript = async () => {
+    try {
+      setIsCopiedScript(true);
+      await navigator.clipboard.writeText(botScript);
+      setTimeout(() => {
+        setIsCopiedScript(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Unable to copy script to clipboard", error);
       setIsCopiedScript(false);
-    }, 3000);
+    }
   };
-  const copyLink = () => {
-    setIsCopiedLink(true);
-    navigator.clipboard.writeText(botLink);
-    setTimeout(() => {
+
+  const copyLink = async () => {
+    try {
+      setIsCopiedLink(true);
+      await navigator.clipboard.writeText(botLink);
+      setTimeout(() => {
+        setIsCopiedLink(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Unable to copy link to clipboard", error);
       setIsCopiedLink(false);
-    }, 3000);
+    }
   };
+
   return (
     <div className="bg-[#131313] rounded-[12px] p-10 flex flex-col gap-20 items-start w-fit">
       <div className="flex flex-col gap-10 w-full">

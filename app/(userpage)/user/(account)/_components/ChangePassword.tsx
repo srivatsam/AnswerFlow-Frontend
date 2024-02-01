@@ -10,6 +10,7 @@ export function ChangePassword({ password }: props) {
   const [newPassword, setNewPassword] = useState("");
   const isChanged = newPassword !== password;
   const [isPending, startTransition] = useTransition();
+
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/;
   const isValid = passwordRegex.test(newPassword);
@@ -59,8 +60,8 @@ export function ChangePassword({ password }: props) {
           />
           {!isValid && (
             <p className="text-[14px] text-red-500 max-w-[400px]">
-              Your password must be at least 8 characters long, contain at least
-              one number or a mix of alphabets & special characters
+              Password must be minimum 8 characters long and contain atleast one
+              uppercase, one lowercase and one number.
             </p>
           )}
         </div>

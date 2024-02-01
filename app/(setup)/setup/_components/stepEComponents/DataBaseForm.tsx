@@ -65,9 +65,9 @@ export function DataBaseForm({ handleNext }: props) {
       action={addUrlDataHandle}
       className="flex-1 flex flex-col justify-between gap-6 w-full"
     >
-      <div className="flex flex-col gap-6 ">
+      <div className="flex flex-col gap-6  ">
         <div className="flex gap-4 w-[100%]">
-          <div className="flex flex-col gap-4 ">
+          <div className="flex flex-col gap-4 w-[100%]">
             <label htmlFor="host" className="text-[20px] font-medium">
               Host
             </label>
@@ -82,7 +82,7 @@ export function DataBaseForm({ handleNext }: props) {
               className="w-full bg-[#0B0B0B] py-4 px-10 outline-none rounded-[10px] text-[20px]"
             />
           </div>
-          <div className="flex flex-col gap-4 ">
+          <div className="flex flex-col gap-4 w-[100%]">
             <label htmlFor="port" className="text-[20px] font-medium">
               Port
             </label>

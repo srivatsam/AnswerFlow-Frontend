@@ -38,18 +38,18 @@ export function PlanDetails({ planProps, isPending }: props) {
 
       <div className="flex flex-col gap-6 px-20">
         <div className="flex flex-col gap-2 text-[16px] ">
-          <h2 className="text-[#A595FD] font-bold uppercase">features</h2>
-          <div className="flex flex-col gap-1 pl-10 text-[16px]">
+          <h2 className="text-[#616161] font-bold uppercase">features</h2>
+          <div className="flex flex-col gap-1 text-[16px]">
             {selectedPlan.features.map((planFeature, index) => (
               <p key={index}>{planFeature}</p>
             ))}
           </div>
         </div>
         <div className="flex flex-col gap-2 text-[16px] ">
-          <h2 className="text-[#A595FD] font-bold uppercase">
+          <h2 className="text-[#616161] font-bold uppercase">
             Supported Data sources
           </h2>
-          <div className="flex flex-col gap-1 pl-10 text-[16px]">
+          <div className="flex flex-col gap-1  text-[16px]">
             {selectedPlan.dataSupport.map((planDataSupport, index) => (
               <p key={index}>{planDataSupport}</p>
             ))}
@@ -85,8 +85,12 @@ export function PlanDetails({ planProps, isPending }: props) {
             : selectedPlan?.price * 12 - (selectedPlan?.price * 12 * 10) / 100}
         </div>
       </div>
-      <div className="flex flex-col gap-3 justify-center px-20">
-        <button type="submit" disabled={isPending} className="btn sec !w-[80%]">
+      <div className="flex flex-col gap-3 justify-center px-20 w-full">
+        <button
+          type="submit"
+          disabled={isPending}
+          className="btn sec !w-[100%]"
+        >
           {isPending ? "Loading..." : "Proceed to Payment"}
         </button>
       </div>

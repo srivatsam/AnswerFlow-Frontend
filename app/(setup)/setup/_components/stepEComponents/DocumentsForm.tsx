@@ -123,7 +123,10 @@ export function DocumentsForm({ handleNext }: props) {
               isPending) &&
             " opacity-50 cursor-not-allowed"
           }`}
-          onClick={handleNext}
+          onClick={(e) => {
+            e.preventDefault();
+            handleNext();
+          }}
         >
           <p>Finish Setup</p>
         </button>

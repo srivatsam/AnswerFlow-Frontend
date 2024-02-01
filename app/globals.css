@@ -46,6 +46,10 @@
 @keyframes icon-rotate {
   to {
     transform: rotateZ(360deg);
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
+    -ms-transform: rotateZ(360deg);
+    -o-transform: rotateZ(360deg);
   }
 }
 
@@ -58,6 +62,18 @@
 }
 
 /* loading */
+input::placeholder {
+  color: #5e5e5e;
+}
+textarea::placeholder {
+  color: #5e5e5e;
+}
+input {
+  color: #ffffff !important;
+}
+textarea {
+  color: #d1d1d1 !important;
+}
 
 /* markdown  */
 

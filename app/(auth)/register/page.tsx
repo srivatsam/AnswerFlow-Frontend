@@ -29,7 +29,6 @@ function Register() {
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -102,22 +101,6 @@ function Register() {
                         placeholder="Enter your work email"
                         type="email"
                       />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <FormField
-                disabled={isPending}
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-[1rem]">User Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="Enter Name" type="text" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

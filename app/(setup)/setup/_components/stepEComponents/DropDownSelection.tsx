@@ -58,8 +58,8 @@ export default function DropDownSelection({
                 >
                   <Image
                     src={`/${dataType}.png`}
-                    width={14}
-                    height={14}
+                    width={20}
+                    height={20}
                     alt={dataType}
                   />
                   <p>{dataType}</p>

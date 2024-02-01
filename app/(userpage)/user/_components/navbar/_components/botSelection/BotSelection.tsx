@@ -53,7 +53,6 @@ function BotSelection({ bots }: { bots: any }) {
             <button
               onClick={() => {
                 setToggle(false);
-                resetToNewBot();
                 route.push(`/setup`);
               }}
               className="flex justify-between gap-1 py-1 px-2 w-full capitalize"
@@ -74,7 +73,9 @@ function BotSelection({ bots }: { bots: any }) {
                   onClick={() => {
                     setToggle(false);
                     route.push(`/user/${item.id}`);
-                    setActiveSection("Chat");
+                    if (localStorage.getItem("activeSection") == "") {
+                      setActiveSection("Chat");
+                    }
                     setBotSelected(item.name);
                     localStorage.setItem("botId", `${item.id}`);
                   }}
