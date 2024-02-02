@@ -41,8 +41,8 @@ function StepA({ handleNext }: props) {
 
   useEffect(() => {
     setEmail(session.data?.user.email || "");
-    setLastName(session.data?.user.name?.split(" ")[1] || "");
-    setFirstName(session.data?.user.name?.split(" ")[0] || "");
+    // setLastName(session.data?.user.name?.split(" ")[1] || "");
+    // setFirstName(session.data?.user.name?.split(" ")[0] || "");
   }, [session]);
   useEffect(() => {
     fetchPlanFromLocalStorage();

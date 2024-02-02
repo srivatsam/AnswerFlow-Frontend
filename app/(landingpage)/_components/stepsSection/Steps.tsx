@@ -20,7 +20,12 @@ function Steps() {
           </div>
           <div className="inner-card-2 text-sm md:text-base">
             <div className="flex items-center justify-start flex-row gap-4">
-              <Image src={"/Doc.png"} alt="downArrow" width={20} height={20} />
+              <Image
+                src={"/Documents.png"}
+                alt="downArrow"
+                width={20}
+                height={20}
+              />
               <p>Document</p>
             </div>
             <div className="flex items-center justify-start flex-row gap-4">

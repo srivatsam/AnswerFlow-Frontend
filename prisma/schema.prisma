@@ -35,14 +35,19 @@ enum UserRole {
 }
 
 model Plan {
-  id       String  @id @default(cuid())
-  name     String?
-  limit    Limits  @relation(fields: [limit_id], references: [id])
-  limit_id String
-  price    Float
-  User     User[]
+id String @id @default(cuid())
+name String?
+limit Limits @relation(fields: [limit_id], references: [id])
+limit_id String
+price_m String
+price_y String
+price_m_id String
+price_y_id String
+User User[]
 
-  @@map(name: "plan")
+
+
+@@map(name: "plan")
 }
 
 model Limits {

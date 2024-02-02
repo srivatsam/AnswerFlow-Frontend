@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { getUserById } from "@/utils/dbFunctions/user";
 
 function Login() {
   const route = useRouter();
@@ -44,15 +45,9 @@ function Login() {
   }, [route]);
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    startTransition(() => {
-      const registerPromise = login(values); /* .then((data) => {
-        const botExist = localStorage.getItem("botId");
-        if (botExist == null) {
-          route.push("/setup");
-        } else {
-          route.push(`/user/${botExist}`);
-        }
-      }); */
+    startTransition(async () => {
+      const registerPromise = login(values);
+
       toast.promise(registerPromise, {
         loading: "Loading...",
         success: "User Login Successfully",
