@@ -4,6 +4,7 @@ import { signIn } from "@/auth";
 import { LoginSchema } from "@/schemas";
 import { AuthError } from "next-auth";
 import { z } from "zod";
+import { getUserData } from "./getUserData";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validations = LoginSchema.safeParse(values);
@@ -31,5 +32,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       }
     }
   }
-  return { success: "Login Successfully" };
+  const user = await getUserData();
+  console.log("---------------------------------------", user);
+  return user;
 };

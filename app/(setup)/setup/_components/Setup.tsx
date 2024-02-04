@@ -22,8 +22,11 @@ type props = {
 function Setup({ seatedPlan, hasOpenAIKey, hasBots }: props) {
   const route = useRouter();
   const { activeStep, setActiveStep } = useSteps((state) => state);
-
   const increaseProgress = useProgressBar((state) => state.increaseProgress);
+
+  if (!seatedPlan) {
+    setActiveStep("a");
+  }
 
   switch (activeStep) {
     case "b":

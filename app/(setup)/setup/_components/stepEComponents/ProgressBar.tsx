@@ -30,15 +30,41 @@ export default function ProgressBar() {
               <div className="absolute w-full h-6 bottom-0 left-0 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
               <div className="flex flex-col gap-2 max-h-[250px] min-h-[140px] overflow-auto px-2">
                 {formData.files.map((file, i) => (
-                  <div key={i} className="flex gap-2 items-center  ">
-                    {/* {file.type != "application/pdf" && ( */}
-                    <Image
-                      src={"/file.png"}
-                      width={26}
-                      height={26}
-                      alt="file image"
-                    />
-                    {/* )} */}
+                  <div key={i} className="flex gap-2 items-center">
+                    {file.type ==
+                      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
+                      <Image
+                        src={"/docx.png"}
+                        width={26}
+                        height={26}
+                        alt="file image"
+                      />
+                    )}
+                    {file.type == "application/pdf" && (
+                      <Image
+                        src={"/docx.png"}
+                        width={26}
+                        height={26}
+                        alt="file image"
+                      />
+                    )}
+                    {file.type ==
+                      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" && (
+                      <Image
+                        src={"/xls.png"}
+                        width={26}
+                        height={26}
+                        alt="file image"
+                      />
+                    )}
+                    {file.type == "text/csv" && (
+                      <Image
+                        src={"/csv.png"}
+                        width={26}
+                        height={26}
+                        alt="file image"
+                      />
+                    )}
                     <p className="whitespace-nowrap text-ellipsis overflow-hidden max-w-[350px]">
                       {file.name}
                     </p>
