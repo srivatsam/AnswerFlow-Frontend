@@ -8,7 +8,7 @@ export const updatePlan = async (plan: string) => {
   const userId =
     process.env.NODE_ENV == "production"
       ? session?.user.id
-      : "clrzn68tz0000pckk65117wnz";
+      : "cls4l3i1b00008tqrll9og6d4";
   const planId = plan == "pro" ? "3" : plan == "starter" ? "2" : "1";
 
   if (userId) {

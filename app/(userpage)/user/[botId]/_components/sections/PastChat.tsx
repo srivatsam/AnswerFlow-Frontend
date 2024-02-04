@@ -17,7 +17,7 @@ function PastChat({ pastChat, botData }: props) {
       <div className="bg-[#131313] rounded-[12px] flex flex-col py-2 w-[290px]">
         <div className="px-8 py-6 border-b-[0.5px] border-[#252525]">
           <button
-            onClick={() => setActiveSection("Chat")}
+            onClick={() => setActiveChat(undefined)}
             className="btn sec w-full"
           >
             New Chat
@@ -29,7 +29,11 @@ function PastChat({ pastChat, botData }: props) {
           activeChat={activeChat}
         />
       </div>
-      <Chat botData={botData} chatIdProp={activeChat} />
+      <Chat
+        botData={botData}
+        chatIdProp={activeChat}
+        setActiveChat={setActiveChat}
+      />
     </div>
   );
 }

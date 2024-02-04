@@ -40,7 +40,9 @@ export function Sections({
   if (botData)
     return (
       <div className="flex flex-col gap-6 w-full">
-        {activeSection == "Chat" && <Chat botData={botData} />}
+        {activeSection == "Chat" && (
+          <Chat pastChat={pastChat} botData={botData} />
+        )}
         {activeSection == "Past Chat" && (
           <PastChat pastChat={pastChat} botData={botData} />
         )}

@@ -7,13 +7,16 @@ import gfm from "remark-gfm";
 import { APIBACKEND, ChatAPI } from "@/utils/constData";
 import { getHistoryAction } from "@/actions/getHistoryAction";
 import { revalidateTag } from "next/cache";
+import { revalidateChat } from "@/actions/revalidateChat";
 
 type props = {
   botData: any;
+  pastChat?: any;
   chatIdProp?: string;
+  setActiveChat?: React.Dispatch<any>;
 };
 
-function Chat({ botData, chatIdProp }: props) {
+function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
   const session = useSession();
   const [chat, setChat] = useState<ChatItemType[]>([
     {
@@ -32,25 +35,34 @@ function Chat({ botData, chatIdProp }: props) {
       throw error;
     }
   };
-  useEffect(() => {
-    if (chatIdProp) {
-      const fetchChatHistory = async () => {
-        try {
-          const historyData = await getHistory(chatIdProp);
-          setChat(historyData);
-        } catch (error) {
-          console.error("Error updating chat history:", error);
-        }
-      };
-
-      fetchChatHistory();
+  const fetchChatHistory = async (chatIdProp: string) => {
+    try {
+      const historyData = await getHistory(chatIdProp);
+      setChat(historyData);
+    } catch (error) {
+      console.error("Error updating chat history:", error);
     }
-  }, [chatIdProp]);
+  };
   const [question, setQuestion] = useState("");
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const [response, setResponse] = useState("");
   const [chatId, setChatId] = useState(chatIdProp);
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (chatIdProp) {
+      fetchChatHistory(chatIdProp);
+      setChatId(chatIdProp);
+    } else if (pastChat) {
+      if (pastChat.length !== 0) {
+        fetchChatHistory(pastChat[pastChat.length - 1].id);
+        setChatId(pastChat[pastChat.length - 1].id);
+      }
+    }
+    if (chatIdProp == undefined) {
+      setChat([]);
+      setChatId(chatIdProp);
+    }
+  }, [chatIdProp]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -67,7 +79,7 @@ function Chat({ botData, chatIdProp }: props) {
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
       const DILIMETER = "44eabd710f0f455ea12c17564663d175";
-      await fetch(`${ChatAPI}/chat/${botData.key}`, {
+      await fetch(`${ChatAPI}/flask/chat/${botData.key}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +87,7 @@ function Chat({ botData, chatIdProp }: props) {
         body: JSON.stringify({
           question: question,
           streaming: true,
-          user_id: session.data?.user.id,
+          user_id: "cls4l3i1b00008tqrll9og6d4",
           chat_id: chatId,
         }),
       })
@@ -99,11 +111,10 @@ function Chat({ botData, chatIdProp }: props) {
               let values = val.split(DILIMETER);
               if (values.length === 1) {
                 setResponse((prev) => prev + values[0]);
-                // console.log(values[0]);
               } else if (values.length > 1) {
-                // console.log(values[0]);
                 console.log(JSON.parse(values[1].trim()));
                 const responseData = JSON.parse(values[1].trim());
+                if (setActiveChat) setActiveChat(responseData.chat_id);
                 setChatId(responseData.chat_id);
               }
               readChunk();
@@ -113,7 +124,10 @@ function Chat({ botData, chatIdProp }: props) {
           setResponse("");
         })
         .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
+        .finally(() => {
+          revalidateChat();
+          setLoading(false);
+        });
     }
   };
 

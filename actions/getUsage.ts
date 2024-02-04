@@ -1,32 +1,23 @@
 "use server";
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
-import { getUserPlan } from "./getUserPlan";
-export const getUserBots = async () => {
+export const getUserUsage = async () => {
   const session = await auth();
   const userId =
     process.env.NODE_ENV == "production"
       ? session?.user.id
       : "cls4l3i1b00008tqrll9og6d4";
-  console.log("userId", userId);
-  const userPlan = (await getUserPlan()).userPlan;
-  console.log(userPlan);
   try {
-    const response = await fetch(`${APIBACKEND}/get_bots/${userId}`, {
+    const response = await fetch(`${APIBACKEND}/usage/${userId}`, {
       method: "GET",
-      next: { tags: ["bots"] },
+      // next: { tags: ["userPlan"] },
     });
     const responseData = await response.json();
     console.log(responseData);
-
     if (responseData.status != "success") {
       throw new Error(`HTTP error! Status: ${responseData.status}`);
     }
-    return {
-      success: "get user plan",
-      bots: responseData.bots,
-      userPlan: userPlan,
-    };
+    return responseData;
   } catch (error) {
     console.error(error);
     return { error: "can`t get user plan" };

@@ -16,7 +16,7 @@ function BotSelection({ bots }: { bots: any }) {
   const route = useRouter();
 
   useEffect(() => {
-    if (bots) {
+    if (bots.length !== 0) {
       const botName = bots.find(
         (bot: any) => (bot.id as string) == window.localStorage.getItem("botId")
       );

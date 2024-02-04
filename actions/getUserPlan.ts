@@ -6,7 +6,7 @@ export const getUserPlan = async () => {
   const userId =
     process.env.NODE_ENV == "production"
       ? session?.user.id
-      : "clrzn68tz0000pckk65117wnz";
+      : "cls4l3i1b00008tqrll9og6d4";
   try {
     const response = await fetch(`${APIBACKEND}/get_user/${userId}`, {
       method: "GET",

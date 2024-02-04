@@ -10,7 +10,7 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
   const userId =
     process.env.NODE_ENV == "production"
       ? session?.user.id
-      : "clrzn68tz0000pckk65117wnz";
+      : "cls4l3i1b00008tqrll9og6d4";
   const planId =
     planFromLocal == "pro" ? "3" : planFromLocal == "starter" ? "2" : "1";
 
