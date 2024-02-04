@@ -4,10 +4,15 @@ import { addDataSourceDoc } from "@/actions/addDataSourceDoc";
 import { useFormContext } from "@/context/FormContext";
 
 import { toast } from "sonner";
+import { useProgressBar } from "@/hooks/use-progressbar-hook";
 
 type props = { handleNext: () => void };
 
 export function ZapierForm({ handleNext }: props) {
+  const increaseProgressByNumber = useProgressBar(
+    (state) => state.increaseProgressByNumber
+  );
+
   const { formData, setFiles } = useFormContext();
   const [isPending, startTransition] = useTransition();
 
@@ -20,6 +25,7 @@ export function ZapierForm({ handleNext }: props) {
             if (data.success) {
               const fileData = formDataInputs.get("file") as File;
               // setFiles(fileData);
+              increaseProgressByNumber(0.5);
             }
           }
         );

@@ -4,8 +4,12 @@ import { addUrlData } from "@/actions/addUrlData";
 import { useFormContext } from "@/context/FormContext";
 
 import { toast } from "sonner";
+import { useProgressBar } from "@/hooks/use-progressbar-hook";
 type props = { handleNext: () => void };
 export function LinkForm({ handleNext }: props) {
+  const increaseProgressByNumber = useProgressBar(
+    (state) => state.increaseProgressByNumber
+  );
   const [Url, setUrl] = useState("");
   const [isPending, startTransition] = useTransition();
   const { setUrls, formData } = useFormContext();
@@ -19,6 +23,7 @@ export function LinkForm({ handleNext }: props) {
             if (data.success) {
               setUrls(formDataInputs.get("link") as string);
               setUrl("");
+              increaseProgressByNumber(0.5);
             }
           }
         );

@@ -4,6 +4,7 @@ import { addUrlData } from "@/actions/addUrlData";
 import { useFormContext } from "@/context/FormContext";
 
 import { toast } from "sonner";
+import { useProgressBar } from "@/hooks/use-progressbar-hook";
 type props = { handleNext: () => void };
 interface dataBaseFormType {
   host: string;
@@ -13,6 +14,9 @@ interface dataBaseFormType {
 }
 
 export function DataBaseForm({ handleNext }: props) {
+  const increaseProgressByNumber = useProgressBar(
+    (state) => state.increaseProgressByNumber
+  );
   const [dataBaseForm, setDataBaseForm] = useState<dataBaseFormType>({
     host: "",
     port: "",
@@ -36,6 +40,7 @@ export function DataBaseForm({ handleNext }: props) {
           (data) => {
             if (data.success) {
               setUrls(formDataInputs.get("link") as string);
+              increaseProgressByNumber(0.5);
             }
           }
         );

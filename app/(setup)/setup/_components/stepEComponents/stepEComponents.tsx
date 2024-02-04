@@ -33,9 +33,6 @@ export function DataSourceSelection({ handleNext, userPlan }: props) {
       {fileTypeSelected == "Database" && (
         <DataBaseForm handleNext={handleNext} />
       )}
-      {/* {fileTypeSelected == "ExternalAPI" && (
-        <ExternalAPIForm handleNext={handleNext} />
-      )} */}
     </div>
   );
 }

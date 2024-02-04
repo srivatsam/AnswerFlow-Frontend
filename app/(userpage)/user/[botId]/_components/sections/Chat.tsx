@@ -59,7 +59,14 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
       }
     }
     if (chatIdProp == undefined) {
-      setChat([]);
+      setChat([
+        {
+          role: "assistant",
+          content: `👋 Hello, dear ${session.data?.user.name?.toLocaleUpperCase()} ! I'm your friendly assistant, ${
+            botData.name
+          }. 🤖 How may I assist you today? 🌟`,
+        },
+      ]);
       setChatId(chatIdProp);
     }
   }, [chatIdProp]);
@@ -135,9 +142,17 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
     if (chatContainerRef.current) {
       const container = chatContainerRef.current;
       container.scrollTop = container.scrollHeight;
+      console.log(container.scrollHeight);
+      console.log(container.scrollTop);
     }
   }, [chat]);
   useEffect(() => {
+    if (chatContainerRef.current) {
+      const container = chatContainerRef.current;
+      container.scrollTop = container.scrollHeight;
+      console.log(container);
+      console.log(container.scrollTop);
+    }
     setChat((prevChat) => {
       if (prevChat.length > 2) {
         let lastMessageBot = prevChat[prevChat.length - 1];
@@ -151,10 +166,13 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
 
   return (
     <div className="flex-1 bg-[#131313] rounded-[12px] p-8 gap-10 flex flex-col justify-between">
-      <div ref={chatContainerRef} className="relative">
+      <div className="relative">
         <div className="absolute w-full h-4 top-0 left-0 bg-gradient-to-b from-[#131313] to-transparent" />
         <div className="absolute w-full h-4 bottom-0 left-0 bg-gradient-to-t from-[#131313] to-transparent" />
-        <div className="gap-10 flex flex-col max-h-[65vh] overflow-y-auto p-4 ">
+        <div
+          ref={chatContainerRef}
+          className="gap-10 flex flex-col max-h-[65vh] overflow-y-auto p-4 "
+        >
           {chat?.map((chat, i) => (
             <div className="flex gap-4 items-start " key={i}>
               {chat.role == "user" ? (

@@ -35,11 +35,8 @@ function Setup({ seatedPlan, hasOpenAIKey, hasBots }: props) {
     case "d":
       increaseProgress(3);
       break;
-    case "e":
-      increaseProgress(4);
-      break;
     case "f":
-      increaseProgress(5);
+      increaseProgress(10);
       break;
 
     default:
