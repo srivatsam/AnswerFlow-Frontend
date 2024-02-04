@@ -4,10 +4,10 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 
-import { APIBACKEND, ChatAPI } from "@/utils/constData";
+import { ChatAPI } from "@/utils/constData";
 import { getHistoryAction } from "@/actions/getHistoryAction";
-import { revalidateTag } from "next/cache";
 import { revalidateChat } from "@/actions/revalidateChat";
+import { getUserData } from "@/actions/getUserData";
 
 type props = {
   botData: any;
@@ -15,17 +15,16 @@ type props = {
   chatIdProp?: string;
   setActiveChat?: React.Dispatch<any>;
 };
-
 function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
   const session = useSession();
-  const [chat, setChat] = useState<ChatItemType[]>([
-    {
-      role: "assistant",
-      content: `👋 Hello, dear ${session.data?.user.name?.toLocaleUpperCase()} ! I'm your friendly assistant, ${
-        botData.name
-      }. 🤖 How may I assist you today? 🌟`,
-    },
-  ]);
+  const [question, setQuestion] = useState("");
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const [response, setResponse] = useState("");
+  const [chatId, setChatId] = useState(chatIdProp);
+  const [loading, setLoading] = useState(false);
+  const [chat, setChat] = useState<ChatItemType[]>([]);
+  const [userName, setUserName] = useState("");
+
   const getHistory = async (chatId: string) => {
     try {
       const data = await getHistoryAction(chatId);
@@ -43,34 +42,6 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
       console.error("Error updating chat history:", error);
     }
   };
-  const [question, setQuestion] = useState("");
-  const chatContainerRef = useRef<HTMLDivElement | null>(null);
-  const [response, setResponse] = useState("");
-  const [chatId, setChatId] = useState(chatIdProp);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    if (chatIdProp) {
-      fetchChatHistory(chatIdProp);
-      setChatId(chatIdProp);
-    } else if (pastChat) {
-      if (pastChat.length !== 0) {
-        fetchChatHistory(pastChat[pastChat.length - 1].id);
-        setChatId(pastChat[pastChat.length - 1].id);
-      }
-    }
-    if (chatIdProp == undefined) {
-      setChat([
-        {
-          role: "assistant",
-          content: `👋 Hello, dear ${session.data?.user.name?.toLocaleUpperCase()} ! I'm your friendly assistant, ${
-            botData.name
-          }. 🤖 How may I assist you today? 🌟`,
-        },
-      ]);
-      setChatId(chatIdProp);
-    }
-  }, [chatIdProp]);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
@@ -137,7 +108,38 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         });
     }
   };
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await getUserData();
+      if (user) setUserName(user.firstName + " " + user.lastName);
+    };
+    getUser();
+  }, []);
 
+  useEffect(() => {
+    if (chatIdProp) {
+      fetchChatHistory(chatIdProp);
+      setChatId(chatIdProp);
+    } else if (pastChat) {
+      if (pastChat.length !== 0) {
+        fetchChatHistory(pastChat[pastChat.length - 1].id);
+        setChatId(pastChat[pastChat.length - 1].id);
+      }
+    }
+    if (chatIdProp == undefined) {
+      setChat([
+        {
+          role: "assistant",
+          content: `👋 Hello, dear ${userName.toLocaleUpperCase()} ! I'm your friendly assistant, ${
+            botData.name
+          }. 🤖 How may I assist you today? 🌟`,
+        },
+      ]);
+      setChatId(chatIdProp);
+    }
+  }, [chatIdProp, userName]);
+
+  // render the stream response and scroll to bottom
   useEffect(() => {
     if (chatContainerRef.current) {
       const container = chatContainerRef.current;

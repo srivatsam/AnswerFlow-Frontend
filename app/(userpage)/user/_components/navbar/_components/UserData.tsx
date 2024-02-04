@@ -1,7 +1,5 @@
 import { getUserData } from "@/actions/getUserData";
-import { getUserById } from "@/utils/dbFunctions/user";
 import { $Enums } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
