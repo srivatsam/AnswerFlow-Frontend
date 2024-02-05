@@ -17,25 +17,25 @@ export function ZapierForm({ handleNext }: props) {
   const [isPending, startTransition] = useTransition();
 
   const addFilesDataSource = async (formDataInputs: FormData) => {
-    if (formDataInputs) {
-      const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
-          (data) => {
-            if (data.success) {
-              const fileData = formDataInputs.get("file") as File;
-              // setFiles(fileData);
-              increaseProgressByNumber(0.5);
-            }
-          }
-        );
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully",
-          error: "This File Not Supported, Try Agin",
-        });
-      });
-    }
+    // if (formDataInputs) {
+    //   const botId = window.localStorage.getItem("botId") as string;
+    //   startTransition(() => {
+    //     const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
+    //       (data) => {
+    //         if (data.success) {
+    //           const fileData = formDataInputs.get("file") as File;
+    //           // setFiles(fileData);
+    //           increaseProgressByNumber(0.5);
+    //         }
+    //       }
+    //     );
+    //     toast.promise(setPlanPromise, {
+    //       loading: "Loading...",
+    //       success: "Data Added Successfully",
+    //       error: "This File Not Supported, Try Agin",
+    //     });
+    //   });
+    // }
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files;
@@ -50,7 +50,7 @@ export function ZapierForm({ handleNext }: props) {
   };
   return (
     <form
-      // action={addFilesDataSource}
+      action={addFilesDataSource}
       className="flex-1 flex flex-col justify-between w-full"
     >
       <div className="flex flex-col gap-10 w-full">
@@ -80,13 +80,13 @@ export function ZapierForm({ handleNext }: props) {
         />
       </div>
       <div className="flex justify-between w-full items-center">
-        {/* <button
+        <button
           // disabled={formData.files.length > 0 || isPending}
           type="submit"
           className={`btn sec flex !justify-around `} //${formData.files.length == 0 && "opacity-50 cursor-not-allowed"}
         >
           <p>{isPending ? "Adding Data Source.." : "Add to Data Source"}</p>
-        </button> */}
+        </button>
         <button
           disabled={
             isPending ||

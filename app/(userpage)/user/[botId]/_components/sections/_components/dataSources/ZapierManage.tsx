@@ -9,27 +9,26 @@ export function ZapierManage() {
   const [isPending, startTransition] = useTransition();
   const [file, setFile] = useState<File[]>([]);
   const addFilesDataSource = async () => {
-    const formDataInputs = new FormData();
-    file.map((file) => formDataInputs.append("file", file));
-
-    if (formDataInputs) {
-      const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
-          (data) => {
-            if (data.success) {
-              const fileData = formDataInputs.get("file") as File;
-              setFile([]);
-            }
-          }
-        );
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully.",
-          error: "This File Not Supported, or UNIQUE File",
-        });
-      });
-    }
+    // const formDataInputs = new FormData();
+    // file.map((file) => formDataInputs.append("file", file));
+    // if (formDataInputs) {
+    //   const botId = window.localStorage.getItem("botId") as string;
+    //   startTransition(() => {
+    //     const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
+    //       (data) => {
+    //         if (data.success) {
+    //           const fileData = formDataInputs.get("file") as File;
+    //           setFile([]);
+    //         }
+    //       }
+    //     );
+    //     toast.promise(setPlanPromise, {
+    //       loading: "Loading...",
+    //       success: "Data Added Successfully.",
+    //       error: "This File Not Supported, or UNIQUE File",
+    //     });
+    //   });
+    // }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
