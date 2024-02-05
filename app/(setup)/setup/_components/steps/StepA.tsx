@@ -41,8 +41,6 @@ function StepA({ handleNext }: props) {
 
   useEffect(() => {
     setEmail(session.data?.user.email || "");
-    // setLastName(session.data?.user.name?.split(" ")[1] || "");
-    // setFirstName(session.data?.user.name?.split(" ")[0] || "");
   }, [session]);
   useEffect(() => {
     fetchPlanFromLocalStorage();
@@ -56,7 +54,7 @@ function StepA({ handleNext }: props) {
           planFromLocal?.plan as string
         ).then((response) => {
           if (response) route.push(response.url);
-          // handleNext();
+          handleNext();
         });
         toast.promise(setPlanPromise, {
           loading: "Loading...",

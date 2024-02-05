@@ -45,7 +45,7 @@ function Login() {
     }
   }, [route]);
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     startTransition(async () => {
       const registerPromise = login(values);
 
