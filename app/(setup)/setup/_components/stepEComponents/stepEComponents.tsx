@@ -4,7 +4,6 @@ import DropDownSelection from "./DropDownSelection";
 import { DocumentsForm } from "./DocumentsForm";
 import { LinkForm } from "./LinkForm";
 import { limitPlan } from "@/utils/constData";
-import { ExternalAPIForm } from "./ExternalAPIForm";
 import { ZapierForm } from "./ZapierForm";
 import { DataBaseForm } from "./DataBaseForm";
 

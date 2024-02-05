@@ -55,6 +55,7 @@ function StepA({ handleNext }: props) {
           formData,
           planFromLocal?.plan as string
         ).then((response) => {
+          if (response) route.push(response.url);
           handleNext();
         });
         toast.promise(setPlanPromise, {

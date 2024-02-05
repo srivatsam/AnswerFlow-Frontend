@@ -32,24 +32,54 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
       await db.billingInfo.create({ data: billingData });
     } catch (error) {
       console.error(error);
-      return new Error("Something went Wrong User Should Be Uniq");
+      return null;
     }
 
     const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
       method: "PUT",
     });
-
+    const responseStripe = await fetch(
+      `${APIBACKEND}/payment/create-checkout-session`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          email: "user@example.com",
+          name: "John Doe",
+          address: {
+            line1: "123 Main St",
+            city: "City",
+            state: "State",
+            postal_code: "12345",
+            country: "US",
+          },
+          success_page: "http://localhost:3000/setup",
+          cancel_page: "http://localhost:3000",
+        }),
+      }
+    );
     const responseData = await response.json();
+    const responseStripeData = await responseStripe.json();
+    console.log(responseStripeData);
 
-    if (responseData.status === "error") {
+    if (
+      responseData.status === "error" ||
+      responseStripeData.status === "error"
+    ) {
       console.error(responseData.message);
-      throw new Error(`ERROR FROM SERVER :${responseData.message}`);
+      throw null;
     }
 
     revalidateTag("userPlan");
-    return { success: "Set The Plan Successfully" };
+    return {
+      success: "Set The Plan Successfully",
+      url: responseStripeData.url,
+    };
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
-    return new Error("You are not authorized");
+    return;
   }
 };
