@@ -35,7 +35,7 @@ export function UserData() {
             alt="user image"
             width={30}
             height={30}
-            className="rounded-full "
+            className="bg-[#ffffff] rounded-full w-[30px] h-[30px] object-contain"
           />
           <h1 className="font-medium capitalize whitespace-nowrap text-ellipsis overflow-hidden w-[100%] text-start">
             {`${user?.firstName} ${user?.lastName}` || "user name"}

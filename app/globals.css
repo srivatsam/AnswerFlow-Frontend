@@ -52,7 +52,19 @@
     -o-transform: rotateZ(360deg);
   }
 }
+@keyframes pulse-fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
 
+.animate-pulse {
+  animation: pulse-fade 1.5s infinite;
+}
 /* no italic for CCJK */
 :lang(ja),
 :lang(ko),

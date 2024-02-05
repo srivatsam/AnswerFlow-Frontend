@@ -32,13 +32,15 @@ export function UserImage({ setImageUrl, imageUrl }: props) {
     <div className="relative">
       <div className="flex w-full justify-center items-center">
         <div className="flex flex-col gap-2 w-fit items-center cursor-pointer">
-          <Image
-            src={imageUrl}
-            width={80}
-            height={80}
-            alt="user image"
-            className=" bg-[#3F3F3F] rounded-full"
-          />
+          <div className="w-[80px] h-[80px] bg-[#ffffff] rounded-full overflow-hidden">
+            <Image
+              src={imageUrl}
+              width={80}
+              height={80}
+              alt="user image"
+              className="object-contain"
+            />
+          </div>
           <div className="">
             <p onClick={() => setToggle(true)}>update</p>
           </div>

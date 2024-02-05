@@ -25,7 +25,7 @@ export default function ProgressBar() {
         <div className="flex flex-col justify-start  items-start gap-6 px-20">
           <p className="text-[#9D9D9D] uppercase">2. Data sources</p>
           {formData.files.length > 0 || formData.urls.length > 0 ? (
-            <div className="relative py-4">
+            <div className="relative">
               <div className="absolute w-full h-6 top-0 left-0 bg-gradient-to-b from-[#0B0B0B] to-transparent" />
               <div className="absolute w-full h-6 bottom-0 left-0 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
               <div className="flex flex-col gap-2 max-h-[250px] min-h-[140px] overflow-auto px-2">

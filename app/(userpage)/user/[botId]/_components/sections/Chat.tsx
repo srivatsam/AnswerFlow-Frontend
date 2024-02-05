@@ -187,13 +187,17 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
           {chat?.map((chat, i) => (
             <div className="flex gap-4 items-start " key={i}>
               {chat.role == "user" ? (
-                <Image
-                  src={session.data?.user?.image || "/profile.jpg"}
-                  alt="user image"
-                  width={48}
-                  height={48}
-                  className="rounded-full "
-                />
+                <div className="w-[48px] h-[48px] bg-[#ffffff] rounded-full overflow-hidden">
+                  <Image
+                    src={
+                      (session.data?.user?.image as string) || "/profile.jpg"
+                    }
+                    alt="user image"
+                    width={48}
+                    height={48}
+                    className=""
+                  />
+                </div>
               ) : (
                 <Image
                   src={"/favicon.png"}
@@ -219,8 +223,8 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
                 height={40}
                 className="rounded-full"
               />
-              <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px]">
-                .....
+              <p className="bg-[#1F1F1F] px-8 py-4 rounded-[10px]">
+                <p className="bg-[#ffffff] w-4 h-4 rounded-full animate-pulse" />
               </p>
             </div>
           )}
@@ -232,13 +236,16 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         className="bg-[#1F1F1F] py-4 px-8 w-full flex justify-between rounded-[10px] gap-4 items-center"
       >
         <div className="flex gap-4 flex-1">
-          <Image
-            src={(session.data?.user?.image as string) || "/profile.jpg"}
-            alt="user image"
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
+          <div className="w-[40px] h-[40px] bg-[#ffffff] rounded-full overflow-hidden">
+            <Image
+              src={(session.data?.user?.image as string) || "/profile.jpg"}
+              alt="user image"
+              width={40}
+              height={40}
+              className=""
+            />
+          </div>
+
           <input
             type="text"
             id="question"

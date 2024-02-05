@@ -43,6 +43,13 @@ export function DataBaseForm({ handleNext }: props) {
         const setPlanPromise = addDbData(formDataInputs, botId).then((data) => {
           if (data.success) {
             setDbs(formDataInputs.get("dbName") as string);
+            setDataBaseForm({
+              host: "",
+              port: "",
+              userName: "",
+              password: "",
+              dbName: "",
+            });
             increaseProgressByNumber(0.5);
           }
         });
