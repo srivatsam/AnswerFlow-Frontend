@@ -53,6 +53,7 @@ function BotSelection({ bots }: { bots: any }) {
             <button
               onClick={() => {
                 setToggle(false);
+                resetToNewBot();
                 route.push(`/setup`);
               }}
               className="flex justify-between gap-1 py-1 px-2 w-full capitalize"

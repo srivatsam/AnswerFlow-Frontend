@@ -40,7 +40,7 @@ export function LinkForm({ handleNext }: props) {
       action={addUrlDataHandle}
       className="flex-1 flex flex-col justify-end gap-40 w-full"
     >
-      <div className="flex flex-col gap-4 w-[100%]">
+      <div className="flex flex-col items-start gap-4 w-[100%]">
         <label htmlFor="links" className="text-[20px] font-medium">
           Enter a Link
         </label>
@@ -58,6 +58,12 @@ export function LinkForm({ handleNext }: props) {
           AnswerFlow AI will import content from this link to your
           Knowledge-base
         </p>
+        <div className="flex flex-row-reverse gap-2">
+          <label htmlFor="allPages" className="text-[#9D9D9D]">
+            Import all pages from this Website
+          </label>
+          <input type="checkbox" name="allPages" id="allPages" />
+        </div>
       </div>
       <div className="flex justify-between w-full items-center">
         <button

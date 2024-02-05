@@ -83,6 +83,19 @@ export default function ProgressBar() {
                     </p>
                   </div>
                 ))}
+                {formData.dbs.map((db, i) => (
+                  <div key={i} className="flex gap-2 items-center">
+                    <Image
+                      src={"/db.png"}
+                      width={26}
+                      height={26}
+                      alt="link image"
+                    />
+                    <p className="whitespace-nowrap text-ellipsis overflow-hidden max-w-[350px] ">
+                      {db}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           ) : (

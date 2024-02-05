@@ -4,21 +4,21 @@ import { getUserData } from "@/actions/getUserData";
 import { getUserPlan } from "@/actions/getUserPlan";
 
 async function page() {
-  const user = await getUserData();
-  const userBots = await getUserBots();
-  const userPlan = await getUserPlan();
+  // const user = await getUserData();
+  // const userBots = await getUserBots();
+  // const userPlan = await getUserPlan();
   let hasOpenAIKey = false;
   let hasBots = false;
   let seatedPlan = false;
-  if (user?.openai_api_key !== "") {
-    hasOpenAIKey = true;
-  }
-  if (userBots.bots) {
-    hasBots = true;
-  }
-  if (userPlan.userPlan) {
-    seatedPlan = true;
-  }
+  // if (user?.openai_api_key !== "") {
+  //   hasOpenAIKey = true;
+  // }
+  // if (userBots.bots) {
+  //   hasBots = true;
+  // }
+  // if (userPlan.userPlan) {
+  //   seatedPlan = true;
+  // }
   return (
     <Setup
       seatedPlan={seatedPlan}

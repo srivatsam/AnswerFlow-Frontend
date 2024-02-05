@@ -24,10 +24,6 @@ function Setup({ seatedPlan, hasOpenAIKey, hasBots }: props) {
   const { activeStep, setActiveStep } = useSteps((state) => state);
   const increaseProgress = useProgressBar((state) => state.increaseProgress);
 
-  if (!seatedPlan) {
-    setActiveStep("a");
-  }
-
   switch (activeStep) {
     case "b":
       increaseProgress(1);

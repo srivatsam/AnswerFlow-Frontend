@@ -35,7 +35,7 @@ function StepFinal() {
           resetFormData();
           setTimeout(() => {
             resetToNewBot();
-          }, 1500);
+          }, 6000);
         }}
         href={`/user/${localStorage.getItem("botId")}`}
         className="btn sec"

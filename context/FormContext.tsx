@@ -18,6 +18,7 @@ interface FormData {
   openAiApiKey: string;
   files: File[];
   urls: string[];
+  dbs: string[];
 }
 
 interface FormContextProps {
@@ -28,6 +29,7 @@ interface FormContextProps {
     openAiApiKey: string;
     files: File[];
     urls: string[];
+    dbs: string[];
   };
   setBotName: (botName: string) => void;
   setBotPurpose: (botPurpose: string) => void;
@@ -35,6 +37,7 @@ interface FormContextProps {
   setOpenAiApiKey: (name: string) => void;
   setFiles: (files: File[]) => void;
   setUrls: (url: string) => void;
+  setDbs: (db: string) => void;
   resetFormData: () => void;
 }
 
@@ -64,6 +67,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
             openAiApiKey: "",
             files: [],
             urls: [],
+            dbs: [],
           };
     } catch (error) {
       console.error("Error accessing localStorage:", error);
@@ -74,6 +78,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
         openAiApiKey: "",
         files: [],
         urls: [],
+        dbs: [],
       };
     }
   });
@@ -115,6 +120,9 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const setUrls = (url: string) => {
     setFormData((prev) => ({ ...prev, urls: [...prev.urls, url] }));
   };
+  const setDbs = (db: string) => {
+    setFormData((prev) => ({ ...prev, dbs: [...prev.dbs, db] }));
+  };
   const resetFormData = () => {
     setFormData({
       botName: "",
@@ -123,6 +131,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
       openAiApiKey: "",
       files: [],
       urls: [],
+      dbs: [],
     });
     localStorage.removeItem(LOCAL_STORAGE_KEY);
   };
@@ -137,6 +146,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
         setOpenAiApiKey,
         setFiles,
         setUrls,
+        setDbs,
         resetFormData,
       }}
     >

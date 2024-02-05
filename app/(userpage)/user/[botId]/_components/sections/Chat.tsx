@@ -17,13 +17,13 @@ type props = {
 };
 function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
   const session = useSession();
+  const [userName, setUserName] = useState("");
   const [question, setQuestion] = useState("");
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const [response, setResponse] = useState("");
   const [chatId, setChatId] = useState(chatIdProp);
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState<ChatItemType[]>([]);
-  const [userName, setUserName] = useState("");
 
   const getHistory = async (chatId: string) => {
     try {
@@ -127,17 +127,10 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
       }
     }
     if (chatIdProp == undefined) {
-      setChat([
-        {
-          role: "assistant",
-          content: `👋 Hello, dear ${userName.toLocaleUpperCase()} ! I'm your friendly assistant, ${
-            botData.name
-          }. 🤖 How may I assist you today? 🌟`,
-        },
-      ]);
+      setChat([]);
       setChatId(chatIdProp);
     }
-  }, [chatIdProp, userName]);
+  }, [chatIdProp]);
 
   // render the stream response and scroll to bottom
   useEffect(() => {
@@ -156,7 +149,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
       console.log(container.scrollTop);
     }
     setChat((prevChat) => {
-      if (prevChat.length > 2) {
+      if (prevChat.length > 1) {
         let lastMessageBot = prevChat[prevChat.length - 1];
         lastMessageBot.content = response;
         prevChat[prevChat.length - 1] = lastMessageBot;
@@ -175,6 +168,22 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
           ref={chatContainerRef}
           className="gap-10 flex flex-col max-h-[65vh] overflow-y-auto p-4 "
         >
+          <div className="flex gap-4 items-start">
+            <Image
+              src={"/favicon.png"}
+              alt="favicon image"
+              width={48}
+              height={48}
+              className="rounded-full"
+            />
+            <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px] markdown-container ">
+              <ReactMarkdown remarkPlugins={[gfm]}>
+                {`👋 Hello, dear ${userName.toLocaleUpperCase()} ! I'm your friendly assistant, ${
+                  botData.name
+                }. 🤖 How may I assist you today? 🌟`}
+              </ReactMarkdown>
+            </p>
+          </div>
           {chat?.map((chat, i) => (
             <div className="flex gap-4 items-start " key={i}>
               {chat.role == "user" ? (

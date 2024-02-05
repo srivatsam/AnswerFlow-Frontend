@@ -1,14 +1,32 @@
 "use client";
 
-import React from "react";
+import { changeEmail } from "@/actions/changeEmail";
+import React, { useState, useTransition } from "react";
+import { toast } from "sonner";
 type props = {
   email: string | null;
 };
 export function UpdateEmail({ email }: props) {
+  const [emailState, setEmailState] = useState(email || "");
+  const isChanged = emailState !== email;
+  const [isPending, startTransition] = useTransition();
+
+  const formHandle = (e: FormData) => {
+    if (e) {
+      startTransition(() => {
+        const setPlanPromise = changeEmail(e);
+        toast.promise(setPlanPromise, {
+          loading: "Loading...",
+          success: "Email Updated Successfully",
+          error: "The Password is Wrong",
+        });
+      });
+    }
+  };
   return (
     <>
       <h1 className="text-[28px] font-bold ">Settings</h1>
-      <form /* action={formHandle}  */ className="flex flex-col gap-4 ">
+      <form action={formHandle} className="flex flex-col gap-4 ">
         <div className="flex flex-col gap-1">
           <label htmlFor="email" className="font-medium">
             Email Address
@@ -17,21 +35,22 @@ export function UpdateEmail({ email }: props) {
             type="email"
             id="email"
             name="email"
-            value={email || ""}
+            value={emailState}
+            onChange={(e) => setEmailState(e.target.value)}
             required
             placeholder="Enter your work email"
-            className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none opacity-40"
+            className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
           />
         </div>
 
         <button
           type="submit"
-          /*  disabled={isPending} */
+          disabled={isPending || !isChanged}
           className={`btn sec ${
-            /*  isPending && */ "opacity-50 cursor-not-allowed "
+            (isPending || !isChanged) && "opacity-50 cursor-not-allowed "
           }`}
         >
-          {/* isPending */ /* ? "Loading..." : */ "Send Verification Link"}
+          {isPending ? "Loading..." : "Send Verification Link"}
         </button>
       </form>
     </>
