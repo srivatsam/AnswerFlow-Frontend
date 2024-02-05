@@ -27,13 +27,13 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
       userId: session?.user.id as string,
     };
 
-    // try {
-    //   await setUserName(formData);
-    //   await db.billingInfo.create({ data: billingData });
-    // } catch (error) {
-    //   console.error(error);
-    //   return null;
-    // }
+    try {
+      await setUserName(formData);
+      await db.billingInfo.create({ data: billingData });
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
 
     const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
       method: "PUT",
@@ -51,17 +51,19 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
         body: JSON.stringify({
           price_id: "price_1OfPD2A5sVOxz8b2vPQ8FPnL",
           user_id: userId,
-          email: "user@example.com",
-          name: "John Doe",
+          email: formData.get("email"),
+          name: formData.get("firstName"),
           address: {
-            line1: "123 Main St",
-            city: "City",
-            state: "State",
-            postal_code: "12345",
-            country: "US",
+            line1: formData.get("address"),
+            city: formData.get("city"),
+            state: formData.get("state"),
+            postal_code: formData.get("pinCode"),
+            country: formData.get("country"),
           },
-          success_page: "http://localhost:3000/setup",
-          cancel_page: "http://localhost:3000",
+          success_page:
+            "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/setup",
+          cancel_page:
+            "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com",
         }),
       }
     );
