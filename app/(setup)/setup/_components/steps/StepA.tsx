@@ -56,7 +56,7 @@ function StepA({ handleNext }: props) {
           planFromLocal?.plan as string
         ).then((response) => {
           if (response) route.push(response.url);
-          handleNext();
+          // handleNext();
         });
         toast.promise(setPlanPromise, {
           loading: "Loading...",

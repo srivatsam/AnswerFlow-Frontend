@@ -1,6 +1,9 @@
+import { getBillings } from "@/actions/getBillings";
 import React from "react";
+import { CancelPlan } from "../_components/CancelPlan";
 
-function Billings() {
+async function Billings() {
+  const billings = await getBillings();
   return (
     <div className="flex flex-col bg-[#131313] rounded-[10px] gap-10 justify-start items-start w-[600px] py-8">
       <div className="w-full">
@@ -54,9 +57,7 @@ function Billings() {
                 cannot be undone.
               </p>
             </div>
-            <button className="text-[15px] text-[#A2A2A2] bg-[#232323] rounded-[10px] w-fit px-8 py-3 ">
-              Cancel Subscription
-            </button>
+            <CancelPlan />
           </div>
           <div className="rounded-[10px] p-6 bg-[#373737] flex flex-col gap-4">
             <div className="flex flex-col gap-2">

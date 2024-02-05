@@ -27,17 +27,20 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
       userId: session?.user.id as string,
     };
 
-    try {
-      await setUserName(formData);
-      await db.billingInfo.create({ data: billingData });
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
+    // try {
+    //   await setUserName(formData);
+    //   await db.billingInfo.create({ data: billingData });
+    // } catch (error) {
+    //   console.error(error);
+    //   return null;
+    // }
 
     const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
       method: "PUT",
     });
+    const responseData = await response.json();
+    const price_id = responseData.user.plan.price_m_id;
+    console.log("-----------------", price_id);
     const responseStripe = await fetch(
       `${APIBACKEND}/payment/create-checkout-session`,
       {
@@ -46,6 +49,7 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          price_id: "price_1OfPD2A5sVOxz8b2vPQ8FPnL",
           user_id: userId,
           email: "user@example.com",
           name: "John Doe",
@@ -61,7 +65,6 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
         }),
       }
     );
-    const responseData = await response.json();
     const responseStripeData = await responseStripe.json();
     console.log(responseStripeData);
 

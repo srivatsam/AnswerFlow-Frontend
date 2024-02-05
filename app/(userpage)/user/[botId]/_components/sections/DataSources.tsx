@@ -7,6 +7,8 @@ import { limitPlan } from "@/utils/constData";
 import { toast } from "sonner";
 import { DocumentsManage } from "./_components/dataSources/DocumentsManage";
 import { LinkManage } from "./_components/dataSources/LinkManage";
+import { ZapierManage } from "./_components/dataSources/ZapierManage";
+import { DataBaseManage } from "./_components/dataSources/DataBaseManage";
 
 type props = {
   botData: any;
@@ -56,12 +58,10 @@ function DataSources({ botData, userPlan, botResources }: props) {
         )}
         {toggleDataPopUp && fileTypeSelected == "Links" && <LinkManage />}
 
-        {/* {toggleDataPopUp && fileTypeSelected == "Zapier" && (
-          <ZapierForm handleNext={() => {}} />
-        )}
+        {toggleDataPopUp && fileTypeSelected == "Zapier" && <ZapierManage />}
         {toggleDataPopUp && fileTypeSelected == "Database" && (
-          <DataBaseForm handleNext={() => {}} />
-        )} */}
+          <DataBaseManage />
+        )}
       </div>
       <hr />
       <div className="flex flex-col gap-8 w-full">
