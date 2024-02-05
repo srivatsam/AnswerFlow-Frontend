@@ -47,7 +47,9 @@ function Login() {
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     startTransition(async () => {
-      const registerPromise = login(values);
+      const registerPromise = login(values).then(() => {
+        route.push(`/user/profile`);
+      });
 
       toast.promise(registerPromise, {
         loading: "Loading...",

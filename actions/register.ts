@@ -6,8 +6,7 @@ import { RegisterSchema } from "@/schemas";
 import { z } from "zod";
 import db from "@/utils/db";
 import bcrypt from "bcryptjs";
-
-import { APIBACKEND } from "@/utils/constData";
+import { login } from "./login";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validations = RegisterSchema.safeParse(values);
@@ -24,7 +23,11 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return new Error("Email taken");
   }
   try {
-    await db.user.create({ data: { email, password: hashedPassword } });
+    await db.user.create({
+      data: { email, password: hashedPassword },
+    });
+
+    await login({ email, password });
   } catch (error) {
     console.error(`ERROR FROM SERVER :${error}`);
     return new Error("Email taken");

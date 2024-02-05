@@ -2,7 +2,7 @@
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 import { revalidateTag } from "next/cache";
-
+red;
 export const updatePlan = async (plan: string) => {
   const session = await auth();
   const userId =
@@ -15,15 +15,15 @@ export const updatePlan = async (plan: string) => {
     const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
       method: "PUT",
     });
-    // const responseStripe = await fetch(
-    //   `${APIBACKEND}/payment/upgrade_plan/${userId}/${planId}`,
-    //   {
-    //     method: "GET",
-    //   }
-    // );
+    const responseStripe = await fetch(
+      `${APIBACKEND}/payment/upgrade_plan/${userId}/${planId}`,
+      {
+        method: "GET",
+      }
+    );
     const responseData = await response.json();
-    // const responseStripeData = await responseStripe.json();
-    // console.log(responseStripeData);
+    const responseStripeData = await responseStripe.json();
+    console.log(responseStripeData);
 
     if (responseData.status === "error") {
       console.error(responseData.message);
