@@ -2,7 +2,6 @@
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 import { revalidateTag } from "next/cache";
-red;
 export const updatePlan = async (plan: string) => {
   const session = await auth();
   const userId =

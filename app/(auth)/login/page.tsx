@@ -145,7 +145,7 @@ function Login() {
         </Form>
 
         {/* google sign in */}
-        <SignWithGoogle />
+        {/* <SignWithGoogle /> */}
       </div>
     </div>
   );
