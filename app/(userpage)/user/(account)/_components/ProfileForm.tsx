@@ -45,7 +45,7 @@ type userInfoType = {
 
 export function ProfileForm({ billingInfo, userInfo }: props) {
   const session = useSession();
-  const [imageUrl, setImageUrl] = useState(session.data?.user.image || null);
+  const [imageUrl, setImageUrl] = useState(userInfo.image);
   const [isPending, startTransition] = useTransition();
 
   const [billingInfoState, setBillingInfoState] =

@@ -187,7 +187,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
           {chat?.map((chat, i) => (
             <div className="flex gap-4 items-start " key={i}>
               {chat.role == "user" ? (
-                <div className="w-[48px] h-[48px] bg-[#ffffff] rounded-full overflow-hidden">
+                <div className="w-[48px] h-[48px]  rounded-full overflow-hidden">
                   <Image
                     src={
                       (session.data?.user?.image as string) || "/profile.jpg"
@@ -276,7 +276,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         className="bg-[#1F1F1F] py-4 px-8 w-full flex justify-between rounded-[10px] gap-4 items-center"
       >
         <div className="flex gap-4 flex-1">
-          <div className="w-[40px] h-[40px] bg-[#ffffff] rounded-full overflow-hidden">
+          <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
             <Image
               src={(session.data?.user?.image as string) || "/profile.jpg"}
               alt="user image"

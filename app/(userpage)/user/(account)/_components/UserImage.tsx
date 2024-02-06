@@ -32,7 +32,7 @@ export function UserImage({ setImageUrl, imageUrl }: props) {
     <div className="relative">
       <div className="flex w-full justify-center items-center">
         <div className="flex flex-col gap-2 w-fit items-center cursor-pointer">
-          <div className="w-[80px] h-[80px] bg-[#ffffff] rounded-full overflow-hidden">
+          <div className="w-[80px] h-[80px] rounded-full overflow-hidden">
             <Image
               src={imageUrl}
               width={80}

@@ -2,7 +2,7 @@
 import { useProgressBar } from "@/hooks/use-progressbar-hook";
 import React from "react";
 
-const steps = 10;
+const steps = 8;
 function ProgressBar() {
   const progress = useProgressBar((state) => state.progress);
   const width = (progress / steps) * 100;

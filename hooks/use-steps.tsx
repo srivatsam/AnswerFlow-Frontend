@@ -11,7 +11,7 @@ const activeStepFromLocal =
   (localStorage.getItem("activeStep") as stepsType);
 
 export const useSteps = create<useStepsType>((set) => ({
-  activeStep: activeStepFromLocal || "a",
+  activeStep: activeStepFromLocal || "b",
   setActiveStep(value: stepsType) {
     set({ activeStep: value });
     localStorage.setItem("activeStep", value);

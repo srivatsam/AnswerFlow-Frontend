@@ -30,13 +30,15 @@ export function UserData() {
     return (
       <div className="flex justify-between items-center gap-2 py-2 px-4 bg-[#1B1B1B] rounded-[10px] cursor-pointer w-[250px]">
         <div className="flex gap-2 items-center justify-start w-[80%]">
-          <Image
-            src={user?.image || "/profile.jpg"}
-            alt="user image"
-            width={30}
-            height={30}
-            className="bg-[#ffffff] rounded-full w-[30px] h-[30px] object-contain"
-          />
+          <div className=" h-[36px] rounded-full overflow-hidden">
+            <Image
+              src={user.image || "/profile.png"}
+              width={36}
+              height={36}
+              alt="user image"
+              className="object-contain"
+            />
+          </div>
           <h1 className="font-medium capitalize whitespace-nowrap text-ellipsis overflow-hidden w-[100%] text-start">
             {`${user?.firstName} ${user?.lastName}` || "user name"}
           </h1>

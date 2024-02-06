@@ -24,19 +24,19 @@ function Setup({ seatedPlan, hasOpenAIKey, hasBots }: props) {
 
   switch (activeStep) {
     case "a":
-      increaseProgress(1);
+      increaseProgress(0);
       break;
     case "b":
-      increaseProgress(2);
+      increaseProgress(1);
       break;
     case "c":
-      increaseProgress(3);
+      increaseProgress(2);
       break;
     case "d":
-      increaseProgress(9);
+      increaseProgress(7);
       break;
     case "final":
-      increaseProgress(10);
+      increaseProgress(8);
       break;
 
     default:
