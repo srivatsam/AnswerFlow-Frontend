@@ -17,7 +17,7 @@ export const useSteps = create<useStepsType>((set) => ({
     localStorage.setItem("activeStep", value);
   },
   resetToNewBot() {
-    set({ activeStep: "d" });
-    localStorage.setItem("activeStep", "d");
+    set({ activeStep: "a" });
+    localStorage.setItem("activeStep", "a");
   },
 }));

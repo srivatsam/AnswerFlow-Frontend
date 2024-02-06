@@ -46,7 +46,7 @@ function Register() {
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     startTransition(() => {
       const registerPromise = register(values).then((date) => {
-        if (date) route.push("/setup");
+        if (date) route.push("/payment");
       });
       toast.promise(registerPromise, {
         loading: "Loading...",

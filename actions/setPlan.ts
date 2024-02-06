@@ -4,15 +4,23 @@ import { APIBACKEND } from "@/utils/constData";
 import db from "@/utils/db";
 import { revalidateTag } from "next/cache";
 import { setUserName } from "./setUserName";
+import { YourPlanType } from "@/types/plan";
 
-export const setPlan = async (formData: FormData, planFromLocal: string) => {
+export const setPlan = async (
+  formData: FormData,
+  planFromLocal: YourPlanType
+) => {
   const session = await auth();
   const userId =
     process.env.NODE_ENV == "production"
       ? session?.user.id
       : "cls4l3i1b00008tqrll9og6d4";
   const planId =
-    planFromLocal == "pro" ? "3" : planFromLocal == "starter" ? "2" : "1";
+    planFromLocal.plan == "pro"
+      ? "3"
+      : planFromLocal.plan == "starter"
+      ? "2"
+      : "1";
 
   if (formData && userId) {
     const billingData = {
@@ -39,7 +47,10 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
       method: "PUT",
     });
     const responseData = await response.json();
-    const price_id = responseData.user.plan.price_m_id;
+    const price_id =
+      planFromLocal.method == "annual"
+        ? responseData.user.plan.price_y_id
+        : responseData.user.plan.price_m_id;
     console.log("-----------------", price_id);
     const responseStripe = await fetch(
       `${APIBACKEND}/payment/create-checkout-session`,
@@ -61,7 +72,7 @@ export const setPlan = async (formData: FormData, planFromLocal: string) => {
             country: formData.get("country"),
           },
           success_page:
-            "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/setup",
+            "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/payment/success",
           cancel_page:
             "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com",
         }),

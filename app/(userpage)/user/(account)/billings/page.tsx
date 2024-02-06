@@ -1,6 +1,8 @@
 import { getBillings } from "@/actions/getBillings";
 import React from "react";
 import { CancelPlan } from "../_components/CancelPlan";
+import { updatePlan } from "@/actions/updatePlan";
+import { UpgradePlan } from "../_components/UpgradePlan";
 
 async function Billings() {
   const billings = await getBillings();
@@ -61,14 +63,12 @@ async function Billings() {
           </div>
           <div className="rounded-[10px] p-6 bg-[#373737] flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <h3 className="text-[18px] font-medium">Cancel Subscription</h3>
+              <h3 className="text-[18px] font-medium">Upgrade plan</h3>
               <p className="text-[14px] text-[#30B616]">
                 Enjoy bigger knowledgebase & number of bots
               </p>
             </div>
-            <button className="text-[15px] text-[#A2A2A2] bg-[#232323] rounded-[10px] w-fit px-8 py-3 ">
-              Upgrade ($299/month)
-            </button>
+            <UpgradePlan />
           </div>
         </div>
       </div>

@@ -1,11 +1,9 @@
 "use client";
-import StepA from "./steps/StepA";
-import StepB from "./steps/StepB";
-import StepC from "./steps/StepC";
-import StepD from "./steps/StepD";
-import StepE from "./steps/StepE";
-import StepF from "./steps/StepF";
-import StepFinal from "./steps/StepFinal";
+import { StepA } from "./steps/StepA";
+import { StepB } from "./steps/StepB";
+import { StepC } from "./steps/StepC";
+import { StepD } from "./steps/StepD";
+import { StepFinal } from "./steps/StepFinal";
 
 import { useSteps } from "@/hooks/use-steps";
 import { useProgressBar } from "@/hooks/use-progressbar-hook";
@@ -25,16 +23,19 @@ function Setup({ seatedPlan, hasOpenAIKey, hasBots }: props) {
   const increaseProgress = useProgressBar((state) => state.increaseProgress);
 
   switch (activeStep) {
-    case "b":
+    case "a":
       increaseProgress(1);
       break;
-    case "c":
+    case "b":
       increaseProgress(2);
       break;
-    case "d":
+    case "c":
       increaseProgress(3);
       break;
-    case "f":
+    case "d":
+      increaseProgress(9);
+      break;
+    case "final":
       increaseProgress(10);
       break;
 
@@ -49,10 +50,6 @@ function Setup({ seatedPlan, hasOpenAIKey, hasBots }: props) {
     } else if (activeStep === "c") {
       setActiveStep("d");
     } else if (activeStep === "d") {
-      setActiveStep("e");
-    } else if (activeStep === "e") {
-      setActiveStep("f");
-    } else if (activeStep === "f") {
       setActiveStep("final");
     }
   };
@@ -71,12 +68,6 @@ function Setup({ seatedPlan, hasOpenAIKey, hasBots }: props) {
         </AnimatePresence>
         <AnimatePresence>
           {activeStep === "d" && <StepD handleNext={handleNext} />}
-        </AnimatePresence>
-        <AnimatePresence>
-          {activeStep === "e" && <StepE handleNext={handleNext} />}
-        </AnimatePresence>
-        <AnimatePresence>
-          {activeStep === "f" && <StepF handleNext={handleNext} />}
         </AnimatePresence>
         <AnimatePresence>
           {activeStep === "final" && <StepFinal />}

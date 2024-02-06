@@ -208,7 +208,47 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
                 />
               )}
               <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px] markdown-container ">
-                <ReactMarkdown remarkPlugins={[gfm]}>
+                <ReactMarkdown
+                  components={{
+                    ul: ({ children }) => (
+                      <ul className="list-disc ml-4 mt-4">{children}</ul>
+                    ),
+                    li: ({ children }) => <li className="mt-1">{children}</li>,
+                    p: ({ children }) => (
+                      <p className="text-gray-50">{children}</p>
+                    ),
+                    a: ({ children, href }) => (
+                      <a
+                        href={href}
+                        target="_blank"
+                        className="text-blue-500 underline"
+                      >
+                        {children}
+                      </a>
+                    ),
+                    h1: ({ children }) => (
+                      <h1 className="text-4xl font-bold">{children}</h1>
+                    ),
+                    h2: ({ children }) => (
+                      <h2 className="text-3xl font-semibold">{children}</h2>
+                    ),
+                    h3: ({ children }) => (
+                      <h3 className="text-2xl font-medium">{children}</h3>
+                    ),
+                    img: ({ alt, src }) => (
+                      <div className="relative w-full aspect-video drop-shadow-xl">
+                        <Image
+                          src={src as string}
+                          alt={alt as string}
+                          layout="fill"
+                          objectFit="cover"
+                          className="mt-4 mb-4"
+                        />
+                      </div>
+                    ),
+                  }}
+                  remarkPlugins={[gfm]}
+                >
                   {chat.content}
                 </ReactMarkdown>
               </p>

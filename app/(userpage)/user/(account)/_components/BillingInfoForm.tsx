@@ -1,6 +1,8 @@
 "use client";
-import { CountryInput } from "@/app/(setup)/setup/_components/stepAComponents/CountryInput";
-import { PhoneInput } from "@/app/(setup)/setup/_components/stepAComponents/PhoneInput";
+
+import { CountryInput } from "@/app/(payment)/payment/_components/CountryInput";
+import { PhoneInput } from "@/app/(payment)/payment/_components/PhoneInput";
+
 type props = {
   billingInfoState: billingInfoType;
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

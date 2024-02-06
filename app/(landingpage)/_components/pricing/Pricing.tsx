@@ -99,7 +99,7 @@ function Pricing() {
                   onClick={() =>
                     onSelectPlan(planItem.name.toLowerCase() as planNameType)
                   }
-                  href={"/setup"}
+                  href={"/register"}
                   target="_blank"
                   className="btn prim !w-full"
                 >
@@ -136,12 +136,8 @@ function Pricing() {
           shared with LLM operators like OpenAI
         </p>
 
-        <Link
-          href={"https://cal.com/srivatsa"}
-          target="_blank"
-          className="btn sec"
-        >
-          Book a Demo
+        <Link href={"/register"} target="_blank" className="btn sec">
+          Get Started
         </Link>
       </div>
       <div className="absolute bottom-0 left-[50%] -translate-x-[50%] w-[100%] ">

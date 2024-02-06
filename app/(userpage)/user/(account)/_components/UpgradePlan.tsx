@@ -1,13 +1,13 @@
 "use client";
-import { cancelPlan } from "@/actions/cancelPlan";
+import { updatePlan } from "@/actions/updatePlan";
 import React, { useTransition } from "react";
 import { toast } from "sonner";
 
-export function CancelPlan() {
+export function UpgradePlan() {
   const [isPending, startTransition] = useTransition();
-  const onPlanCancel = () => {
+  const onPlanSubmit = (planName: string) => {
     startTransition(() => {
-      const setPlanPromise = cancelPlan();
+      const setPlanPromise = updatePlan(planName);
       toast.promise(setPlanPromise, {
         loading: "Loading...",
         success: "Plan Seated Successfully",
@@ -17,10 +17,10 @@ export function CancelPlan() {
   };
   return (
     <button
-      onClick={onPlanCancel}
+      onClick={() => onPlanSubmit("pro")}
       className="text-[15px] text-[#A2A2A2] bg-[#232323] rounded-[10px] w-fit px-8 py-3 "
     >
-      Cancel Subscription
+      Upgrade ($299/month)
     </button>
   );
 }

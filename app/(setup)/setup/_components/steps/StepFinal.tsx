@@ -3,14 +3,12 @@ import Link from "next/link";
 import React from "react";
 
 import { useFormContext } from "@/context/FormContext";
-import { useSteps } from "@/hooks/use-steps";
 import { motion } from "framer-motion";
 import { useActiveSection } from "@/hooks/use-active-section";
 
-function StepFinal() {
+export function StepFinal() {
   console.log("stepFinally render");
   const { resetFormData, formData } = useFormContext();
-  const resetToNewBot = useSteps((state) => state.resetToNewBot);
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
   return (
     <motion.div
@@ -33,9 +31,6 @@ function StepFinal() {
         onClick={() => {
           setActiveSection("Chat");
           resetFormData();
-          setTimeout(() => {
-            resetToNewBot();
-          }, 6000);
         }}
         href={`/user/${localStorage.getItem("botId")}`}
         className="btn sec"
@@ -45,5 +40,3 @@ function StepFinal() {
     </motion.div>
   );
 }
-
-export default StepFinal;
