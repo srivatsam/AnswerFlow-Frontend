@@ -3,11 +3,7 @@
  * These routes do not require authentication
  * @type {string[]}
  */
-export const publicRoutes = [
-  "/",
-
-  // "/auth/new-verification",
-];
+export const publicRoutes = ["/"];
 
 /**
  * An array of routes that are used for authentication
@@ -33,8 +29,6 @@ export const apiAuthPrefix = "/api/auth";
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = [
-  "/user/:path*",
-  "/setup/:path*",
-  "/payment/:path*",
-];
+export const DEFAULT_LOGIN_REDIRECT = ["/user", "/setup"];
+
+// export const paymentRoutes = ["/payment/:path*"];

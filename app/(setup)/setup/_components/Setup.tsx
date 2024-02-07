@@ -10,15 +10,8 @@ import { useProgressBar } from "@/hooks/use-progressbar-hook";
 import { FormProvider } from "@/context/FormContext";
 
 import { AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
 
-type props = {
-  seatedPlan: boolean;
-  hasOpenAIKey: boolean;
-  hasBots: boolean;
-};
-function Setup({ seatedPlan, hasOpenAIKey, hasBots }: props) {
-  const route = useRouter();
+function Setup() {
   const { activeStep, setActiveStep } = useSteps((state) => state);
   const increaseProgress = useProgressBar((state) => state.increaseProgress);
 
