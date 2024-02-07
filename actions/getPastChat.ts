@@ -19,10 +19,10 @@ export const getPastChat = async (botId: string) => {
     );
     const data = await response.json();
 
+    console.log(data);
     if (data.status == "error") {
       throw new Error(`${data.message}`);
     }
-    console.log(data);
     return data.history;
   } catch (error) {
     console.error(error);

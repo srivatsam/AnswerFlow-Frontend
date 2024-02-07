@@ -20,7 +20,7 @@ export function StepA({ handleNext }: props) {
       });
       toast.promise(setPlanPromise, {
         loading: "Loading...",
-        success: "Plan Set Successfully",
+        success: "Open Ai Key Seated Successfully",
         error: (error) => `${error.message}`,
       });
     });
