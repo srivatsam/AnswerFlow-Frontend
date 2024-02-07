@@ -44,7 +44,7 @@ function BotSettings({ botData }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Bot Updated Successfully",
-          error: "Something Went Wrong Try Agin",
+          error: (error) => `${error.message}`,
         });
       });
     }
@@ -60,7 +60,7 @@ function BotSettings({ botData }: props) {
       toast.promise(setPlanPromise, {
         loading: "Loading...",
         success: "Bot Deleted Successfully",
-        error: "Something Went Wrong Try Agin",
+        error: (error) => `${error.message}`,
       });
     });
   };

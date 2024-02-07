@@ -32,7 +32,7 @@ function DataSources({ botData, userPlan, botResources }: props) {
       toast.promise(setPlanPromise, {
         loading: "Loading...",
         success: "Resource Deleted Successfully",
-        error: "Something Went Wrong Try Agin",
+        error: (error) => `${error.message}`,
       });
     });
   };

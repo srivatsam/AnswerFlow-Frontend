@@ -20,7 +20,7 @@ export const getUserBots = async () => {
     console.log(responseData);
 
     if (responseData.status != "success") {
-      throw new Error(`HTTP error! Status: ${responseData.status}`);
+      throw new Error(`${responseData.status}`);
     }
     return {
       success: "get user plan",
@@ -29,6 +29,6 @@ export const getUserBots = async () => {
     };
   } catch (error) {
     console.error(error);
-    return { error: "can`t get user plan" };
+    throw new Error(`${error}`);
   }
 };

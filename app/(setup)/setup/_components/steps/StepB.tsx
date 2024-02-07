@@ -31,7 +31,7 @@ export function StepB({ handleNext }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Bot Created Successfully",
-          error: "Something Went Wrong Try Agin",
+          error: (error) => `${error.message}`,
         });
       });
     }

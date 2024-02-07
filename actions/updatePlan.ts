@@ -22,17 +22,17 @@ export const updatePlan = async (plan: string) => {
     );
     const responseData = await response.json();
     const responseStripeData = await responseStripe.json();
-    console.log(responseStripeData);
 
+    console.log(responseStripeData);
     if (responseData.status === "error") {
       console.error(responseData.message);
-      throw new Error(`ERROR FROM SERVER :${responseData.message}`);
+      return { status: "error", message: responseData.message };
     }
 
     revalidateTag("userPlan");
     return { success: "Set The Plan Successfully" };
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
-    return new Error("You are not authorized");
+    return { status: "error", message: "You are not authorized" };
   }
 };

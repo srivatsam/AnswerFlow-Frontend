@@ -39,8 +39,7 @@ export const setPlan = async (
       await setUserName(formData);
       await db.billingInfo.create({ data: billingData });
     } catch (error) {
-      console.error(error);
-      return null;
+      return { status: "error", message: "Can Set Billing Info Twice" };
     }
 
     const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
@@ -52,6 +51,7 @@ export const setPlan = async (
         ? responseData.user.plan.price_y_id
         : responseData.user.plan.price_m_id;
     console.log("-----------------", price_id);
+
     const responseStripe = await fetch(
       `${APIBACKEND}/payment/create-checkout-session`,
       {
@@ -86,16 +86,18 @@ export const setPlan = async (
       responseStripeData.status === "error"
     ) {
       console.error(responseData.message);
-      throw null;
+      console.error(responseStripeData.message);
+      return { status: "error", message: responseData.message };
     }
 
     revalidateTag("userPlan");
     return {
-      success: "Set The Plan Successfully",
+      status: "success",
+      message: "Set The Plan Successfully",
       url: responseStripeData.url,
     };
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
-    return;
+    return { status: "error", message: "You are not authorized" };
   }
 };

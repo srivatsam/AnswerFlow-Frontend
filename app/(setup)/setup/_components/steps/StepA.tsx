@@ -16,12 +16,12 @@ export function StepA({ handleNext }: props) {
   const openAiApiKeySubmit = (formData: FormData) => {
     startTransition(() => {
       const setPlanPromise = setAiKey(formData).then((data) => {
-        if (data.success) handleNext();
+        handleNext();
       });
       toast.promise(setPlanPromise, {
         loading: "Loading...",
-        success: "AI Key Seated Successfully",
-        error: "Something Went Wrong Try Agin",
+        success: "Plan Set Successfully",
+        error: (error) => `${error.message}`,
       });
     });
   };

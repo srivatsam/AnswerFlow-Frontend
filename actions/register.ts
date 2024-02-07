@@ -29,25 +29,8 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
     await login({ email, password });
   } catch (error) {
-    console.error(`ERROR FROM SERVER :${error}`);
+    console.error(`${error}`);
     return new Error("Email taken");
   }
-
-  // const res = await fetch(`${APIBACKEND}/create_user`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     name: name,
-  //     email: email,
-  //     pwd: hashedPassword,
-  //     phone: "011",
-  //   }),
-  // });
-  // const data = await res.json();
-  // if (data.status == "error") {
-  //   return { error: "Email Taken" };
-  // }
   return { success: "User Created Successfully" };
 };

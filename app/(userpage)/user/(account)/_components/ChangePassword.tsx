@@ -22,7 +22,7 @@ export function ChangePassword({ password }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Password Updated Successfully",
-          error: "The Password is Wrong",
+          error: (error) => `${error.message}`,
         });
       });
     }

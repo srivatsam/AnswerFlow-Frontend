@@ -10,8 +10,8 @@ export function UpgradePlan() {
       const setPlanPromise = updatePlan(planName);
       toast.promise(setPlanPromise, {
         loading: "Loading...",
-        success: "Plan Seated Successfully",
-        error: "Something Went Wrong",
+        success: "Plan Upgraded Successfully",
+        error: (error) => `${error.message}`,
       });
     });
   };

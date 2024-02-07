@@ -15,7 +15,7 @@ export const getUserPlan = async () => {
     const responseData = await response.json();
     console.log(responseData);
     if (responseData.status != "success") {
-      throw new Error(`HTTP error! Status: ${responseData.status}`);
+      throw new Error(`${responseData.status}`);
     }
     if (responseData.user.plan !== null) {
       return {
@@ -30,6 +30,7 @@ export const getUserPlan = async () => {
     }
   } catch (error) {
     console.error(error);
+    throw new Error(`${error}`);
     return { error: "can`t get user plan" };
   }
 };

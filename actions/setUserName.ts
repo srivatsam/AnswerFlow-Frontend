@@ -21,8 +21,8 @@ export const setUserName = async (formData: FormData) => {
       },
     });
     revalidateTag("userData");
-    return { success: "AI Key Added Successfully" };
+    return { success: "user updated Successfully" };
   } else {
-    throw new Error(`ERROR FROM SERVER :AI Key  not found `);
+    throw new Error(`something went wrong`);
   }
 };

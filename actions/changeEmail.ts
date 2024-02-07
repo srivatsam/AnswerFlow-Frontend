@@ -23,7 +23,7 @@ export const changeEmail = async (e: FormData) => {
       });
     } catch (error) {
       console.error(`ERROR FROM SERVER :${error}`);
-      return new Error("Email taken");
+      return new Error(`${error}`);
     }
     return { success: "Password Updated Successfully" };
   }

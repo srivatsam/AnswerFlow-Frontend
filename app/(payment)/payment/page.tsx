@@ -14,7 +14,7 @@ import { useSession } from "next-auth/react";
 
 export default function Page() {
   const session = useSession();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(session.data?.user.email);
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const route = useRouter();
@@ -39,7 +39,7 @@ export default function Page() {
   }, [route]);
 
   useEffect(() => {
-    setEmail(session.data?.user.email || "");
+    setEmail(session.data?.user.email);
   }, [session]);
   useEffect(() => {
     fetchPlanFromLocalStorage();
@@ -49,7 +49,7 @@ export default function Page() {
     startTransition(() => {
       const setPlanPromise = setPlan(formData, planFromLocal!).then(
         (response) => {
-          if (response) route.push(response.url);
+          route.push(response.url);
         }
       );
       toast.promise(setPlanPromise, {

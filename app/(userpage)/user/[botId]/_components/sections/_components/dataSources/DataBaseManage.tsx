@@ -33,7 +33,7 @@ export function DataBaseManage() {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Data Added Successfully",
-          error: "Something Went Wrong Try Agin",
+          error: (error) => `${error.message}`,
         });
       });
     }

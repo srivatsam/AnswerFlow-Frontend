@@ -30,7 +30,7 @@ export function LinkForm({ handleNext }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Data Added Successfully",
-          error: "please enter a valid URL",
+          error: (error) => `${error.message}`,
         });
       });
     }

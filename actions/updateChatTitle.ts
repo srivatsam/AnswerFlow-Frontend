@@ -20,7 +20,7 @@ export const updateChatTitle = async (chatID: string, name: string) => {
     const data = await response.json();
 
     if (data.status == "error") {
-      throw new Error(`ERROR FROM SERVER :${data.message}`);
+      throw new Error(`${data.message}`);
     }
     revalidateTag("chatsTitle");
     return data;

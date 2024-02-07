@@ -30,11 +30,11 @@ export function UserData() {
     return (
       <div className="flex justify-between items-center gap-2 py-2 px-4 bg-[#1B1B1B] rounded-[10px] cursor-pointer w-[250px]">
         <div className="flex gap-2 items-center justify-start w-[80%]">
-          <div className=" h-[36px] rounded-full overflow-hidden">
+          <div className="  rounded-full overflow-hidden">
             <Image
-              src={user.image || "/profile.png"}
-              width={36}
-              height={36}
+              src={user.image || "/profile.jpg"}
+              width={32}
+              height={32}
               alt="user image"
               className="object-contain"
             />

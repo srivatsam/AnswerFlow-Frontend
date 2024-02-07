@@ -76,8 +76,8 @@ export function ProfileForm({ billingInfo, userInfo }: props) {
       const setPlanPromise = updateInfo(e);
       toast.promise(setPlanPromise, {
         loading: "Loading...",
-        success: "Plan Seated Successfully",
-        error: "Something Went Wrong",
+        success: "Profile Info Updated Successfully",
+        error: (error) => `${error.message}`,
       });
     });
   };

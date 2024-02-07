@@ -8,6 +8,7 @@ export const getUserData = async () => {
   const exitUser = await getUserById(session?.user.id as string);
   if (!exitUser) {
     console.error(`Not authorized`);
+    throw new Error(`Not authorized`);
     return null;
   } else {
     return exitUser;

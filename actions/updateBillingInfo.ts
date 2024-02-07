@@ -31,7 +31,7 @@ export const updateInfo = async (formData: FormData) => {
       return new Error("Something went Wrong User Should Be Uniq");
     }
   } else {
-    console.error(`ERROR FROM SERVER :You are not authorized`);
+    console.error(`You are not authorized`);
     return new Error("You are not authorized");
   }
 };

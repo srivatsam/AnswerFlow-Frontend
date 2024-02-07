@@ -25,7 +25,7 @@ export function ZapierManage() {
     //     toast.promise(setPlanPromise, {
     //       loading: "Loading...",
     //       success: "Data Added Successfully.",
-    //       error: "This File Not Supported, or UNIQUE File",
+    //       error: (error) => `${error.message}`,
     //     });
     //   });
     // }

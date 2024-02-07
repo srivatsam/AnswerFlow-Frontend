@@ -18,7 +18,7 @@ export function UpdateEmail({ email }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Email Updated Successfully",
-          error: "The Password is Wrong",
+          error: (error) => `${error.message}`,
         });
       });
     }

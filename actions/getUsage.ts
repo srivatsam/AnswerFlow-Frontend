@@ -15,11 +15,11 @@ export const getUserUsage = async () => {
     const responseData = await response.json();
     console.log(responseData);
     if (responseData.status != "success") {
-      throw new Error(`HTTP error! Status: ${responseData.status}`);
+      throw new Error(`${responseData.status}`);
     }
     return responseData;
   } catch (error) {
     console.error(error);
-    return { error: "can`t get user plan" };
+    throw new Error(`${error}`);
   }
 };

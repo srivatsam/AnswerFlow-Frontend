@@ -30,7 +30,7 @@ export function HistoryChat({ pastChat, activeChat, setActiveChat }: props) {
       toast.promise(updateTitlePromise, {
         loading: "Loading...",
         success: "Title Updated Successfully",
-        error: "Something Went, Try Agin",
+        error: (error) => `${error.message}`,
       });
     });
   };
@@ -45,7 +45,7 @@ export function HistoryChat({ pastChat, activeChat, setActiveChat }: props) {
       toast.promise(updateTitlePromise, {
         loading: "Loading...",
         success: "Chat Deleted Successfully",
-        error: "Something Went, Try Agin",
+        error: (error) => `${error.message}`,
       });
     });
   };

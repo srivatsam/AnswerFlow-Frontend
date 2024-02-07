@@ -21,7 +21,7 @@ export function LinkManage() {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Data Added Successfully",
-          error: "Invalid Url, Try Agin",
+          error: (error) => `${error.message}`,
         });
       });
     }

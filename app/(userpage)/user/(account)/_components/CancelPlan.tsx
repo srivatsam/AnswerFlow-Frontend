@@ -10,8 +10,8 @@ export function CancelPlan() {
       const setPlanPromise = cancelPlan();
       toast.promise(setPlanPromise, {
         loading: "Loading...",
-        success: "Plan Seated Successfully",
-        error: "Something Went Wrong",
+        success: "Plan Cancel Successfully",
+        error: (error) => `${error.message}`,
       });
     });
   };

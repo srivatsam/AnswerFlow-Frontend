@@ -34,7 +34,7 @@ export const resetPassword = async (e: FormData) => {
       });
     } catch (error) {
       console.error(`ERROR FROM SERVER :${error}`);
-      return new Error("Email taken");
+      return new Error("something went wrong");
     }
     return { success: "Password Updated Successfully" };
   }

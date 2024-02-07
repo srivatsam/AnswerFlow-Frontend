@@ -28,7 +28,6 @@ export function DocumentsForm({ handleNext }: props) {
               const fileData = formDataInputs.getAll("file") as File[];
               setFiles(fileData);
               // increaseProgress(7);
-
               // console.log("asd", increaseProgress(7));
             }
           }
@@ -37,7 +36,7 @@ export function DocumentsForm({ handleNext }: props) {
         toast.promise(setPlanPromise, {
           loading: "Loading...",
           success: "Data Added Successfully",
-          error: "This File Not Supported,Or Unique Try Agin",
+          error: (error) => `${error.message}`,
         });
       });
     }

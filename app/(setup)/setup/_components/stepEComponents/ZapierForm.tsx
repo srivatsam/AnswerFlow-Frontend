@@ -32,7 +32,7 @@ export function ZapierForm({ handleNext }: props) {
     //     toast.promise(setPlanPromise, {
     //       loading: "Loading...",
     //       success: "Data Added Successfully",
-    //       error: "This File Not Supported, Try Agin",
+    //       error: (error) => `${error.message}`,
     //     });
     //   });
     // }

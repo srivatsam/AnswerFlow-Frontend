@@ -27,7 +27,7 @@ export const addUrlData = async (formData: FormData, botId: string) => {
   const responseData = await response.json();
   if (responseData.status == "error") {
     console.error(responseData.message);
-    throw new Error(`ERROR FROM SERVER :${responseData.message}`);
+    throw new Error(`${responseData.message}`);
   }
   revalidateTag("resources");
   return { success: "Data Added Successfully" };

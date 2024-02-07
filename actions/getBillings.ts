@@ -16,6 +16,6 @@ export const getBillings = async () => {
     }
   );
   const responseStripeData = await responseStripe.json();
-  console.log("-----------", responseStripeData);
+  console.log(responseStripeData);
   return responseStripe;
 };

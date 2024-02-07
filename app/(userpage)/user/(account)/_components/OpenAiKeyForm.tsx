@@ -17,8 +17,8 @@ export function OpenAiKeyForm({ openai_api_key }: props) {
         const setPlanPromise = setAiKey(e);
         toast.promise(setPlanPromise, {
           loading: "Loading...",
-          success: "Plan Seated Successfully",
-          error: "Something Went Wrong",
+          success: "Open Ai Key Updated Successfully",
+          error: (error) => `${error.message}`,
         });
       });
     }

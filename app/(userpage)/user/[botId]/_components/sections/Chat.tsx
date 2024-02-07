@@ -21,7 +21,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
   const [question, setQuestion] = useState("");
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const [response, setResponse] = useState("");
-  const [chatId, setChatId] = useState(chatIdProp);
+  const [chatId, setChatId] = useState<undefined | string>();
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState<ChatItemType[]>([]);
 
@@ -57,7 +57,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
       const DILIMETER = "44eabd710f0f455ea12c17564663d175";
-      await fetch(`${ChatAPI}/chat/${botData.key}`, {
+      await fetch(`${ChatAPI}/flask/chat/${botData.key}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,7 +126,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         fetchChatHistory(pastChat[pastChat.length - 1].id);
       }
     }
-    if (chatIdProp == undefined) {
+    if (chatIdProp == undefined && pastChat == undefined) {
       setChat([]);
       setChatId(chatIdProp);
     }
@@ -276,12 +276,12 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         className="bg-[#1F1F1F] py-4 px-8 w-full flex justify-between rounded-[10px] gap-4 items-center"
       >
         <div className="flex gap-4 flex-1">
-          <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
+          <div className="w-[48px] h-[48px] rounded-full overflow-hidden">
             <Image
               src={(session.data?.user?.image as string) || "/profile.jpg"}
               alt="user image"
-              width={40}
-              height={40}
+              width={48}
+              height={48}
               className=""
             />
           </div>
