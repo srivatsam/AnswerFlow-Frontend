@@ -2,7 +2,6 @@
 
 import { auth } from "@/auth";
 import { getUserById } from "@/utils/dbFunctions/user";
-import { revalidateTag } from "next/cache";
 
 export const getUserData = async () => {
   const session = await auth();

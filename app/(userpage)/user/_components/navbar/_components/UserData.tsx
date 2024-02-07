@@ -24,7 +24,7 @@ export function UserData() {
       if (user) setUser(user);
     };
     getUser();
-  }, []);
+  }, [user]);
 
   if (user) {
     return (

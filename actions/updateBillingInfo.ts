@@ -1,7 +1,7 @@
 "use server";
 import { auth } from "@/auth";
 import db from "@/utils/db";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { setUserName } from "./setUserName";
 
 export const updateInfo = async (formData: FormData) => {

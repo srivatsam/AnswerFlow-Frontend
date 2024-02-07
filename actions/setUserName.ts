@@ -1,7 +1,6 @@
 "use server";
 
 import { auth } from "@/auth";
-import { APIBACKEND } from "@/utils/constData";
 import db from "@/utils/db";
 import { revalidateTag } from "next/cache";
 
@@ -21,7 +20,7 @@ export const setUserName = async (formData: FormData) => {
         image: formData.get("image") as string,
       },
     });
-    revalidateTag("user");
+    revalidateTag("userData");
     return { success: "AI Key Added Successfully" };
   } else {
     throw new Error(`ERROR FROM SERVER :AI Key  not found `);

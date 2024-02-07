@@ -10,7 +10,7 @@ export const getUserUsage = async () => {
   try {
     const response = await fetch(`${APIBACKEND}/usage/${userId}`, {
       method: "GET",
-      // next: { tags: ["userPlan"] },
+      next: { tags: ["userPlan"] },
     });
     const responseData = await response.json();
     console.log(responseData);
