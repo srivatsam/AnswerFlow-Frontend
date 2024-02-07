@@ -120,10 +120,10 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
     if (chatIdProp) {
       fetchChatHistory(chatIdProp);
       setChatId(chatIdProp);
-    } else if (pastChat) {
+    } else if (pastChat !== undefined) {
       if (pastChat.length !== 0) {
-        fetchChatHistory(pastChat[pastChat.length - 1].id);
         setChatId(pastChat[pastChat.length - 1].id);
+        fetchChatHistory(pastChat[pastChat.length - 1].id);
       }
     }
     if (chatIdProp == undefined) {
