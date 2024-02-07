@@ -43,6 +43,10 @@ export default auth(async (req) => {
       return Response.redirect(new URL("/register", nextUrl));
     }
   }
+  if (nextUrl.pathname.startsWith("/payment")) {
+    if (isLogin && user.plan)
+      return Response.redirect(new URL("/user/profile", nextUrl));
+  }
   return null;
 });
 export const config = {
