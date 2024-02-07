@@ -62,7 +62,7 @@ function Improve() {
               </div>
               <span className="text-[12px] opacity-40">0 4</span>
             </div>
-            <h1 className="lg:absolute left-0 lg:w-[135%] top-[8%] text-[35px] md:text-[45px] font-bold ">
+            <h1 className="lg:absolute left-0 lg:w-[135%] top-[10.5%] text-[35px] md:text-[45px] font-bold ">
               Improve Efficiency across your Org
             </h1>
             <div className="hidden max-w-[70%] lg:flex gap-20 flex-col">

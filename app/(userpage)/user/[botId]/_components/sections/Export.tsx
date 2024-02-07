@@ -15,8 +15,8 @@ function Export({ botData }: props) {
     data-answerflowbotname="${botData.name}"
   ></div>
 <script type="text/javascript" src="
-${APIBACKEND}
-/loader.js"></script>`;
+http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/loader.js"
+></script>`;
 
   const copyScript = async () => {
     try {

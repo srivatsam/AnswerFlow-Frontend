@@ -27,7 +27,9 @@ export function DocumentsForm({ handleNext }: props) {
               setFile([]);
               const fileData = formDataInputs.getAll("file") as File[];
               setFiles(fileData);
-              increaseProgress(7);
+              // increaseProgress(7);
+
+              // console.log("asd", increaseProgress(7));
             }
           }
         );
@@ -97,6 +99,7 @@ export function DocumentsForm({ handleNext }: props) {
           }`}</label>
         </div>
         <input
+          accept=".doc, .docx, .xls, .xlsx, .pdf, .ppt, .pptx"
           multiple
           type="file"
           id="file"

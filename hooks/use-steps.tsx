@@ -11,13 +11,13 @@ const activeStepFromLocal =
   (localStorage.getItem("activeStep") as stepsType);
 
 export const useSteps = create<useStepsType>((set) => ({
-  activeStep: activeStepFromLocal || "b",
+  activeStep: activeStepFromLocal || "a",
   setActiveStep(value: stepsType) {
     set({ activeStep: value });
     localStorage.setItem("activeStep", value);
   },
   resetToNewBot() {
     set({ activeStep: "a" });
-    localStorage.setItem("activeStep", "a");
+    localStorage.setItem("activeStep", "b");
   },
 }));

@@ -99,6 +99,7 @@ export function DocumentsManage() {
           </button>
         </div>
         <input
+          accept=".doc, .docx, .xls, .xlsx, .pdf, .ppt, .pptx"
           multiple
           type="file"
           id="file"

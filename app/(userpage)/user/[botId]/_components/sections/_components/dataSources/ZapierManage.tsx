@@ -97,6 +97,7 @@ export function ZapierManage() {
           </button>
         </div>
         <input
+          accept=".zip ,.rar"
           multiple
           type="file"
           id="file"

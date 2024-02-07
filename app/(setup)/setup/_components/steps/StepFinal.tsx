@@ -30,7 +30,9 @@ export function StepFinal() {
       <Link
         onClick={() => {
           setActiveSection("Chat");
-          resetFormData();
+          setTimeout(() => {
+            resetFormData();
+          }, 1500);
         }}
         href={`/user/${localStorage.getItem("botId")}`}
         className="btn sec"

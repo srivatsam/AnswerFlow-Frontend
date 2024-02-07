@@ -29,15 +29,15 @@ function loadChatbot(containerId) {
     ">
           <div id="chat-header">
             <div id="chat-header-inner">
-              <img src="/favicon.png" alt="logo png" width="30" height="30" />
+              <img src="http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/favicon.png" alt="logo png" width="30" height="30" />
               <h2>${bot_name}</h2>
               </div>
               <span id="close-icon" onclick="toggleChat()">
-                <img src="/close.png" alt="logo png" width="24" height="24" />
+                <img src="http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/close.png" alt="logo png" width="24" height="24" />
               </span>
           </div>
           <div id="bot-heading">
-              <img src="/favicon.png" alt="logo png" width="50" height="50" />
+              <img src="http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/favicon.png" alt="logo png" width="50" height="50" />
               <h2>${bot_name}</h2>
               
               <p>bowered by answerflow.com</p>
@@ -45,7 +45,7 @@ function loadChatbot(containerId) {
           <div id="chat-messages"></div>
           <div id="input-div">
             <input type="text" id="user-input" placeholder="Type your message">
-            <span id="send-button" onclick="sendMessage()"><img src="/send.png" alt="send png" width="24" height="24" /></span>
+            <span id="send-button" onclick="sendMessage()"><img src="http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/send.png" alt="send image" width="24" height="24" /></span>
           </div>
       </div>
   `;
@@ -194,7 +194,7 @@ function appendMessage(sender, message) {
   align-items: start;
   gap: 6px;
 ">
-    <img src="/${sender}.png" alt="logo png" width="20" height="20" />
+    <img src="http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/${sender}.png" alt="logo png" width="20" height="20" />
     <p style="
     padding-block: 10px;
     padding-block: 10px;
@@ -214,7 +214,7 @@ function appendMessage(sender, message) {
         align-items: start;
         gap: 6px;
     ">
-      <img src="/${sender}.png" alt="user png" width="20" height="20" />
+      <img src="http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/${sender}.png" alt="user png" width="20" height="20" />
       <p style="
       padding-block: 10px;
       padding-block: 10px;

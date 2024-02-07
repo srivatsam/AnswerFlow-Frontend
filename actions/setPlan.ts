@@ -60,7 +60,7 @@ export const setPlan = async (
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          price_id: "price_1OfPD2A5sVOxz8b2vPQ8FPnL",
+          price_id: price_id,
           user_id: userId,
           email: formData.get("email"),
           name: formData.get("firstName"),

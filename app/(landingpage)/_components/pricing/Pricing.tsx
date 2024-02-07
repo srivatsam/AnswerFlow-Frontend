@@ -61,7 +61,7 @@ function Pricing() {
                   </p>
                   {planItem.popular && (
                     <div className=" rounded-[20px] px-5 py-1 bg-gradient-to-r from-[#7515EF] to-[#EC7D4E] font-medium">
-                      most popular
+                      🔥 most popular
                     </div>
                   )}
                 </div>
@@ -94,17 +94,20 @@ function Pricing() {
                   <p key={index}>{planDataSupport}</p>
                 ))}
               </div>
-              <div className=" flex flex-col gap-4 w-full">
+              <div className="flex flex-col items-center gap-1 w-full">
                 <Link
                   onClick={() =>
                     onSelectPlan(planItem.name.toLowerCase() as planNameType)
                   }
                   href={"/register"}
                   target="_blank"
-                  className="btn prim !w-full"
+                  className={`btn  ${
+                    planItem.popular ? "sec" : "prim"
+                  } !w-full`}
                 >
                   Get Started
                 </Link>
+                <p className="text-[#717171] text-[16px]">Cancel anytime</p>
               </div>
             </div>
           </div>
