@@ -42,7 +42,7 @@ export function PhoneInput({
           />
           {phoneCode ? (
             <input
-              type="number"
+              type="text"
               id="phoneNumber"
               name="phoneNumber"
               autoComplete="phone number"
@@ -51,6 +51,10 @@ export function PhoneInput({
                 if (handleInputChange) handleInputChange(e);
               }}
               required
+              pattern="[0-9]{5,16}"
+              minLength={5}
+              maxLength={16}
+              title="Phone number must be between 5 and 16 digits"
               placeholder="Enter your phone number"
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none w-full"
             />
@@ -59,6 +63,7 @@ export function PhoneInput({
               type="text"
               id="phoneNumber"
               name="phoneNumber"
+              autoComplete="phone number"
               required
               placeholder="Enter your phone number"
               pattern="[0-9]{5,16}"
