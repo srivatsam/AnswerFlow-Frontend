@@ -21,7 +21,7 @@ function loadChatbot(containerId) {
   // Add the HTML structure
   container.innerHTML = `
       <button id="chatbot-icon" onclick="toggleChat()">
-        <img src="/favicon.png" alt="logo png" width="40" height="40" />
+        <img src="http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/favicon.png" alt="logo png" width="40" height="40" />
       </button>
       <div id="chatbot-container"   style="
       justify-content: center;
