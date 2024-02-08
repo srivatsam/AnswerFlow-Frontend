@@ -17,7 +17,7 @@ export default function Home() {
       <Steps />
       <Improve />
       <TextAnimation />
-      <div className="section bg-gray-200 rounded-[20px] overflow-hidden">
+      <div className="section flex justify-center rounded-[20px] overflow-hidden">
         <iframe
           height="800px"
           id="testimonialto-answerflow-ai-tag-all-dark-animated"

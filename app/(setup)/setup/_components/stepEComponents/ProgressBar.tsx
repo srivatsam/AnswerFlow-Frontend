@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 export default function ProgressBar() {
+  console.log("ProgressBar render");
   const { formData } = useFormContext();
 
   return (
@@ -24,11 +25,26 @@ export default function ProgressBar() {
         <br />
         <div className="flex flex-col justify-start  items-start gap-6 px-20">
           <p className="text-[#9D9D9D] uppercase">2. Data sources</p>
-          {formData.files.length > 0 || formData.urls.length > 0 ? (
+          {formData.files.length > 0 ||
+          formData.urls.length > 0 ||
+          formData.dbs.length > 0 ? (
             <div className="relative">
               <div className="absolute w-full h-6 top-0 left-0 bg-gradient-to-b from-[#0B0B0B] to-transparent" />
               <div className="absolute w-full h-6 bottom-0 left-0 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
               <div className="flex flex-col gap-2 max-h-[250px] min-h-[140px] overflow-auto px-2">
+                {formData.dbs.map((db, i) => (
+                  <div key={i} className="flex gap-2 items-center">
+                    <Image
+                      src={"/mongodb.png"}
+                      width={26}
+                      height={26}
+                      alt="db image"
+                    />
+                    <p className="whitespace-nowrap text-ellipsis overflow-hidden max-w-[350px] ">
+                      {db}
+                    </p>
+                  </div>
+                ))}
                 {formData.files.map((file, i) => (
                   <div key={i} className="flex gap-2 items-center">
                     {file.type ==
@@ -80,19 +96,6 @@ export default function ProgressBar() {
                     />
                     <p className="whitespace-nowrap text-ellipsis overflow-hidden max-w-[350px] ">
                       {url}
-                    </p>
-                  </div>
-                ))}
-                {formData.dbs.map((db, i) => (
-                  <div key={i} className="flex gap-2 items-center">
-                    <Image
-                      src={"/mongo.png"}
-                      width={26}
-                      height={26}
-                      alt="db image"
-                    />
-                    <p className="whitespace-nowrap text-ellipsis overflow-hidden max-w-[350px] ">
-                      {db}
                     </p>
                   </div>
                 ))}

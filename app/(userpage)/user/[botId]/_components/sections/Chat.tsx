@@ -57,7 +57,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
       const DILIMETER = "44eabd710f0f455ea12c17564663d175";
-      await fetch(`${ChatAPI}/flask/chat/${botData.key}`, {
+      await fetch(`${ChatAPI}/chat/${botData.key}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

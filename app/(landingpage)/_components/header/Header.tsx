@@ -39,7 +39,7 @@ function Header() {
             </Link>
           </div>
           <div className="flex gap-4 items-center">
-            <Link href={"/#pricing"} className="font-semibold">
+            <Link href={"/login"} className="font-semibold">
               Login
             </Link>
             <Link href={"/#pricing"} className="btn prim">

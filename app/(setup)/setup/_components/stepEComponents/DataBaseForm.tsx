@@ -50,7 +50,7 @@ export function DataBaseForm({ handleNext }: props) {
               password: "",
               dbName: "",
             });
-            increaseProgressByNumber(0.5);
+            setDbType("");
           }
         });
         toast.promise(setPlanPromise, {
