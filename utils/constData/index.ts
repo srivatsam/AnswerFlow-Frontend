@@ -1,10 +1,9 @@
 export const APIBACKEND =
   process.env.NODE_ENV == "production"
     ? "http://flask:5000"
-    : "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/flask";
+    : `${process.env.NEXTAUTH_URL}/flask`;
 
-export const ChatAPI =
-  "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com";
+export const ChatAPI = `${process.env.NEXTAUTH_URL}`;
 
 export const userItems = ["profile", "billings", "settings", "logout"];
 

@@ -71,10 +71,8 @@ export const setPlan = async (
             postal_code: formData.get("pinCode"),
             country: formData.get("country"),
           },
-          success_page:
-            "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/payment/success",
-          cancel_page:
-            "http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com",
+          success_page: `${process.env.NEXTAUTH_URL}/payment/success`,
+          cancel_page: `${process.env.NEXTAUTH_URL}`,
         }),
       }
     );
