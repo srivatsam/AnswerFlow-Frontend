@@ -23,8 +23,12 @@ CREATE TABLE "Account" (
 CREATE TABLE "plan" (
     "id" TEXT NOT NULL,
     "name" TEXT,
+    "isActive" BOOLEAN NOT NULL DEFAULT false,
     "limit_id" TEXT NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
+    "price_m" TEXT NOT NULL,
+    "price_y" TEXT NOT NULL,
+    "price_m_id" TEXT NOT NULL,
+    "price_y_id" TEXT NOT NULL,
 
     CONSTRAINT "plan_pkey" PRIMARY KEY ("id")
 );

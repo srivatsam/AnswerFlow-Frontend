@@ -1,8 +1,8 @@
-import { getBillings } from "@/actions/getBillings";
 import React from "react";
+import { getBillings } from "@/actions/getBillings";
 import { CancelPlan } from "../_components/CancelPlan";
-import { updatePlan } from "@/actions/updatePlan";
 import { UpgradePlan } from "../_components/UpgradePlan";
+import Link from "next/link";
 
 async function Billings() {
   const billings = await getBillings();
@@ -11,39 +11,58 @@ async function Billings() {
       <div className="w-full">
         <h1 className="text-[28px] font-bold px-12 py-4">Billing & Invoices</h1>
         <div className="flex w-full flex-col ">
-          <div className="flex flex-col gap-0 border-b-[1px] border-[#363636] px-12 py-6">
-            <p className="text-[#5D5D5D] text-[14px]">#Order123</p>
-            <div className="flex w-full justify-between text-[20px] font-medium">
-              <h3>Starter plan</h3>
-              <p>$99</p>
-            </div>
-            <div className="flex w-full justify-between text-[#939393] text-[14px]">
-              <h3>Monthly Subscription</h3>
-              <p>Dec’ 23</p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-0 border-b-[1px] border-[#363636] px-12 py-6">
-            <p className="text-[#5D5D5D] text-[14px]">#Order123</p>
-            <div className="flex w-full justify-between text-[20px] font-medium">
-              <h3>Starter plan</h3>
-              <p>$99</p>
-            </div>
-            <div className="flex w-full justify-between text-[#939393] text-[14px]">
-              <h3>Monthly Subscription</h3>
-              <p>Dec’ 23</p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-0 border-b-[1px] border-[#363636] px-12 py-6">
-            <p className="text-[#5D5D5D] text-[14px]">#Order123</p>
-            <div className="flex w-full justify-between text-[20px] font-medium">
-              <h3>Starter plan</h3>
-              <p>$99</p>
-            </div>
-            <div className="flex w-full justify-between text-[#939393] text-[14px]">
-              <h3>Monthly Subscription</h3>
-              <p>Dec’ 23</p>
-            </div>
-          </div>
+          {billings &&
+            billings.map((billing: any) => {
+              const period_start: Date = new Date(billing["period_start"]);
+              const period_end: Date = new Date(billing["period_end"]);
+              const differenceInMillis: number =
+                period_end.getTime() - period_start.getTime();
+              const differenceInDays: number =
+                differenceInMillis / (1000 * 60 * 60 * 24);
+              let periodType: string = "Unknown";
+              if (Math.abs(differenceInDays - 30) < 2) {
+                periodType = "Monthly";
+              } else if (Math.abs(differenceInDays - 365) < 2) {
+                periodType = "Annual";
+              }
+              const date = new Date(billing["Date"]);
+              const year = date.getFullYear() - 1;
+              const month = date.getMonth();
+              const day = date.getDate();
+              const monthNames = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+              ];
+              const formattedDate = `${monthNames[month]}' ${day}`;
+
+              return (
+                <Link
+                  href={billing["invoice_pdf"]}
+                  key={billing["Invoice ID"]}
+                  className="flex flex-col gap-0 border-b-[1px] border-[#363636] px-12 py-6"
+                >
+                  <p className="text-[#5D5D5D] text-[14px]">{`#Order${billing["number"]}`}</p>
+                  <div className="flex w-full justify-between text-[20px] font-medium">
+                    <h3>Starter plan</h3>
+                    <p>{billing["Amount Due"]}</p>
+                  </div>
+                  <div className="flex w-full justify-between text-[#939393] text-[14px]">
+                    <h3>{`${periodType} Subscription`}</h3>
+                    <p>{formattedDate}</p>
+                  </div>
+                </Link>
+              );
+            })}
         </div>
       </div>
       <div className="flex w-full flex-col gap-10 px-12 py-4">

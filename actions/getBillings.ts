@@ -17,5 +17,8 @@ export const getBillings = async () => {
   );
   const responseStripeData = await responseStripe.json();
   console.log(responseStripeData);
-  return responseStripe;
+  if (responseStripeData.status === "error") {
+    return null;
+  }
+  return responseStripeData.invoices;
 };

@@ -37,14 +37,15 @@ export default auth(async (req) => {
   }
   if (!isPublicRoutes && !nextUrl.pathname.startsWith("/payment")) {
     if (isLogin) {
-      if (!user.plan) return Response.redirect(new URL("/payment", nextUrl));
+      if (!user.plan.isActive)
+        return Response.redirect(new URL("/payment", nextUrl));
     }
     if (!isLogin) {
       return Response.redirect(new URL("/register", nextUrl));
     }
   }
   if (nextUrl.pathname.startsWith("/payment")) {
-    if (isLogin && user.plan)
+    if (isLogin && user.plan.isActive)
       return Response.redirect(new URL("/user/profile", nextUrl));
   }
   if (!isLogin) {

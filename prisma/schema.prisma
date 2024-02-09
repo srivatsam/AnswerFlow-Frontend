@@ -37,6 +37,7 @@ enum UserRole {
 model Plan {
 id String @id @default(cuid())
 name String?
+isActive Boolean @default(false)
 limit Limits @relation(fields: [limit_id], references: [id])
 limit_id String
 price_m String

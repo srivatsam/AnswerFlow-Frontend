@@ -464,3 +464,14 @@ img {
 input[type="file"] {
   display: none;
 }
+
+/*  */
+
+.GridBox .shadowBoxtop {
+  background: linear-gradient(
+    180deg,
+    #030303,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+}
+/*  */
