@@ -39,7 +39,9 @@ export default function Page() {
   }, [route]);
 
   useEffect(() => {
-    setEmail(session.data?.user.email);
+    if (session.data?.user.email) {
+      setEmail(session.data.user.email);
+    }
   }, [session]);
   useEffect(() => {
     fetchPlanFromLocalStorage();
