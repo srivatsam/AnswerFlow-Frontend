@@ -15,7 +15,7 @@ function Export({ botData }: props) {
     data-answerflowbotname="${botData.name}"
   ></div>
 <script type="text/javascript" src="
-${process.env.NEXTAUTH_URL}/loader.js"
+${APIBACKEND}/loader.js"
 ></script>`;
 
   const copyScript = async () => {

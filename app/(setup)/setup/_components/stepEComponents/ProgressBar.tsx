@@ -58,7 +58,7 @@ export default function ProgressBar() {
                     )}
                     {file.type == "application/pdf" && (
                       <Image
-                        src={"/docx.png"}
+                        src={"/pdf.png"}
                         width={26}
                         height={26}
                         alt="file image"

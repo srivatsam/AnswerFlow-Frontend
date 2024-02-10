@@ -18,12 +18,62 @@ type props = {
 function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
   const session = useSession();
   const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
   const [question, setQuestion] = useState("");
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const [response, setResponse] = useState("");
   const [chatId, setChatId] = useState<undefined | string>();
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState<ChatItemType[]>([]);
+
+  useEffect(() => {
+    if (session.data) {
+      setUserId(session.data.user.id!);
+    }
+    const getUser = async () => {
+      const user = await getUserData();
+      if (user) setUserName(user.firstName + " " + user.lastName);
+    };
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    if (chatIdProp) {
+      fetchChatHistory(chatIdProp);
+      setChatId(chatIdProp);
+    } else if (pastChat !== undefined) {
+      if (pastChat.length !== 0) {
+        setChatId(pastChat[pastChat.length - 1].id);
+        fetchChatHistory(pastChat[pastChat.length - 1].id);
+      }
+    }
+    if (chatIdProp == undefined && pastChat == undefined) {
+      setChat([]);
+      setChatId(chatIdProp);
+    }
+  }, [chatIdProp]);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      const container = chatContainerRef.current;
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [chat]);
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      const container = chatContainerRef.current;
+      container.scrollTop = container.scrollHeight;
+    }
+    setChat((prevChat) => {
+      if (prevChat.length > 1) {
+        let lastMessageBot = prevChat[prevChat.length - 1];
+        lastMessageBot.content = response;
+        prevChat[prevChat.length - 1] = lastMessageBot;
+        return prevChat;
+      }
+      return prevChat;
+    });
+  }, [response]);
 
   const getHistory = async (chatId: string) => {
     try {
@@ -65,7 +115,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         body: JSON.stringify({
           question: question,
           streaming: true,
-          user_id: "cls4l3i1b00008tqrll9og6d4",
+          user_id: userId,
           chat_id: chatId,
         }),
       })
@@ -108,56 +158,6 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         });
     }
   };
-  useEffect(() => {
-    const getUser = async () => {
-      const user = await getUserData();
-      if (user) setUserName(user.firstName + " " + user.lastName);
-    };
-    getUser();
-  }, []);
-
-  useEffect(() => {
-    if (chatIdProp) {
-      fetchChatHistory(chatIdProp);
-      setChatId(chatIdProp);
-    } else if (pastChat !== undefined) {
-      if (pastChat.length !== 0) {
-        setChatId(pastChat[pastChat.length - 1].id);
-        fetchChatHistory(pastChat[pastChat.length - 1].id);
-      }
-    }
-    if (chatIdProp == undefined && pastChat == undefined) {
-      setChat([]);
-      setChatId(chatIdProp);
-    }
-  }, [chatIdProp]);
-
-  // render the stream response and scroll to bottom
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      const container = chatContainerRef.current;
-      container.scrollTop = container.scrollHeight;
-      console.log(container.scrollHeight);
-      console.log(container.scrollTop);
-    }
-  }, [chat]);
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      const container = chatContainerRef.current;
-      container.scrollTop = container.scrollHeight;
-      console.log(container);
-      console.log(container.scrollTop);
-    }
-    setChat((prevChat) => {
-      if (prevChat.length > 1) {
-        let lastMessageBot = prevChat[prevChat.length - 1];
-        lastMessageBot.content = response;
-        prevChat[prevChat.length - 1] = lastMessageBot;
-        return prevChat;
-      }
-      return prevChat;
-    });
-  }, [response]);
 
   return (
     <div className="flex-1 bg-[#131313] rounded-[12px] p-8 gap-10 flex flex-col justify-between">
@@ -213,9 +213,15 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
                     ul: ({ children }) => (
                       <ul className="list-disc ml-4 mt-4">{children}</ul>
                     ),
+                    ol: ({ children }) => (
+                      <ol className="list-disc ml-4 mt-4">{children}</ol>
+                    ),
                     li: ({ children }) => <li className="mt-1">{children}</li>,
                     p: ({ children }) => (
                       <p className="text-gray-50">{children}</p>
+                    ),
+                    div: ({ children }) => (
+                      <div className="p-4 flex flex-col gap-4">{children}</div>
                     ),
                     a: ({ children, href }) => (
                       <a
