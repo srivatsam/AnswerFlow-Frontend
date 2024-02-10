@@ -15,7 +15,7 @@ function Export({ botData }: props) {
     data-answerflowbotname="${botData.name}"
   ></div>
 <script type="text/javascript" src="
-${APIBACKEND}/loader.js"
+https://answerflowai.com/loader.js"
 ></script>`;
 
   const copyScript = async () => {
