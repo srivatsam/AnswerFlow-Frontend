@@ -23,8 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { getUserById } from "@/utils/dbFunctions/user";
-import { getUserData } from "@/actions/getUserData";
 
 function Login() {
   const route = useRouter();
