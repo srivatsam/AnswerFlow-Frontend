@@ -124,24 +124,26 @@ function Pricing() {
             href={"mailto:team@answerflowai.com"}
             className=" text-[#A595FD]"
           >
-            team@answerflowai.com
+            team@answerflowai.in.
           </Link>{" "}
-          Our senior executives will reachout to you asap!
+          Our Founder will reachout to you directly :)
         </p>
       </div>
       <div className="border-gad-1 flex flex-col  items-center gap-4  ">
         <h1 className="text-[32px] leading-[32px] md:text-[48px] md:leading-[69px] font-bold text-center lg:max-w-[70%]">
-          The Most Secure Way to Build Custom Bots for your Company
+          The Most Affordable Way to Build Custom AI Bots
         </h1>
         <p className="text-[18px] font-normal md:text-[19px]  text-[#9D9D9D] lg:max-w-[60%] text-center pb-10">
-          AnswerFlow AI is built with world-class security standards like SOC &
-          GDPR. It runs on secure Microsoft Azure cloud and your data is never
-          shared with LLM operators like OpenAI
+          Don’t pay for expensive monthly subscriptions with metered usage,
+          enjoy unlimited Bots & interactions using your own OpenAI API Key
         </p>
 
-        <Link href={"/register"} target="_blank" className="btn sec">
-          Get Started
-        </Link>
+        <div className="flex flex-col gap-1">
+          <Link href={"/register"} target="_blank" className="btn sec">
+            Get Started
+          </Link>
+          <p className="text-[#717171] text-[16px]">Cancel anytime</p>
+        </div>
       </div>
       <div className="absolute bottom-0 left-[50%] -translate-x-[50%] w-[100%] ">
         <Image src={"/div.png"} width={1200} height={51} alt="separator" />

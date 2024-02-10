@@ -74,7 +74,8 @@ export const planData = [
       "📄 Documents",
       "🔗 Links",
       "🧩 Zapier Integration",
-      "💿 3 Database Connection",
+      "💿 Database Connection",
+      "🧩 Third party APIs",
     ],
   },
 ];

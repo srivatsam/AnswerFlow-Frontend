@@ -63,7 +63,7 @@ function Improve() {
               <span className="text-[12px] opacity-40">0 4</span>
             </div>
             <h1 className="lg:absolute left-0 lg:w-[135%] top-[10.5%] text-[35px] md:text-[45px] font-bold ">
-              Improve Efficiency across your Org
+              Create CustomGPT Bots for any Usecase
             </h1>
             <div className="hidden max-w-[70%] lg:flex gap-20 flex-col">
               <h3
@@ -71,21 +71,21 @@ function Improve() {
                   card1 == false ? "opacity-[0.3]  " : " opacity-1  visible"
                 }`}
               >
-                CXO’s
+                Data Analysis
               </h3>
               <h3
                 className={`text-4xl font-medium transition-all duration-[0.8s] ease-in-out ${
                   card2 == false ? "opacity-[0.3]  " : " opacity-1  visible"
                 }`}
               >
-                Customer Success
+                Customer Support
               </h3>
               <h3
                 className={`text-4xl font-medium transition-all duration-[0.8s] ease-in-out ${
                   card3 == false ? "opacity-[0.3] " : "opacity-1  visible"
                 }`}
               >
-                Sales
+                Sales Analysis
               </h3>
               <h3
                 className={`text-4xl font-medium transition-all duration-[0.8s] ease-in-out ${

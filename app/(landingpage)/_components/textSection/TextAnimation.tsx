@@ -53,9 +53,9 @@ export default function TextAnimation() {
               ref={pRef}
               className="absolute px-2 flex flex-wrap text-[#595959] opacity-1"
             >
-              Create a secure Knowledge base & empower your org. with super-easy
-              Answers about everything & boost productivity by removing the
-              hassle of switching multiple tools
+              Create a secure Knowledge base trained on your data & enable rich
+              answers & boost productivity by removing the hassle of switching
+              multiple tools, powered by Artificial Intelligence
             </p>
             <p className="absolute px-2  opacity-1 text-white">
               {splitWords(text)}

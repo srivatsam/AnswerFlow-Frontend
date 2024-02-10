@@ -21,7 +21,7 @@ function Hero() {
               }}
               className="text-[44px] leading-[44px] md:text-[60px] md:leading-[60px] font-bold "
             >
-              Just Chat with your Company Data
+              Just Chat with your Data
             </m.h2>
             <m.p
               initial={{ y: 100, opacity: 0 }}
@@ -34,13 +34,11 @@ function Hero() {
               }}
               className="text-[18px] font-normal leading-[24px] md:text-[22px] md:leading-[32px]"
             >
-              Enable rich insights about your sales, customers, product & entire
-              organisation and{" "}
-              <span className="font-medium">
-                improve company efficiency by 10X
+              Affordable way to build CustomGPT Bots, trained on your Data.{" "}
+              <span className="font-medium"></span>,
+              <span className="text-[#EC7D4E] font-medium">
+                Using your own OpenAI API Key!
               </span>
-              ,
-              <span className="text-[#E7E69F] font-medium">powered by AI.</span>
             </m.p>
           </div>
           <div className="">
@@ -60,8 +58,12 @@ function Hero() {
                 target="_blank"
                 className="w-full h-full flex justify-center items-center"
               >
-                Book a Demo
+                Get Started
               </Link>
+              <p className="text-[#717171] text-[16px]">Cancel anytime</p>
+              <p className="text-[#717171] text-[16px]">
+                100+ customers are saving on AI Bots
+              </p>
             </m.div>
           </div>
         </div>
@@ -77,7 +79,7 @@ function Hero() {
             }}
             className="bg-[#1B1B1B] px-4 md:px-12 py-3 rounded-[50px] text-center"
           >
-            🔐 Secure
+            ✅ Unlimited Chats
           </m.div>
           <m.div
             initial={{ y: 100, opacity: 0 }}
@@ -90,7 +92,7 @@ function Hero() {
             }}
             className="bg-[#1B1B1B] px-4 md:px-12 py-3 rounded-[50px] text-center"
           >
-            ☁️ Private Cloud Hosting
+            🔐 Secure
           </m.div>
           <m.div
             initial={{ y: 100, opacity: 0 }}
@@ -103,7 +105,7 @@ function Hero() {
             }}
             className="bg-[#1B1B1B] px-4 md:px-12 py-3 rounded-[50px] text-center"
           >
-            ✅ GDPR Compilant
+            🧩 Biggest Library of Connectors
           </m.div>
         </div>
         <div className="absolute bottom-0 left-[50%] -translate-x-[50%] w-[100%] ">
