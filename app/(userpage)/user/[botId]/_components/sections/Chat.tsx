@@ -207,7 +207,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
                   className="rounded-full"
                 />
               )}
-              <p className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px] markdown-container ">
+              <div className="text-[] bg-[#1F1F1F] px-8 py-4 rounded-[10px] markdown-container ">
                 <ReactMarkdown
                   components={{
                     ul: ({ children }) => (
@@ -233,13 +233,19 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
                       </a>
                     ),
                     h1: ({ children }) => (
-                      <h1 className="text-4xl font-bold">{children}</h1>
+                      <h1 className="text-4xl font-extrabold">{children}</h1>
                     ),
                     h2: ({ children }) => (
-                      <h2 className="text-3xl font-semibold">{children}</h2>
+                      <h2 className="text-3xl font-bold">{children}</h2>
                     ),
                     h3: ({ children }) => (
-                      <h3 className="text-2xl font-medium">{children}</h3>
+                      <h3 className="text-2xl font-semibold">{children}</h3>
+                    ),
+                    h4: ({ children }) => (
+                      <h4 className="text-3xl font-medium">{children}</h4>
+                    ),
+                    h5: ({ children }) => (
+                      <h5 className="text-2xl font-normal">{children}</h5>
                     ),
                     img: ({ alt, src }) => (
                       <div className="relative w-full aspect-video drop-shadow-xl">
@@ -257,7 +263,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
                 >
                   {chat.content}
                 </ReactMarkdown>
-              </p>
+              </div>
             </div>
           ))}
           {loading && (

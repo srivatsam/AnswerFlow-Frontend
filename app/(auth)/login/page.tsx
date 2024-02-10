@@ -37,14 +37,6 @@ function Login() {
     },
   });
 
-  // return to main page (pricing) to select plan
-  useEffect(() => {
-    if (!localStorage.getItem("plan")) {
-      toast.info("You Should Select Plan");
-      route.push("/#pricing");
-    }
-  }, [route]);
-
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     startTransition(async () => {
       const registerPromise = login(values).then(() => {
