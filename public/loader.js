@@ -3,7 +3,7 @@ let bot_name = "";
 let chatId = "";
 let response = "";
 const DILIMETER = "44eabd710f0f455ea12c17564663d175";
-const ChatAPI = `https://answerflowai.com/flask`;
+const ChatAPI = `https://answerflowai.com`;
 function toggleChat() {
   const chatbotContainer = $("#chatbot-container");
   chatbotContainer.slideToggle();
@@ -30,8 +30,8 @@ function loadChatbot(containerId) {
           <div id="chat-header">
             <div id="chat-header-inner">
               <img src="https://answerflowai.com/favicon.png" alt="logo png" width="30" height="30" />
-              <h2>${bot_name}</h2>
-              </div>
+              <h4>${bot_name}</h4>
+            </div>
               <span id="close-icon" onclick="toggleChat()">
                 <img src="https://answerflowai.com/close.png" alt="logo png" width="24" height="24" />
               </span>
@@ -104,8 +104,13 @@ function loadChatbot(containerId) {
     padding-block: 12px;
     padding-inline: 18px;
     text-align: center;
-  }#chat-header h2{
+  }#chat-header h4{
     margin:0px
+    width: 220px;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   #chat-header span{
     cursor: pointer;
@@ -169,6 +174,7 @@ function loadChatbot(containerId) {
 }
 #bot-heading h2{
   margin:0px;
+  text-align: center;
 }
 #bot-heading p{
   color: gray;

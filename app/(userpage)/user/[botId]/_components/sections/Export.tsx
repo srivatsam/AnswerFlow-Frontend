@@ -54,7 +54,7 @@ https://answerflowai.com/loader.js"
           </p>
         </div>
         <div className="rounded-[10px] bg-[#232323] py-4 px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
-          <p className="w-[80%] whitespace-nowrap text-ellipsis overflow-hidden ">
+          <p className="w-[94%] whitespace-nowrap text-ellipsis overflow-hidden">
             {botLink}
           </p>
           <button onClick={copyLink}>
