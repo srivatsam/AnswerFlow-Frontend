@@ -11,10 +11,7 @@ export const setPlan = async (
   planFromLocal: YourPlanType
 ) => {
   const session = await auth();
-  const userId =
-    process.env.NODE_ENV == "production"
-      ? session?.user.id
-      : "cls4l3i1b00008tqrll9og6d4";
+  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
   const planId =
     planFromLocal.plan == "pro"
       ? "3"

@@ -6,10 +6,7 @@ import { revalidateTag } from "next/cache";
 export const addUrlData = async (formData: FormData, botId: string) => {
   const isFull = formData.get("allPages") ? "import all pages" : undefined;
   const session = await auth();
-  const userId =
-    process.env.NODE_ENV == "production"
-      ? session?.user.id
-      : "cls4l3i1b00008tqrll9og6d4";
+  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
   const response = await fetch(
     `${APIBACKEND}/create_resource/${userId}/${botId}`,
     {
