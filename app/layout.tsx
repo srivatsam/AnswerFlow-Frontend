@@ -14,7 +14,7 @@ const font = Poppins({
 export const metadata: Metadata = {
   title: "AnswerFlow AI - Boost Efficiency with Data-Driven Chatbot",
   description:
-    "Elevate your business efficiency with AnswerFlow AI. Leverage data-driven chatbot and natural language processing for better insights and automation",
+    " The simple & affordable way to build Custom GPT Bots | AnswerFlow AI    Description - Don't pay for expensive monthly subscriptions with usage limits, AnswerFlow lets you build Custom AI ChatGPT Bots with unlimited usage with your own Open AI API Key. Supports Documents, Links & 1000+ Integrations",
   icons: {
     icon: "/favicon.png",
   },

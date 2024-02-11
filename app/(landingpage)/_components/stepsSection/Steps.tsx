@@ -73,66 +73,9 @@ function Steps() {
           />
         </div>
       </div>
-      <div className="card flex-col border-gad-1">
-        <div className="sticker rotate-6 left-[60%]">
-          <p>2</p>
-        </div>
-        <div className="flex flex-col gap-8 w-[100%] text-center md:h-[300px] ">
-          <h1 className="text-[35px] md:text-[42px] font-bold ">
-            Your CustomGPT Bot is Up
-          </h1>
-          <div className="text-[#9D9D9D] text-[16px] md:text-[19px] font-light flex flex-col gap-5">
-            Voila! A custom trained chatbot is up to deliver customised rich
-            insights from <br /> your datasources through natural language
-            prompts
-          </div>
-        </div>
-        <div className="floatCard md:absolute p-6 md:p-8 rounded-[20px] bg-[#1D1D1D] bottom-[-420px] lg:bottom-[-70%] xl:bottom-[-56%]  left-[50%] md:translate-x-[-50%] w-[100%] lg:w-[50%] border-gad-2">
-          <div className="w-full flex flex-col justify-start items-start gap-8 ">
-            <div className=" w-full px-4 py-2 bg-[#2B2B2B] flex justify-start items-center rounded-[10px] gap-4 ">
-              <Image
-                src={"/Stars.png"}
-                alt="downArrow"
-                width={60}
-                height={60}
-              />
-              <p className=" text-[#838383]">How can I help today?</p>
-            </div>
-            <p>EXAMPLES</p>
-            <div className=" w-full flex justify-start items-center gap-4">
-              <Image
-                src={"/Magic.png"}
-                alt="downArrow"
-                width={30}
-                height={30}
-              />
-              <p>Generate last year sales report</p>
-            </div>
-            <div className=" w-full flex justify-start items-center gap-4">
-              <Image
-                src={"/Magic.png"}
-                alt="downArrow"
-                width={30}
-                height={30}
-              />
-              <p>Tell me about the new product we launched</p>
-            </div>
-            <div className=" w-full flex justify-start items-center gap-4">
-              <Image
-                src={"/Magic.png"}
-                alt="downArrow"
-                width={30}
-                height={30}
-              />
-              <p>How many users visited our website in January?</p>
-            </div>
-          </div>
-          <div className="absolute z-[-100]  bg-[#370b7ecb] w-[70%] blur-[170px] aspect-square  rounded-full top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] "></div>
-        </div>
-      </div>
       <div className="card border-gad-1">
         <div className="sticker -rotate-2 left-[30%]">
-          <p>3</p>
+          <p>2</p>
         </div>
         <div className="flex flex-col gap-8 w-[100%] lg:w-[60%] items-center lg:items-start ">
           <h1 className="text-[35px] md:text-[42px] font-bold ">
@@ -189,6 +132,63 @@ function Steps() {
             height={20}
             className=" absolute bottom-[-35px] left-[100px]"
           />
+        </div>
+      </div>
+      <div className="card flex-col border-gad-1">
+        <div className="sticker rotate-6 left-[60%]">
+          <p>3</p>
+        </div>
+        <div className="flex flex-col gap-8 w-[100%] text-center md:h-[300px] ">
+          <h1 className="text-[35px] md:text-[42px] font-bold ">
+            Your CustomGPT Bot is Up
+          </h1>
+          <div className="text-[#9D9D9D] text-[16px] md:text-[19px] font-light flex flex-col gap-5">
+            Voila! A custom trained chatbot is up to deliver customised rich
+            insights from <br /> your datasources through natural language
+            prompts
+          </div>
+        </div>
+        <div className="floatCard md:absolute p-6 md:p-8 rounded-[20px] bg-[#1D1D1D] bottom-[-420px] lg:bottom-[-70%] xl:bottom-[-56%]  left-[50%] md:translate-x-[-50%] w-[100%] lg:w-[50%] border-gad-2">
+          <div className="w-full flex flex-col justify-start items-start gap-8 ">
+            <div className=" w-full px-4 py-2 bg-[#2B2B2B] flex justify-start items-center rounded-[10px] gap-4 ">
+              <Image
+                src={"/Stars.png"}
+                alt="downArrow"
+                width={60}
+                height={60}
+              />
+              <p className=" text-[#838383]">How can I help today?</p>
+            </div>
+            <p>EXAMPLES</p>
+            <div className=" w-full flex justify-start items-center gap-4">
+              <Image
+                src={"/Magic.png"}
+                alt="downArrow"
+                width={30}
+                height={30}
+              />
+              <p>Generate last year sales report</p>
+            </div>
+            <div className=" w-full flex justify-start items-center gap-4">
+              <Image
+                src={"/Magic.png"}
+                alt="downArrow"
+                width={30}
+                height={30}
+              />
+              <p>Tell me about the new product we launched</p>
+            </div>
+            <div className=" w-full flex justify-start items-center gap-4">
+              <Image
+                src={"/Magic.png"}
+                alt="downArrow"
+                width={30}
+                height={30}
+              />
+              <p>How many users visited our website in January?</p>
+            </div>
+          </div>
+          <div className="absolute z-[-100]  bg-[#370b7ecb] w-[70%] blur-[170px] aspect-square  rounded-full top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] "></div>
         </div>
       </div>
     </section>

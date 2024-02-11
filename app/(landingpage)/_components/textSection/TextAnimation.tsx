@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 const text =
-  "Create a secure Knowledge base & empower your org. with super-easy Answers about everything & boost productivity by removing the hassle of switching multiple tools";
+  "Create a secure Knowledge base trained on your data & enable rich answers & boost productivity by removing the hassle of switching multiple tools, powered by Artificial Intelligence";
 
 export default function TextAnimation() {
   const refs = useRef<HTMLSpanElement[]>([]);

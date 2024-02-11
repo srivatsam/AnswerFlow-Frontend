@@ -7,8 +7,8 @@ import React from "react";
 function Hero() {
   return (
     <LazyMotion features={domAnimation}>
-      <section className="relative section flex gap-14 md:gap-28 items-center flex-col py-6 sm:py-16 md:py-20 md:pb-[200px] ">
-        <div className="flex gap-14 md:gap-20 items-center flex-col">
+      <section className="relative section flex gap-14 md:gap-24 items-center flex-col py-6 sm:py-16 md:py-10 md:pb-[200px] ">
+        <div className="flex gap-14 md:gap-18 items-center flex-col">
           <div className="text-center md:max-w-[85%] mx-auto flex gap-8 items-center flex-col">
             <m.h2
               initial={{ y: 100, opacity: 0 }}
@@ -50,13 +50,14 @@ function Hero() {
                 type: "spring",
                 stiffness: 50,
                 delay: 1.3,
+                staggerChildren: 1,
               }}
-              className="btn sec"
+              className="flex flex-col justify-center items-center gap-1"
             >
               <Link
                 href={"https://cal.com/srivatsa"}
                 target="_blank"
-                className="w-full h-full flex justify-center items-center"
+                className="w-full h-full flex justify-center items-center btn sec"
               >
                 Get Started
               </Link>

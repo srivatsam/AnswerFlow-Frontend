@@ -138,7 +138,7 @@ function Pricing() {
           enjoy unlimited Bots & interactions using your own OpenAI API Key
         </p>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 items-center">
           <Link href={"/register"} target="_blank" className="btn sec">
             Get Started
           </Link>
