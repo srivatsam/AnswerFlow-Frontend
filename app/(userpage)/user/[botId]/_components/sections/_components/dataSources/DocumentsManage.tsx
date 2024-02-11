@@ -17,7 +17,7 @@ export function DocumentsManage() {
       startTransition(() => {
         const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
           (data) => {
-            if (data.success) {
+            if (data) {
               const fileData = formDataInputs.get("file") as File;
               setFile([]);
             }

@@ -20,7 +20,7 @@ export function LinkForm({ handleNext }: props) {
       startTransition(() => {
         const setPlanPromise = addUrlData(formDataInputs, botId).then(
           (data) => {
-            if (data.success) {
+            if (data) {
               setUrls(formDataInputs.get("link") as string);
               setUrl("");
               increaseProgressByNumber(0.5);

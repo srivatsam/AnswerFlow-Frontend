@@ -26,7 +26,7 @@ export function DataBaseManage() {
       const botId = window.localStorage.getItem("botId") as string;
       startTransition(() => {
         const setPlanPromise = addDbData(formDataInputs, botId).then((data) => {
-          if (data.success) {
+          if (data) {
             setName("");
           }
         });

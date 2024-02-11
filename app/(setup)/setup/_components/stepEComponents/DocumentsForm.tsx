@@ -23,7 +23,7 @@ export function DocumentsForm({ handleNext }: props) {
       startTransition(() => {
         const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
           (data) => {
-            if (data.success) {
+            if (data) {
               setFile([]);
               const fileData = formDataInputs.getAll("file") as File[];
               setFiles(fileData);

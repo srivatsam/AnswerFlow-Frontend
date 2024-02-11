@@ -41,7 +41,7 @@ export function DataBaseForm({ handleNext }: props) {
       const botId = window.localStorage.getItem("botId") as string;
       startTransition(() => {
         const setPlanPromise = addDbData(formDataInputs, botId).then((data) => {
-          if (data.success) {
+          if (data) {
             setDbs(formDataInputs.get("dbName") as string);
             setDataBaseForm({
               host: "",

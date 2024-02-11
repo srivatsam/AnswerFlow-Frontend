@@ -13,7 +13,7 @@ export function LinkManage() {
       startTransition(() => {
         const setPlanPromise = addUrlData(formDataInputs, botId).then(
           (data) => {
-            if (data.success) {
+            if (data) {
               setUrl("");
             }
           }

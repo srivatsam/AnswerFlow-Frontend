@@ -53,7 +53,10 @@ export function StepA({ handleNext }: props) {
             className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
           />
           <p className="text-[#909090]">
-            <Link href={"/"} className="text-[#518EF8] text-[14px]">
+            <Link
+              href={"https://platform.openai.com/account/api-keys"}
+              className="text-[#518EF8] text-[14px]"
+            >
               Learn more
             </Link>{" "}
             about how you can get your OpenAI API Key
