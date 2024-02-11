@@ -12,7 +12,7 @@ export const updatePlan = async (plan: string) => {
       method: "PUT",
     });
     const responseStripe = await fetch(
-      `${APIBACKEND}/payment/upgrade_plan/${userId}/${planId}`,
+      `${APIBACKEND}/payment/change_plan/${userId}/${planId}`,
       {
         method: "GET",
       }

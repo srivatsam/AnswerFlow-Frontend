@@ -18,5 +18,5 @@ export const cancelPlan = async () => {
     throw new Error(`${responseStripeData.message}`);
   }
   console.log(responseStripeData);
-  return responseStripe;
+  return responseStripeData;
 };

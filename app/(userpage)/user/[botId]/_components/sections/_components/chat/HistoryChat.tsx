@@ -75,12 +75,14 @@ export function HistoryChat({ pastChat, activeChat, setActiveChat }: props) {
               onClick={() => {
                 setActiveChat(chat.id);
               }}
-              className="cursor-pointer flex-1 flex flex-col"
+              className="cursor-pointer flex-1 flex flex-col gap-0 w-[70%] pl-8 py-4"
             >
-              <p className="whitespace-nowrap text-ellipsis overflow-hidden pl-8 py-6">
+              <p className="whitespace-nowrap text-ellipsis overflow-hidden w-full">
                 {chat.title}
               </p>
-              <p className="text-gray-300">{chat.date}</p>
+              <p className="whitespace-nowrap text-ellipsis overflow-hidden w-full text-sm text-gray-400">
+                {chat.data}
+              </p>
             </div>
             <div className="flex items-center shrink-0">
               <Image

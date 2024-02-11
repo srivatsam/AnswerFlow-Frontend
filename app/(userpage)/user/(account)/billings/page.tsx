@@ -53,11 +53,13 @@ async function Billings() {
                 >
                   <p className="text-[#5D5D5D] text-[14px]">{`#Order${billing["number"]}`}</p>
                   <div className="flex w-full justify-between text-[20px] font-medium">
-                    <h3>Starter plan</h3>
+                    <h3>${billing["subscription_type"]}</h3>
                     <p>{billing["Amount Due"]}</p>
                   </div>
                   <div className="flex w-full justify-between text-[#939393] text-[14px]">
-                    <h3>{`${periodType} Subscription`}</h3>
+                    <h3>{`${
+                      billing["plan_name"] == "month" ? "Monthly" : "Annual"
+                    } Subscription  ${billing["plan_name"]}`}</h3>
                     <p>{formattedDate}</p>
                   </div>
                 </Link>
