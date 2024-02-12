@@ -9,7 +9,6 @@ import { activeSectionType } from "@/types/activeSection";
 
 function BotSelection({ bots }: { bots: any }) {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
-  const resetToNewBot = useSteps((state) => state.resetToNewBot);
   const [botSelected, setBotSelected] = useState("Bot Name");
 
   const [toggle, setToggle] = useState(false);
@@ -53,7 +52,6 @@ function BotSelection({ bots }: { bots: any }) {
             <button
               onClick={() => {
                 setToggle(false);
-                resetToNewBot();
                 route.push(`/setup`);
               }}
               className="flex justify-between gap-1 py-1 px-2 w-full capitalize"

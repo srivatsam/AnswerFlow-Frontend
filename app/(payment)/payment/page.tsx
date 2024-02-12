@@ -14,7 +14,7 @@ import { useSession } from "next-auth/react";
 
 export default function Page() {
   const session = useSession();
-  const [email, setEmail] = useState(session.data?.user.email);
+  const [email, setEmail] = useState(session.data?.user.email || "");
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const route = useRouter();

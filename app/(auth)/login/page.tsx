@@ -135,7 +135,7 @@ function Login() {
         </Form>
 
         {/* google sign in */}
-        {/* <SignWithGoogle /> */}
+        <SignWithGoogle redirect="user/profile" />
       </div>
     </div>
   );

@@ -34,7 +34,11 @@ export const setPlan = async (
 
     try {
       await setUserName(formData);
-      await db.billingInfo.create({ data: billingData });
+      await db.billingInfo.upsert({
+        where: { userId: session?.user.id as string },
+        update: billingData,
+        create: billingData,
+      });
     } catch (error) {
       return { status: "error", message: "Can Set Billing Info Twice" };
     }

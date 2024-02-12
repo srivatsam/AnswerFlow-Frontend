@@ -2,10 +2,10 @@ import React from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 
-export function SignWithGoogle({}) {
+export function SignWithGoogle({ redirect }: { redirect: string }) {
   const onGoogleSubmit = () => {
     signIn("google", {
-      callbackUrl: "/setup",
+      callbackUrl: `/${redirect}`,
     });
   };
   return (

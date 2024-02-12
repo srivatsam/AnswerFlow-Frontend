@@ -161,7 +161,7 @@ function Register() {
           </form>
         </Form>
         {/* google sign in */}
-        <SignWithGoogle />
+        <SignWithGoogle redirect="setup" />
       </div>
     </div>
   );

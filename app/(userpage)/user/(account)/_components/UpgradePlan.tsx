@@ -17,8 +17,11 @@ export function UpgradePlan() {
   };
   return (
     <button
+      disabled={isPending}
       onClick={() => onPlanSubmit("pro")}
-      className="text-[15px] text-[#A2A2A2] bg-[#232323] rounded-[10px] w-fit px-8 py-3 "
+      className={`text-[15px] text-[#A2A2A2] bg-[#232323] rounded-[10px] w-fit px-8 py-3 ${
+        isPending && "cursor-not-allowed opacity-40"
+      }`}
     >
       Upgrade ($299/month)
     </button>
