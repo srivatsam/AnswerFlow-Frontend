@@ -3,9 +3,11 @@ import { getBillings } from "@/actions/getBillings";
 import { CancelPlan } from "../_components/CancelPlan";
 import { UpgradePlan } from "../_components/UpgradePlan";
 import Link from "next/link";
+import { getUserPlan } from "@/actions/getUserPlan";
 
 async function Billings() {
   const billings = await getBillings();
+  const userPlan = await getUserPlan();
   return (
     <div className="flex flex-col bg-[#131313] rounded-[10px] gap-10 justify-start items-start w-[600px] py-8">
       <div className="w-full">
@@ -82,15 +84,7 @@ async function Billings() {
             </div>
             <CancelPlan />
           </div>
-          <div className="rounded-[10px] p-6 bg-[#373737] flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <h3 className="text-[18px] font-medium">Upgrade plan</h3>
-              <p className="text-[14px] text-[#30B616]">
-                Enjoy bigger knowledgebase & number of bots
-              </p>
-            </div>
-            <UpgradePlan />
-          </div>
+          <UpgradePlan userPlan={userPlan} />
         </div>
       </div>
     </div>

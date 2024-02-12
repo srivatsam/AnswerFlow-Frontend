@@ -55,6 +55,7 @@ export function StepA({ handleNext }: props) {
           <p className="text-[#909090]">
             <Link
               href={"https://platform.openai.com/account/api-keys"}
+              target="_blank"
               className="text-[#518EF8] text-[14px]"
             >
               Learn more

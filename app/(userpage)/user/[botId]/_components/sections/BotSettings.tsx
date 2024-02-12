@@ -16,8 +16,8 @@ function BotSettings({ botData }: props) {
   const deleteConfirm = `DELETE/${botData.name}`;
   const [deleteMassage, setDeleteMassage] = useState("");
   const route = useRouter();
-  const [deletePopUp, setDeletePopUp] = useState(false);
   const [botName, setBotName] = useState<string>(botData.name);
+  const [deletePopUp, setDeletePopUp] = useState(false);
   const [botPurpose, setBotPurpose] = useState<string>(botData.system_prompt);
   const [botTone, setBotTone] = useState<string>(botData.tone);
 
@@ -244,7 +244,7 @@ function BotSettings({ botData }: props) {
                       "opacity-40 cursor-not-allowed"
                     } bg-[#fa5555] rounded-[10px] py-4 px-10 w-fit`}
                   >
-                    {isPendingDelete ? "Deleting Bot ..." : "Delete Sales Bot"}
+                    {isPendingDelete ? "Deleting Bot ..." : "Delete Bot"}
                   </button>
                   <button
                     className="bg-[#232323] rounded-[10px] py-4 px-10 w-fit"
