@@ -104,8 +104,9 @@ function loadChatbot(containerId) {
     padding-block: 12px;
     padding-inline: 18px;
     text-align: center;
-  }#chat-header h4{
-    margin:0px
+  }
+  #chat-header h4{
+    margin:0px;
     width: 220px;
     word-break: break-all;
     white-space: nowrap;
