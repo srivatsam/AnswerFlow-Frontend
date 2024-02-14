@@ -233,19 +233,21 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
                       </a>
                     ),
                     h1: ({ children }) => (
-                      <h1 className="text-4xl font-extrabold">{children}</h1>
+                      <h1 className="text-4xl font-extrabold m-4">
+                        {children}
+                      </h1>
                     ),
                     h2: ({ children }) => (
-                      <h2 className="text-3xl font-bold">{children}</h2>
+                      <h2 className="text-3xl font-bold m-2">{children}</h2>
                     ),
                     h3: ({ children }) => (
-                      <h3 className="text-2xl font-semibold">{children}</h3>
+                      <h3 className="text-2xl font-semibold m-2">{children}</h3>
                     ),
                     h4: ({ children }) => (
-                      <h4 className="text-3xl font-medium">{children}</h4>
+                      <h4 className="text-3xl font-medium m-1">{children}</h4>
                     ),
                     h5: ({ children }) => (
-                      <h5 className="text-2xl font-normal">{children}</h5>
+                      <h5 className="text-2xl font-normal m-1">{children}</h5>
                     ),
                     img: ({ alt, src }) => (
                       <div className="relative w-full aspect-video drop-shadow-xl">
