@@ -28,6 +28,7 @@ export function DataBaseManage() {
         const setPlanPromise = addDbData(formDataInputs, botId).then((data) => {
           if (data) {
             setName("");
+            setDbType("");
           }
         });
         toast.promise(setPlanPromise, {
@@ -76,12 +77,12 @@ export function DataBaseManage() {
           <p>MySQL</p>
         </div>
         <div
-          onClick={() => setDbType("mongo")}
+          onClick={() => setDbType("mongodb")}
           className="flex items-center gap-2 cursor-pointer"
         >
           <span
             className={`w-4 h-4 border-2 border-gray-400 rounded-sm  ${
-              dbType == "mongo" && "bg-blue-600"
+              dbType == "mongodb" && "bg-blue-600"
             } `}
           />
           <p>MongoDb</p>

@@ -5,14 +5,18 @@ import { revalidateTag } from "next/cache";
 
 export const addDbData = async (formData: FormData, botId: string) => {
   console.log(formData);
-  const type = formData.get("type") == "mongo" ? "mongodb" : "mysql";
+  const type = formData.get("type") == "mongodb" ? "mongodb" : "mysql";
   const username = formData.get("userName");
   const password = formData.get("password");
   const host = formData.get("host");
   const port = formData.get("port");
   const db_name = formData.get("dbName");
   const prefix =
-    type === "mongodb" ? "mongodb" : type === "mysql" ? "mysql" : "postgres";
+    formData.get("type") === "mongodb"
+      ? "mongodb"
+      : formData.get("type") === "mysql"
+      ? "mysql"
+      : "postgres";
 
   const name = `${prefix}://${username}:${password}@${host}:${port}/${db_name}`;
   const session = await auth();
