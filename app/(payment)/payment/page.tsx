@@ -1,5 +1,11 @@
 "use client";
-import React, { useCallback, useEffect, useState, useTransition } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useState,
+  useTransition,
+} from "react";
 import { useRouter } from "next/navigation";
 
 import { setPlan } from "@/actions/setPlan";
@@ -10,13 +16,19 @@ import { motion } from "framer-motion";
 import { PlanDetails } from "./_components/PlanDetails";
 import { CountryInput } from "./_components/CountryInput";
 import { PhoneInput } from "./_components/PhoneInput";
-import { useSession } from "next-auth/react";
+import { getUserData } from "@/actions/getUserData";
 
 export default function Page() {
-  const session = useSession();
-  const [email, setEmail] = useState(session.data?.user.email || "");
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
+  const [user, setUser] = useState<userType>();
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await getUserData();
+      if (user) setUser(user);
+    };
+    getUser();
+  }, []);
+  const [lastName, setLastName] = useState(user?.firstName || "");
+  const [firstName, setFirstName] = useState(user?.lastName || "");
   const route = useRouter();
   const [planFromLocal, setPlanFromLocal] = useState<YourPlanType>();
   const [isPending, startTransition] = useTransition();
@@ -37,12 +49,6 @@ export default function Page() {
       console.error("Error while retrieving plan from local storage:", error);
     }
   }, [route]);
-
-  useEffect(() => {
-    if (session.data?.user.email) {
-      setEmail(session.data.user.email);
-    }
-  }, [session]);
   useEffect(() => {
     fetchPlanFromLocalStorage();
   }, [fetchPlanFromLocalStorage]);
@@ -123,7 +129,7 @@ export default function Page() {
               type="email"
               id="email"
               name="email"
-              value={email || ""}
+              value={user?.email || ""}
               required
               placeholder="Enter your work email"
               className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none opacity-40 cursor-not-allowed"
