@@ -12,9 +12,10 @@ export const deleteChat = async (chatID: string) => {
 
     if (data.status == "error") {
       throw new Error(`ERROR FROM SERVER :${data.message}`);
+    } else {
+      revalidateTag("chatsTitle");
+      return data;
     }
-    revalidateTag("chatsTitle");
-    return data;
   } catch (error) {
     console.error(error);
     throw new Error(`${error}`);

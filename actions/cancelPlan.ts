@@ -5,7 +5,10 @@ import { APIBACKEND } from "@/utils/constData";
 
 export const cancelPlan = async () => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clshq8clq00001equez0kcmz3";
   const responseStripe = await fetch(
     `${APIBACKEND}/payment/cancel_subscription/${userId}`,
     {
@@ -16,7 +19,8 @@ export const cancelPlan = async () => {
   if (responseStripeData.status == "error") {
     console.error(responseStripeData.message);
     throw new Error(`${responseStripeData.message}`);
+  } else {
+    console.log(responseStripeData);
+    return responseStripeData;
   }
-  console.log(responseStripeData);
-  return responseStripeData;
 };

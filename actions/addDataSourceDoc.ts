@@ -7,7 +7,10 @@ import { revalidateTag } from "next/cache";
 export const addDataSourceDoc = async (formData: FormData, botId: string) => {
   console.log(formData.get("file"));
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clshq8clq00001equez0kcmz3";
 
   const response = await fetch(
     `${APIBACKEND}/create_resource/${userId}/${botId}`,
@@ -22,7 +25,8 @@ export const addDataSourceDoc = async (formData: FormData, botId: string) => {
   if (responseData.status == "error") {
     console.error(responseData.message);
     throw new Error(`${responseData.message}`);
+  } else {
+    revalidateTag("resources");
+    return { success: "Data Added Successfully" };
   }
-  revalidateTag("resources");
-  return { success: "Data Added Successfully" };
 };

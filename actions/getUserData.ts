@@ -9,7 +9,6 @@ export const getUserData = async () => {
   if (!exitUser) {
     console.error(`Not authorized`);
     throw new Error(`Not authorized`);
-    return null;
   } else {
     return exitUser;
   }

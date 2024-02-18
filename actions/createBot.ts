@@ -5,7 +5,10 @@ import { APIBACKEND } from "@/utils/constData";
 import { revalidateTag } from "next/cache";
 export const createBot = async (formData: FormData) => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clshq8clq00001equez0kcmz3";
   const response = await fetch(`${APIBACKEND}/create_bot/${userId}`, {
     method: "POST",
     headers: {
@@ -23,7 +26,8 @@ export const createBot = async (formData: FormData) => {
   if (responseData.status == "error") {
     console.log(responseData.message);
     throw new Error(`${responseData.message}`);
+  } else {
+    revalidateTag("bots");
+    return { success: "Bot Created Successfully", data: responseData };
   }
-  revalidateTag("bots");
-  return { success: "Bot Created Successfully", data: responseData };
 };

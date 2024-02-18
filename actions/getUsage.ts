@@ -3,7 +3,10 @@ import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 export const getUserUsage = async () => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clshq8clq00001equez0kcmz3";
   try {
     const response = await fetch(`${APIBACKEND}/usage/${userId}`, {
       method: "GET",
@@ -13,8 +16,9 @@ export const getUserUsage = async () => {
     console.log(responseData);
     if (responseData.status != "success") {
       throw new Error(`${responseData.status}`);
+    } else {
+      return responseData;
     }
-    return responseData;
   } catch (error) {
     console.error(error);
     throw new Error(`${error}`);

@@ -13,7 +13,8 @@ export const deleteBot = async (botId: string) => {
   if (responseData.status == "error") {
     console.log(responseData.message);
     throw new Error(`${responseData.message}`);
+  } else {
+    revalidateTag("bots");
+    return { success: "Bot Deleted Successfully", data: responseData };
   }
-  revalidateTag("bots");
-  return { success: "Bot Deleted Successfully", data: responseData };
 };

@@ -13,8 +13,9 @@ export const getHistoryAction = async (chatId: string) => {
     console.log(data.history);
     if (data.status == "error") {
       throw new Error(`${data.message}`);
+    } else {
+      return data.history;
     }
-    return data.history;
   } catch (error) {
     console.error(error);
     return null;

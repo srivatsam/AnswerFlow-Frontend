@@ -21,9 +21,10 @@ export const updateChatTitle = async (chatID: string, name: string) => {
 
     if (data.status == "error") {
       throw new Error(`${data.message}`);
+    } else {
+      revalidateTag("chatsTitle");
+      return data;
     }
-    revalidateTag("chatsTitle");
-    return data;
   } catch (error) {
     console.error(error);
     return null;

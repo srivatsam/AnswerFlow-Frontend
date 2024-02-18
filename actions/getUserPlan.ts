@@ -3,7 +3,10 @@ import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 export const getUserPlan = async () => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clshq8clq00001equez0kcmz3";
   try {
     const response = await fetch(`${APIBACKEND}/get_user/${userId}`, {
       method: "GET",

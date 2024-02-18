@@ -1,9 +1,9 @@
 export const APIBACKEND =
   process.env.NODE_ENV == "production"
     ? "http://flask:5000"
-    : `${process.env.NEXTAUTH_URL}/flask`;
+    : `http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/flask`;
 
-export const ChatAPI = `${process.env.NEXTAUTH_URL}`;
+export const ChatAPI = `http://ec2-13-127-192-129.ap-south-1.compute.amazonaws.com/flask`;
 
 export const userItems = ["profile", "billings", "settings", "logout"];
 
@@ -58,7 +58,7 @@ export const planData = [
   },
   {
     name: "PRO",
-    price: 199,
+    price: 299,
     popular: false,
     features: [
       "✅ Unlimited Chats",

@@ -4,7 +4,10 @@ import { APIBACKEND } from "@/utils/constData";
 import { revalidateTag } from "next/cache";
 export const updatePlan = async (plan: string) => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clshq8clq00001equez0kcmz3";
   const planId = plan == "pro" ? "3" : plan == "starter" ? "2" : "1";
 
   if (userId) {
@@ -24,10 +27,10 @@ export const updatePlan = async (plan: string) => {
     if (responseData.status === "error") {
       console.error(responseData.message);
       return { status: "error", message: responseData.message };
+    } else {
+      revalidateTag("userPlan");
+      return { success: "Set The Plan Successfully" };
     }
-
-    revalidateTag("userPlan");
-    return { success: "Set The Plan Successfully" };
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
     return { status: "error", message: "You are not authorized" };

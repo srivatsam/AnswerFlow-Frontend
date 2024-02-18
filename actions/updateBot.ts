@@ -25,7 +25,8 @@ export const updateBot = async (formData: FormData, botId: string) => {
   if (responseData.status == "error") {
     console.log(responseData.message);
     throw new Error(`${responseData.message}`);
+  } else {
+    revalidateTag("bot");
+    return { success: "Bot Created Successfully", data: responseData };
   }
-  revalidateTag("bot");
-  return { success: "Bot Created Successfully", data: responseData };
 };

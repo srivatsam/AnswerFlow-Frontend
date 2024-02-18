@@ -5,7 +5,10 @@ import { APIBACKEND } from "@/utils/constData";
 
 export const getBillings = async () => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clshq8clq00001equez0kcmz3";
   const responseStripe = await fetch(
     `${APIBACKEND}/payment/invoices/${userId}`,
     {
@@ -16,6 +19,7 @@ export const getBillings = async () => {
   console.log(responseStripeData);
   if (responseStripeData.status === "error") {
     return null;
+  } else {
+    return responseStripeData.invoices;
   }
-  return responseStripeData.invoices;
 };

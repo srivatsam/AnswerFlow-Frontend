@@ -11,7 +11,10 @@ export const setPlan = async (
   planFromLocal: YourPlanType
 ) => {
   const session = await auth();
-  const userId = process.env.NODE_ENV == "production" ? session?.user.id : "1";
+  const userId =
+    process.env.NODE_ENV == "production"
+      ? session?.user.id
+      : "clshq8clq00001equez0kcmz3";
   const planId =
     planFromLocal.plan == "pro"
       ? "3"
@@ -87,14 +90,14 @@ export const setPlan = async (
       console.error(responseData.message);
       console.error(responseStripeData.message);
       return { status: "error", message: responseData.message };
+    } else {
+      revalidateTag("userPlan");
+      return {
+        status: "success",
+        message: "Set The Plan Successfully",
+        url: responseStripeData.url,
+      };
     }
-
-    revalidateTag("userPlan");
-    return {
-      status: "success",
-      message: "Set The Plan Successfully",
-      url: responseStripeData.url,
-    };
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
     return { status: "error", message: "You are not authorized" };

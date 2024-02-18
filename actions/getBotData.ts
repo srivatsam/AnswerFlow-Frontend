@@ -11,9 +11,10 @@ export const getBotData = async (botId: string) => {
 
     if (data.status == "error") {
       throw new Error(`ERROR FROM SERVER :${data.message}`);
+    } else {
+      console.log(data);
+      return data.bot;
     }
-    console.log(data);
-    return data.bot;
   } catch (error) {
     console.error(error);
     return null;
