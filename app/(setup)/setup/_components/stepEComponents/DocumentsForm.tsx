@@ -13,6 +13,7 @@ export function DocumentsForm({ handleNext }: props) {
   const increaseProgress = useProgressBar((state) => state.increaseProgress);
   const { formData, setFiles } = useFormContext();
   const [isPending, startTransition] = useTransition();
+  const [file, setFile] = useState<File[]>([]);
 
   const addFilesDataSource = async () => {
     const formDataInputs = new FormData();
@@ -41,7 +42,7 @@ export function DocumentsForm({ handleNext }: props) {
       });
     }
   };
-  const [file, setFile] = useState<File[]>([]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
     if (selectedFiles) {
@@ -63,7 +64,7 @@ export function DocumentsForm({ handleNext }: props) {
               Drag & Drop any Documents
             </h1>
             <p className="text-[16px] text-[#606060]">
-              (Supports doc, docx, xls, xlsx, pdf, ppt, pptx)
+              (Supports doc, docx, xls, xlsx, pdf, ppt, pptx,csv)
             </p>
             <div className="relative py-4">
               <div className="absolute w-full h-4 top-0 left-0 bg-gradient-to-b from-[#0B0B0B] to-transparent" />
@@ -98,7 +99,7 @@ export function DocumentsForm({ handleNext }: props) {
           }`}</label>
         </div>
         <input
-          accept=".doc, .docx, .xls, .xlsx, .pdf, .ppt, .pptx"
+          accept=".doc, .docx, .xls, .xlsx, .pdf, .ppt, .pptx , .csv"
           multiple
           type="file"
           id="file"
@@ -121,10 +122,14 @@ export function DocumentsForm({ handleNext }: props) {
         <button
           disabled={
             isPending ||
-            (formData.files.length == 0 && formData.urls.length == 0)
+            (formData.files.length == 0 &&
+              formData.urls.length == 0 &&
+              formData.dbs.length == 0)
           }
           className={`btn sec flex !justify-around ${
-            ((formData.urls.length == 0 && formData.files.length == 0) ||
+            ((formData.urls.length == 0 &&
+              formData.files.length == 0 &&
+              formData.dbs.length == 0) ||
               isPending) &&
             " opacity-50 cursor-not-allowed"
           }`}

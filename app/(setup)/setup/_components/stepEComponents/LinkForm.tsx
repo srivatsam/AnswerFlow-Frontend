@@ -78,10 +78,14 @@ export function LinkForm({ handleNext }: props) {
         <button
           disabled={
             isPending ||
-            (formData.files.length == 0 && formData.urls.length == 0)
+            (formData.files.length == 0 &&
+              formData.urls.length == 0 &&
+              formData.dbs.length == 0)
           }
           className={`btn sec flex !justify-around ${
-            ((formData.urls.length == 0 && formData.files.length == 0) ||
+            ((formData.urls.length == 0 &&
+              formData.files.length == 0 &&
+              formData.dbs.length == 0) ||
               isPending) &&
             " opacity-50 cursor-not-allowed"
           }`}

@@ -17,14 +17,19 @@ async function Page({ params }: props) {
   const userPlan = (await getUserPlan()).userPlan;
   const botResources = await getBotResources(params.botId);
 
-  return (
-    <Sections
-      botData={botData}
-      userPlan={userPlan}
-      botResources={botResources}
-      pastChat={pastChat}
-    />
-  );
+  console.log("-------------------", botData);
+  if (botData) {
+    return (
+      <Sections
+        botData={botData}
+        userPlan={userPlan}
+        botResources={botResources}
+        pastChat={pastChat}
+      />
+    );
+  } else {
+    return <p>bot not found</p>;
+  }
 }
 
 export default Page;

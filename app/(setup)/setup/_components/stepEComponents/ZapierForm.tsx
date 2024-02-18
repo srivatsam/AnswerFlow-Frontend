@@ -17,25 +17,25 @@ export function ZapierForm({ handleNext }: props) {
   const [isPending, startTransition] = useTransition();
 
   const addFilesDataSource = async (formDataInputs: FormData) => {
-    // if (formDataInputs) {
-    //   const botId = window.localStorage.getItem("botId") as string;
-    //   startTransition(() => {
-    //     const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
-    //       (data) => {
-    //         if (data.success) {
-    //           const fileData = formDataInputs.get("file") as File;
-    //           // setFiles(fileData);
-    //           increaseProgressByNumber(0.5);
-    //         }
-    //       }
-    //     );
-    //     toast.promise(setPlanPromise, {
-    //       loading: "Loading...",
-    //       success: "Data Added Successfully",
-    //       error: (error) => `${error.message}`,
-    //     });
-    //   });
-    // }
+    if (formDataInputs) {
+      const botId = window.localStorage.getItem("botId") as string;
+      startTransition(() => {
+        const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
+          (data) => {
+            if (data.success) {
+              const fileData = formDataInputs.get("file") as File;
+              setFiles([fileData]);
+              increaseProgressByNumber(0.5);
+            }
+          }
+        );
+        toast.promise(setPlanPromise, {
+          loading: "Loading...",
+          success: "Data Added Successfully",
+          error: (error) => `${error.message}`,
+        });
+      });
+    }
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files;
@@ -71,6 +71,7 @@ export function ZapierForm({ handleNext }: props) {
           }`}</div>
         </label>
         <input
+          accept=".zip"
           onChange={handleFileChange}
           type="file"
           id="file"
@@ -90,10 +91,14 @@ export function ZapierForm({ handleNext }: props) {
         <button
           disabled={
             isPending ||
-            (formData.files.length == 0 && formData.urls.length == 0)
+            (formData.files.length == 0 &&
+              formData.urls.length == 0 &&
+              formData.dbs.length == 0)
           }
           className={`btn sec flex !justify-around ${
-            ((formData.urls.length == 0 && formData.files.length == 0) ||
+            ((formData.urls.length == 0 &&
+              formData.files.length == 0 &&
+              formData.dbs.length == 0) ||
               isPending) &&
             " opacity-50 cursor-not-allowed"
           }`}

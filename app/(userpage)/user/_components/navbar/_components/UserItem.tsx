@@ -31,6 +31,7 @@ function UserItem() {
                 <button
                   key={i}
                   onClick={() => {
+                    localStorage.removeItem("botId");
                     setToggle(false);
                     route.push(`/user/${item}`);
                     setActiveSection("");

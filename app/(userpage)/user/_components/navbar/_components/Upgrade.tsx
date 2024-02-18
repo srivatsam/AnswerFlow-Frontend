@@ -34,7 +34,7 @@ function Upgrade() {
       const setPlanPromise = updatePlan(planName);
       toast.promise(setPlanPromise, {
         loading: "Loading...",
-        success: "Plan Seated Successfully",
+        success: "Plan changed successfully, your billing plan will be updated from next billing cycle.",
         error: "Something Went Wrong",
       });
     });

@@ -23,7 +23,8 @@ export function UpgradePlan({ userPlan }: props) {
       const setPlanPromise = updatePlan(planName);
       toast.promise(setPlanPromise, {
         loading: "Loading...",
-        success: "Next Plan Upgraded Successfully",
+        success:
+          "Plan changed successfully, your billing plan will be updated from next billing cycle.",
         error: (error) => `${error.message}`,
       });
     });

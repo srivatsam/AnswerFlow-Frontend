@@ -91,6 +91,7 @@ export function StepB({ handleNext }: props) {
               </div>
             </div>
             <textarea
+              maxLength={255}
               id="botPurpose"
               value={formData.botPurpose}
               onChange={(e) => {
