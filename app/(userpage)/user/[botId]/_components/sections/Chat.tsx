@@ -1,10 +1,11 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 
-import { ChatAPI } from "@/utils/constData";
+import { APIBACKEND, ChatAPI } from "@/utils/constData";
 import { getHistoryAction } from "@/actions/getHistoryAction";
 import { revalidateChat } from "@/actions/revalidateChat";
 import { getUserData } from "@/actions/getUserData";
@@ -107,7 +108,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
       const DILIMETER = "44eabd710f0f455ea12c17564663d175";
-      await fetch(`/chat/${botData.key}`, {
+      await fetch(`${APIBACKEND}/chat/${botData.key}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +116,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         body: JSON.stringify({
           question: question,
           streaming: true,
-          user_id: userId,
+          user_id: "clshq8clq00001equez0kcmz3",
           chat_id: chatId,
         }),
       })

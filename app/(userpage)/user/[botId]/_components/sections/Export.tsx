@@ -8,7 +8,7 @@ function Export({ botData }: props) {
   const [isCopiedLink, setIsCopiedLink] = useState(false);
   const [isCopiedScript, setIsCopiedScript] = useState(false);
 
-  const botLink: string = `https://answerflowai.com/user/${botData.id}`;
+  const botLink: string = `https://answerflowai.com/share/${botData.id}`;
   const botScript: string = `<div
     id="answerflowbotkey"
     data-answerflowbotkey="${botData.key}"
