@@ -75,14 +75,14 @@ export default function Page() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6 }}
       action={onPlanSubmit}
-      className="flex justify-center items-center w-full"
+      className="flex justify-center items-stretch w-full"
     >
       {/* checkout form */}
-      <div className="flex-1 flex flex-col gap-10 justify-start items-start p-20 ">
+      <div className="flex-1 flex flex-col gap-10 justify-start items-start p-20">
         <h1 className="text-[40px] leading-[74px] font-bold">
           Continue Checkout
         </h1>
-        <div className="flex flex-col gap-6 ">
+        <div className="flex flex-col gap-6">
           <div className=""></div>
           <div className="flex justify-between gap-4">
             <div className="flex flex-col gap-1">

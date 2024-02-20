@@ -15,7 +15,7 @@ export function PlanDetails({ planProps, isPending }: props) {
   if (typeof selectedPlan == "undefined") return null;
 
   return (
-    <div className="absolute py-20 top-0 right-0 min-w-[33%] bg-[#0B0B0B] ">
+    <div className="py-20  min-w-[33%] bg-[#0B0B0B] ">
       <div className="flex flex-col justify-center gap-10 ">
         <h1 className="text-[32px] font-bold text-[#707070] px-20">
           Plan Details
