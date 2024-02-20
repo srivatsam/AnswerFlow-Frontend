@@ -4,8 +4,6 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import { useActiveSection } from "@/hooks/use-active-section";
-import { useSteps } from "@/hooks/use-steps";
-import { activeSectionType } from "@/types/activeSection";
 
 function BotSelection({ bots }: { bots: any }) {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
@@ -65,7 +63,7 @@ function BotSelection({ bots }: { bots: any }) {
               />
             </button>
             <p className="h-[1px] w-full bg-gray-500" />
-            {bots ? (
+            {bots.length !== 0 ? (
               bots.map((item: any) => (
                 <button
                   key={item.id}

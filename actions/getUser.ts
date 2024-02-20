@@ -13,7 +13,7 @@ export const getUser = async () => {
     next: { tags: ["user"] },
   });
   const responseData = await response.json();
-  console.log(responseData);
+  console.log("getUser log", responseData);
   if (responseData.status != "success") {
     console.log(responseData.message);
   }

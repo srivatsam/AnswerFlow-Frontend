@@ -14,28 +14,38 @@ export default auth(async (req) => {
   const isLogin = !!req.auth;
 
   const user = await getUser();
-  console.log("middle", user);
+  console.log("middleware log", user);
+
   const isApiAuthRoutes = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoutes = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoutes = authRoutes.includes(nextUrl.pathname);
   const isPrivateRoutes = DEFAULT_LOGIN_REDIRECT.includes(nextUrl.pathname);
+
+  // return page for all api-auth routes
+  if (isApiAuthRoutes) {
+    return null;
+  }
+  // if user he login and has plan return /user/profile
+  // if user he login and has no plan return /payment
+  // if user he not login return the public routes (/home)
   if (isPublicRoutes) {
-    if (isLogin && user.plan) {
+    if (isLogin) {
+      if (!user.plan) {
+        return Response.redirect(new URL("/payment", nextUrl));
+      }
       return Response.redirect(new URL("/user/profile", nextUrl));
     }
     return null;
   }
-  if (isApiAuthRoutes) {
-    return null;
-  }
+
+  // if user he login and has plan return /user/profile
+  // if user he login and has no plan return /payment
+  // if user he not login return the auth routes (login , register)
   if (isAuthRoutes) {
     if (isLogin) {
-      console.log("user login");
       if (!user.plan) {
-        console.log("user has no plan");
         return Response.redirect(new URL("/payment", nextUrl));
       }
-      console.log("user has plan and login");
       return Response.redirect(new URL("/user/profile", nextUrl));
     }
     return null;
