@@ -11,22 +11,22 @@ export const updatePlan = async (plan: string) => {
   const planId = plan == "pro" ? "3" : plan == "starter" ? "2" : "1";
 
   if (userId) {
-    const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
-      method: "PUT",
-    });
+    // const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
+    //   method: "PUT",
+    // });
     const responseStripe = await fetch(
       `${APIBACKEND}/payment/change_plan/${userId}/${planId}`,
       {
         method: "GET",
       }
     );
-    const responseData = await response.json();
+    // const responseData = await response.json();
     const responseStripeData = await responseStripe.json();
 
     console.log(responseStripeData);
-    if (responseData.status === "error") {
-      console.error(responseData.message);
-      return { status: "error", message: responseData.message };
+    if (responseStripeData.status === "error") {
+      console.error(responseStripeData.message);
+      return { status: "error", message: responseStripeData.message };
     } else {
       revalidateTag("userPlan");
       return { success: "Set The Plan Successfully" };
