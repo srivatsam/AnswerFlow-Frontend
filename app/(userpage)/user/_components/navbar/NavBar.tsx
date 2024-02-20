@@ -17,8 +17,8 @@ function NavBar() {
   return (
     <div className="flex justify-between w-full items-center">
       <div className="flex gap-6 items-center">
-        <div className="w-[300px]">
-          <Image src={"/logo.png"} width={200} height={60} alt="logo png" />
+        <div className="w-[280px]">
+          <Image src={"/logo.png"} width={280} height={60} alt="logo png" />
         </div>
         <Suspense fallback={<LoadingBots />}>
           <Bots />

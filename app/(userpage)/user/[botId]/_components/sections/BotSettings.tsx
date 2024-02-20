@@ -8,14 +8,18 @@ import { updateBot } from "@/actions/updateBot";
 import { tones } from "@/utils/constData";
 
 import { toast } from "sonner";
+import { shareBot } from "@/actions/shareBot";
+import { useSession } from "next-auth/react";
 
 type props = {
   botData: any;
 };
 function BotSettings({ botData }: props) {
+  const botLink: string = `https://answerflowai.com/shared/${botData.id}`;
   const deleteConfirm = `DELETE/${botData.name}`;
   const [deleteMassage, setDeleteMassage] = useState("");
   const route = useRouter();
+  const [emails, setEmails] = useState("");
   const [botName, setBotName] = useState<string>(botData.name);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [botPurpose, setBotPurpose] = useState<string>(botData.system_prompt);
@@ -25,6 +29,7 @@ function BotSettings({ botData }: props) {
   const [selectedOption, setSelectedOption] = useState<string>(botData.tone);
   const [isPending, startTransition] = useTransition();
   const [isPendingDelete, startTransitionDelete] = useTransition();
+  const [isPendingShare, startTransitionShare] = useTransition();
 
   const isChanged =
     botName !== botData.name ||
@@ -73,6 +78,17 @@ function BotSettings({ botData }: props) {
     setBotTone(option);
     setSelectedOption(option);
     setIsOpen(false);
+  };
+
+  const shareLink = () => {
+    startTransitionShare(() => {
+      const setPlanPromise = shareBot(emails, botLink);
+      toast.promise(setPlanPromise, {
+        loading: "Loading...",
+        success: "Bot Shared",
+        error: (error) => `${error.message}`,
+      });
+    });
   };
 
   const popupDelete = () => {
@@ -187,7 +203,7 @@ function BotSettings({ botData }: props) {
         <h1 className="text-[24px] font-bold text-[#777777]">
           Invite your Team
         </h1>
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-3 w-full">
           <label htmlFor="emails" className="font-medium">
             Invite by Email
           </label>
@@ -195,10 +211,22 @@ function BotSettings({ botData }: props) {
             type="text"
             id="emails"
             name="emails"
+            value={emails}
+            onChange={(e) => setEmails(e.target.value)}
             required
             placeholder="Enter email address separated by comma"
             className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
           />
+          <button
+            disabled={emails == "" || isPendingShare}
+            onClick={shareLink}
+            className={`btn sec ${
+              (emails == "" || isPendingShare) &&
+              "opacity-45 cursor-not-allowed"
+            }`}
+          >
+            Share The Bot
+          </button>
         </div>
         <hr />
         <div className="bg-[#373737] p-10 rounded-[10px] flex flex-col gap-8">
