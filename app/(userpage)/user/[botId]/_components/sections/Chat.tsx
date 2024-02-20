@@ -116,7 +116,7 @@ function Chat({ botData, chatIdProp, pastChat, setActiveChat }: props) {
         body: JSON.stringify({
           question: question,
           streaming: true,
-          user_id: "clshq8clq00001equez0kcmz3",
+          user_id: userId,
           chat_id: chatId,
         }),
       })
