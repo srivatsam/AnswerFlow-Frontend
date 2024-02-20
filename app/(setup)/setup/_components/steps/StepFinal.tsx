@@ -1,18 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useFormContext } from "@/context/FormContext";
 import { motion } from "framer-motion";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useSteps } from "@/hooks/use-steps";
+import { useProgressBar } from "@/hooks/use-progressbar-hook";
 
 export function StepFinal() {
+  const increaseProgress = useProgressBar((state) => state.increaseProgress);
   console.log("stepFinally render");
   const { resetFormData, formData } = useFormContext();
   const resetToNewBot = useSteps((state) => state.resetToNewBot);
 
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
+
+  useEffect(() => {
+    increaseProgress(4);
+  }, [increaseProgress]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

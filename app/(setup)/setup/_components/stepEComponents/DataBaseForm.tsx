@@ -51,6 +51,7 @@ export function DataBaseForm({ handleNext }: props) {
               dbName: "",
             });
             setDbType("");
+            increaseProgressByNumber(0.3);
           }
         });
         toast.promise(setPlanPromise, {

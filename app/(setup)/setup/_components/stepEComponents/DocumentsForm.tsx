@@ -10,7 +10,9 @@ import { useProgressBar } from "@/hooks/use-progressbar-hook";
 type props = { handleNext: () => void };
 
 export function DocumentsForm({ handleNext }: props) {
-  const increaseProgress = useProgressBar((state) => state.increaseProgress);
+  const increaseProgressByNumber = useProgressBar(
+    (state) => state.increaseProgressByNumber
+  );
   const { formData, setFiles } = useFormContext();
   const [isPending, startTransition] = useTransition();
   const [file, setFile] = useState<File[]>([]);
@@ -26,10 +28,9 @@ export function DocumentsForm({ handleNext }: props) {
           (data) => {
             if (data) {
               setFile([]);
+              increaseProgressByNumber(0.3);
               const fileData = formDataInputs.getAll("file") as File[];
               setFiles(fileData);
-              // increaseProgress(7);
-              // console.log("asd", increaseProgress(7));
             }
           }
         );

@@ -23,7 +23,7 @@ export function LinkForm({ handleNext }: props) {
             if (data) {
               setUrls(formDataInputs.get("link") as string);
               setUrl("");
-              increaseProgressByNumber(0.5);
+              increaseProgressByNumber(0.3);
             }
           }
         );

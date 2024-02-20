@@ -7,15 +7,17 @@ import { useFormContext } from "@/context/FormContext";
 
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-
+import { useProgressBar } from "@/hooks/use-progressbar-hook";
 type props = { handleNext: () => void };
 export function StepA({ handleNext }: props) {
+  const increaseProgress = useProgressBar((state) => state.increaseProgress);
   const { formData, setOpenAiApiKey } = useFormContext();
   const [isPending, startTransition] = useTransition();
 
   const openAiApiKeySubmit = (formData: FormData) => {
     startTransition(() => {
       const setPlanPromise = setAiKey(formData).then((data) => {
+        increaseProgress(1);
         handleNext();
       });
       toast.promise(setPlanPromise, {

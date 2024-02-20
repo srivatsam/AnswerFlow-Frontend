@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 export default function ProgressBar() {
+  
   console.log("ProgressBar render");
   const { formData } = useFormContext();
 

@@ -1,4 +1,5 @@
 import { useFormContext } from "@/context/FormContext";
+import { useProgressBar } from "@/hooks/use-progressbar-hook";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect } from "react";

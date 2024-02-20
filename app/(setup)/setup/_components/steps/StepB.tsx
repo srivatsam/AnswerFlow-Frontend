@@ -8,10 +8,12 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 
 import { tones } from "@/utils/constData";
+import { useProgressBar } from "@/hooks/use-progressbar-hook";
 
 type props = { handleNext: () => void };
 
 export function StepB({ handleNext }: props) {
+  const increaseProgress = useProgressBar((state) => state.increaseProgress);
   const { formData, setBotName, setBotPurpose, setToneOfVoice } =
     useFormContext();
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +26,7 @@ export function StepB({ handleNext }: props) {
       startTransition(() => {
         const setPlanPromise = createBot(formDataFrom).then((response) => {
           if (response.success) {
+            increaseProgress(2);
             handleNext();
             localStorage.setItem("botId", response.data.bot.id);
           }

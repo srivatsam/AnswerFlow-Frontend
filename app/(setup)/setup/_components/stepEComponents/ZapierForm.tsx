@@ -5,6 +5,7 @@ import { useFormContext } from "@/context/FormContext";
 
 import { toast } from "sonner";
 import { useProgressBar } from "@/hooks/use-progressbar-hook";
+import Image from "next/image";
 
 type props = { handleNext: () => void };
 
@@ -25,7 +26,7 @@ export function ZapierForm({ handleNext }: props) {
             if (data.success) {
               const fileData = formDataInputs.get("file") as File;
               setFiles([fileData]);
-              increaseProgressByNumber(0.5);
+              increaseProgressByNumber(0.3);
             }
           }
         );
@@ -53,32 +54,44 @@ export function ZapierForm({ handleNext }: props) {
       action={addFilesDataSource}
       className="flex-1 flex flex-col justify-between w-full"
     >
-      <div className="flex flex-col gap-10 w-full">
-        <label
-          htmlFor="file"
-          className="bg-[#0B0B0B] rounded-[10px] px-8 py-4 outline-none w-[100%] h-[450px] flex flex-col gap-6 justify-center items-center cursor-pointer"
-        >
-          <div className="flex flex-col gap-2 text-center">
-            <h1 className="text-[24px] text-[#606060] font-bold">
-              Import Data through Zapier
-            </h1>
-            <p className="text-[16px] text-[#606060]">
-              (Connect your Zapier Account)
-            </p>
+      <div className="flex flex-col gap-20 w-full">
+        <div className="flex flex-col items-start gap-4 w-[100%]">
+          <label htmlFor="links" className="text-[20px] font-medium">
+            Step1: Create Zap
+          </label>
+          <div className="btn sec">
+            <div className="flex gap-4 items-center">
+              <p>Open Zapier</p>
+              <Image
+                src={"/Arrow.png"}
+                width={16}
+                height={16}
+                alt="Arrow"
+                className="rotate-[-90deg]"
+              />
+            </div>
           </div>
-          <div className="btn sec">{` ${
-            formData.files.length > 0 ? "Add more files.." : "_Z Connect Zapier"
-          }`}</div>
-        </label>
-        <input
-          accept=".zip"
-          onChange={handleFileChange}
-          type="file"
-          id="file"
-          name="file"
-          required
-          placeholder="Select an option"
-        />
+          <p className="text-[#9D9D9D]">
+            Import data from any app through Zapier
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-4 w-[100%]">
+          <label htmlFor="actionLink" className="text-[20px] font-medium">
+            Step 2: Enter your Zap’s Action Link
+          </label>
+          <input
+            type="text"
+            id="actionLink"
+            required
+            name="actionLink"
+            placeholder="https://my-website.com"
+            className="w-full bg-[#0B0B0B] py-4 px-10 outline-none rounded-[10px] text-[20px]"
+          />
+          <p className="text-[#9D9D9D]">
+            AnswerFlow AI will import content from this link to this bot’s
+            Knowledge-base
+          </p>
+        </div>
       </div>
       <div className="flex justify-between w-full items-center">
         <button

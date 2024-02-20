@@ -15,26 +15,26 @@ function Setup() {
   const { activeStep, setActiveStep } = useSteps((state) => state);
   const increaseProgress = useProgressBar((state) => state.increaseProgress);
 
-  switch (activeStep) {
-    case "a":
-      increaseProgress(0);
-      break;
-    case "b":
-      increaseProgress(1);
-      break;
-    case "c":
-      increaseProgress(2);
-      break;
-    case "d":
-      increaseProgress(3);
-      break;
-    case "final":
-      increaseProgress(4);
-      break;
+  // switch (activeStep) {
+  //   case "a":
+  //     increaseProgress(0);
+  //     break;
+  //   case "b":
+  //     increaseProgress(1);
+  //     break;
+  //   case "c":
+  //     increaseProgress(2);
+  //     break;
+  //   case "d":
+  //     increaseProgress(3);
+  //     break;
+  //   case "final":
+  //     increaseProgress(4);
+  //     break;
 
-    default:
-      break;
-  }
+  //   default:
+  //     break;
+  // }
   const handleNext = () => {
     if (activeStep === "a") {
       setActiveStep("b");
