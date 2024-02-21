@@ -113,7 +113,7 @@ function Chat({ botData, chatIdProp, pastChat, shared, setActiveChat }: props) {
       setChat((prevChat) => (prevChat ? [...prevChat, ...newData] : newData));
 
       const DILIMETER = "44eabd710f0f455ea12c17564663d175";
-      await fetch(`${APIBACKEND}/chat/${botData.key}`, {
+      await fetch(`/chat/${botData.key}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
