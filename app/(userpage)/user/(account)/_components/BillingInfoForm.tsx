@@ -27,7 +27,7 @@ export function BillingInfoForm({
   return (
     <>
       <h1 className="text-[#777777] text-[24px] font-bold">Billing Info</h1>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col w-full gap-1">
         <label htmlFor="company" className="font-medium">
           Company
         </label>
@@ -39,10 +39,10 @@ export function BillingInfoForm({
           onChange={handleInputChange}
           required
           placeholder="Enter your company name"
-          className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+          className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none"
         />
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col w-full gap-1">
         <label htmlFor="address" className="font-medium">
           Address Line 1
         </label>
@@ -54,11 +54,11 @@ export function BillingInfoForm({
           onChange={handleInputChange}
           required
           placeholder="Apartment, Suite etc.."
-          className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+          className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none"
         />
       </div>
-      <div className="flex justify-between gap-4">
-        <div className="flex flex-col gap-1 w-[230px]">
+      <div className="flex flex-col lg:flex-row w-full justify-between gap-4">
+        <div className="flex flex-col gap-1 w-full lg:w-[230px]">
           <label htmlFor="city" className="font-medium">
             City
           </label>
@@ -70,10 +70,10 @@ export function BillingInfoForm({
             onChange={handleInputChange}
             required
             placeholder="Enter your city"
-            className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+            className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none"
           />
         </div>
-        <div className="flex flex-col gap-1 w-[230px]">
+        <div className="flex flex-col gap-1 w-full lg:w-[230px]">
           <label htmlFor="state" className="font-medium">
             State
           </label>
@@ -85,18 +85,18 @@ export function BillingInfoForm({
             onChange={handleInputChange}
             required
             placeholder="Enter state"
-            className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+            className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none"
           />
         </div>
       </div>
-      <div className="flex justify-between gap-4">
-        <div className="w-[230px]">
+      <div className="flex flex-col lg:flex-row w-full justify-between gap-4">
+        <div className="w-full lg:w-[240px]">
           <CountryInput
             handleInputChange={handleInputChange}
             country={billingInfoState.country}
           />
         </div>
-        <div className="flex flex-col gap-1 w-[230px]">
+        <div className="flex flex-col gap-1 w-full lg:w-[240px]">
           <label htmlFor="pinCode" className="font-medium">
             PinCode
           </label>
@@ -108,7 +108,7 @@ export function BillingInfoForm({
             onChange={handleInputChange}
             required
             placeholder="Enter your PinCode"
-            className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+            className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none"
           />
         </div>
       </div>

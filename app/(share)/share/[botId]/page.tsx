@@ -15,9 +15,9 @@ async function page({ params: { botId } }: props) {
   const botData = await getBotData(botId);
   const pastChat = await getPastChat(botId);
   return (
-    <div className="px-20 py-8 h-screen flex flex-col gap-5">
-      <div className="flex w-full items-center justify-between">
-        <div className="flex items-center gap-4">
+    <div className="p-4 lg:px-20 lg:py-8 h-screen flex flex-col gap-4 lg:gap-5">
+      <div className="flex flex-col-reverse lg:flex-row w-full items-center justify-between gap-6">
+        <div className="flex items-center gap-2 lg:gap-4 flex-wrap">
           <h1 className="text-xl font-semibold">{botData.name} bot </h1>
           <div className="flex gap-1 text-gray-300 text-sm">
             <p>powered by </p>
@@ -31,8 +31,8 @@ async function page({ params: { botId } }: props) {
         </Link>
       </div>
 
-      {/* <Chat botData={botData} /> */}
-      <PastChat pastChat={pastChat} botData={botData} />
+      <Chat botData={botData} shared />
+      {/* <PastChat pastChat={pastChat} botData={botData} /> */}
     </div>
   );
 }

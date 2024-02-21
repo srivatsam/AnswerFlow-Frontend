@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 import BotSelection from "./BotSelection";
-const getBots = async (id: string) => {
+export const getBots = async (id: string) => {
   const userId =
     process.env.NODE_ENV == "production" ? id : "clshq8clq00001equez0kcmz3";
   try {

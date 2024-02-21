@@ -37,7 +37,7 @@ function DataSources({ botData, userPlan, botResources }: props) {
     });
   };
   return (
-    <div className="flex-1 bg-[#131313] rounded-[12px] p-10 flex flex-col gap-10">
+    <div className="flex-1 bg-[#131313] rounded-[12px] p-6 lg:p-10 flex flex-col gap-4 lg:gap-10">
       <div className="relative">
         <DropDownSelection
           setToggleDataPopUp={setToggleDataPopUp}
@@ -100,7 +100,7 @@ function DataSources({ botData, userPlan, botResources }: props) {
             </div>
           ))
         ) : (
-          <p className="bg-red-500 p-6 rounded-[10px] font-bold uppercase">
+          <p className="bg-red-500 p-4 lg:p-6 rounded-[10px] font-bold uppercase">
             No Data Source Founded, You Have To Add At Least For Better Answers
           </p>
         )}

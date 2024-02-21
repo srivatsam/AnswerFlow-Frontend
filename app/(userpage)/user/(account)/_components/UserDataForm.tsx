@@ -22,7 +22,7 @@ type userDataType = {
 export function UserDataForm({ userData }: props) {
   return (
     <>
-      <div className="flex flex-col w-full bg-[#131313] rounded-[12px] p-12 gap-8">
+      <div className="flex flex-col w-full bg-[#131313] rounded-[12px] p-4 lg:p-12 gap-4 lg:gap-8">
         <UpdateEmail email={userData.email} />
         <ChangePassword password={userData.password} />
       </div>

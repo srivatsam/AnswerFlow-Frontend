@@ -10,7 +10,7 @@ export default async function UserLayout({
   const userPlan = await getUserPlan();
   if (userPlan.userPlan) {
     return (
-      <div className="flex flex-col gap-6 p-6 w-full min-h-screen">
+      <div className="relative flex flex-col gap-3 lg:gap-6 p-3 lg:p-6 w-full min-h-screen">
         <NavBar />
         <div className="flex gap-6 flex-1">
           <SideBar />

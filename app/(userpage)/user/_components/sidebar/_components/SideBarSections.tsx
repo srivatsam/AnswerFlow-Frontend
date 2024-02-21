@@ -26,23 +26,23 @@ export function SideBarSections() {
   };
 
   return (
-    <div className="rounded-[10px] bg-[#161616] flex flex-col text-[22px] py-2 font-medium overflow-hidden">
+    <div className="rounded-[10px] lg:bg-[#161616] flex flex-col text-[22px] py-2 font-medium overflow-hidden">
       {sections.map((section, i) => (
         <button
           key={i}
           onClick={() => onClickSection(section)}
-          className={`flex gap-4 items-center cursor-pointer hover:brightness-100 brightness-[0.3] transition-all py-4 px-4 hover:bg-[#111111] ${
+          className={`flex gap-4 items-center cursor-pointer hover:brightness-100 brightness-[0.3] transition-all py-3 lg:py-4 px-4 hover:bg-[#111111] ${
             activeSection === section && "!brightness-100 bg-[#111111]"
           }`}
         >
           <Image
             src={`/${section}.png`}
-            width={30}
-            height={30}
+            width={22}
+            height={22}
             alt={`${section} image`}
             loading="lazy"
           />
-          <p>{section}</p>
+          <p className="text-base lg:text-lg">{section}</p>
         </button>
       ))}
     </div>

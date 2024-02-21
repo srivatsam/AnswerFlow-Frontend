@@ -81,7 +81,7 @@ export function ProfileForm({ billingInfo, userInfo }: props) {
     });
   };
   return (
-    <form action={formHandle} className="flex flex-col gap-6 ">
+    <form action={formHandle} className="flex flex-col gap-6 w-full">
       <EdgeStoreProvider>
         {imageUrl ? (
           <UserImage imageUrl={imageUrl} setImageUrl={setImageUrl} />

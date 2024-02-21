@@ -10,7 +10,7 @@ async function page() {
   try {
     if (exitUser) {
       return (
-        <div className="flex flex-col gap-10 w-[600px]">
+        <div className="flex flex-col gap-10 w-full lg:w-[600px]">
           <UserDataForm userData={exitUser} />
         </div>
       );

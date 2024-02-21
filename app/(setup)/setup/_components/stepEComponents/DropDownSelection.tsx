@@ -22,14 +22,14 @@ export default function DropDownSelection({
 
   return (
     <>
-      <div className="flex justify-between items-center w-full">
+      <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row justify-start items-stretch lg:justify-between lg:items-center w-full">
         <h1 className="text-[28px] font-bold">Manage Data Sources</h1>
-        <div className="px-10 py-4 rounded-[10px] bg-[#333333] relative w-[300px] z-[3]">
+        <div className="px-6 py-3 lg:px-10 lg:py-4 rounded-[10px] bg-[#333333] relative w-full lg:w-[300px] z-[3]">
           <div
             onClick={() => {
               setToggle((prev) => !prev);
             }}
-            className="flex justify-between items-center gap-16 cursor-pointer"
+            className="flex justify-between items-center gap-16 cursor-pointer w"
           >
             <p>{fileTypeSelected}</p>
             <Image
@@ -42,7 +42,7 @@ export default function DropDownSelection({
           </div>
           <div
             className={`flex justify-start flex-col gap-4 px-10 py-4 rounded-[10px] bg-[#333333] absolute top-[70px] w-[stretch] left-0 ${
-              toggle && " invisible"
+              toggle && "invisible"
             }`}
           >
             {planSelected !== undefined ? (

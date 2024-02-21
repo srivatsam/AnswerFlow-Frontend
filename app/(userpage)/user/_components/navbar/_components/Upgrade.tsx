@@ -34,7 +34,8 @@ function Upgrade() {
       const setPlanPromise = updatePlan(planName);
       toast.promise(setPlanPromise, {
         loading: "Loading...",
-        success: "Plan changed successfully, your billing plan will be updated from next billing cycle.",
+        success:
+          "Plan changed successfully, your billing plan will be updated from next billing cycle.",
         error: "Something Went Wrong",
       });
     });
@@ -44,7 +45,7 @@ function Upgrade() {
       <>
         <div
           onClick={() => setToggle(true)}
-          className="flex justify-between items-center gap-10 py-2 px-4 bg-[#1B1B1B] rounded-[10px] cursor-pointer relative"
+          className="justify-between items-center gap-10 py-2 px-4 bg-[#1B1B1B] rounded-[10px] cursor-pointer relative "
         >
           Upgrade ✨
         </div>

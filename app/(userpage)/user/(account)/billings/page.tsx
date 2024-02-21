@@ -9,9 +9,11 @@ async function Billings() {
   const billings = await getBillings();
   const userPlan = await getUserPlan();
   return (
-    <div className="flex flex-col bg-[#131313] rounded-[10px] gap-10 justify-start items-start w-[600px] py-8">
+    <div className="flex flex-col bg-[#131313] rounded-[10px] gap-10 justify-start items-start w-full lg:w-[600px] py-4 lg:py-8 ">
       <div className="w-full">
-        <h1 className="text-[28px] font-bold px-12 py-4">Billing & Invoices</h1>
+        <h1 className="text-[28px] font-bold px-4 py-2 lg:px-12 lg:py-4">
+          Billing & Invoices
+        </h1>
         <div className="flex w-full flex-col ">
           {billings &&
             billings.map((billing: any) => {
@@ -51,7 +53,7 @@ async function Billings() {
                 <Link
                   href={billing["invoice_pdf"]}
                   key={billing["Invoice ID"]}
-                  className="flex flex-col gap-0 border-b-[1px] border-[#363636] px-12 py-6"
+                  className="flex flex-col gap-0 border-b-[1px] border-[#363636] px-4 py-2 lg:px-12 lg:py-6"
                 >
                   <p className="text-[#5D5D5D] text-[14px]">{`#Order${billing["number"]}`}</p>
                   <div className="flex w-full justify-between text-[20px] font-medium">
@@ -69,7 +71,7 @@ async function Billings() {
             })}
         </div>
       </div>
-      <div className="flex w-full flex-col gap-10 px-12 py-4">
+      <div className="flex w-full flex-col gap-10 px-4 py-2 lg:px-12 lg:py-4">
         <h2 className="text-[24px] font-bold text-[#777777] ">
           Manage Subscription
         </h2>

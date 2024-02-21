@@ -47,7 +47,7 @@ export function DocumentsManage() {
       className="flex flex-col justify-between w-fit absolute top-[120%] right-0 z-[1]"
     >
       <div className="flex flex-col gap-4 w-full">
-        <div className="bg-[#232323] rounded-[10px] px-16 py-10 outline-none flex flex-col gap-4 justify-center items-center">
+        <div className="bg-[#232323] rounded-[10px] px-8 py-6 lg:px-16 lg:py-10 outline-none flex flex-col gap-4 justify-center items-center">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-[18px] font-medium">Upload Documents</h1>
             <p className="text-[14px] text-[#606060]">

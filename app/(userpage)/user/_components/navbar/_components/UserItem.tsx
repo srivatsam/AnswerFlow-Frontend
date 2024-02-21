@@ -25,7 +25,7 @@ function UserItem() {
           <UserData />
         </button>
         {toggle && (
-          <div className="absolute w-[stretch] top-[120%] left-0 py-2 px-4 bg-[#1B1B1B] rounded-[10px] flex flex-col items-start">
+          <div className="absolute w-[200px] lg:w-[stretch] top-[120%] right-0 lg:left-0 py-2 px-4 bg-[#1B1B1B] rounded-[10px] flex flex-col items-start">
             {userItems.map((item, i) =>
               item !== "logout" ? (
                 <button

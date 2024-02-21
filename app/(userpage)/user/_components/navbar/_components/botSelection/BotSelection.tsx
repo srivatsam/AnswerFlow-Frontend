@@ -28,7 +28,7 @@ function BotSelection({ bots }: { bots: any }) {
 
   return (
     <>
-      <div className="bg-[#1B1B1B] rounded-[10px] relative w-[250px] z-[2]">
+      <div className="bg-[#1B1B1B] rounded-[10px] relative w-full lg:w-[250px] z-[2]">
         <div
           onClick={() => setToggle((prev) => !prev)}
           className="flex justify-between items-center py-2 px-4 cursor-pointer "

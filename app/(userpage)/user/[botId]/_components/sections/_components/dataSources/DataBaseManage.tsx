@@ -42,7 +42,7 @@ export function DataBaseManage() {
   return (
     <form
       action={addUrlDataHandle}
-      className="flex flex-col gap-6 justify-between items-start w-fit absolute top-[120%] right-0 z-[1] bg-[#232323] rounded-[10px] px-12 py-10 "
+      className="flex flex-col gap-6 justify-between items-start w-fit absolute top-[120%] right-0 z-[1] bg-[#232323] rounded-[10px] p-6 lg:px-12 lg:py-10 "
     >
       <div className="flex flex-col gap-2 w-[100%]">
         <label htmlFor="links" className="text-[18px] font-medium">

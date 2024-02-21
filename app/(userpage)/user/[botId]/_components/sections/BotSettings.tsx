@@ -96,7 +96,7 @@ function BotSettings({ botData }: props) {
   };
 
   return (
-    <div className="flex flex-col w-fit bg-[#131313] rounded-[12px] p-12 gap-20">
+    <div className="flex flex-col w-full lg:w-fit bg-[#131313] rounded-[12px] p-4 lg:p-12 gap-10 lg:gap-20">
       <form
         action={updateBotHandle}
         className="flex flex-1 flex-col gap-12 items-start w-full "
@@ -107,7 +107,7 @@ function BotSettings({ botData }: props) {
             Manage your bot settings{" "}
           </p>
         </div>
-        <div className="w-[460px] flex flex-col gap-10">
+        <div className="w-full lg:w-[460px] flex flex-col gap-10">
           <div className="flex flex-col gap-2">
             <label htmlFor="botName" className="font-medium">
               Bot Name
@@ -120,7 +120,7 @@ function BotSettings({ botData }: props) {
               onChange={(e) => setBotName(e.target.value)}
               required
               placeholder="Enter a name. Eg: Customer Support"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+              className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 outline-none"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -215,7 +215,7 @@ function BotSettings({ botData }: props) {
             onChange={(e) => setEmails(e.target.value)}
             required
             placeholder="Enter email address separated by comma"
-            className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+            className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 outline-none w-[100%]"
           />
           <button
             disabled={emails == "" || isPendingShare}
@@ -229,7 +229,7 @@ function BotSettings({ botData }: props) {
           </button>
         </div>
         <hr />
-        <div className="bg-[#373737] p-10 rounded-[10px] flex flex-col gap-8">
+        <div className="bg-[#373737] p-4 lg:p-10 rounded-[10px] flex flex-col gap-4 lg:gap-8">
           <div className="flex flex-col gap-4">
             <h1 className="text-[20px]  font-medium">Delete Bot</h1>
             <p className="text-[14px] text-[#8A8A8A] font-medium">
@@ -239,13 +239,13 @@ function BotSettings({ botData }: props) {
           </div>
           <div
             onClick={popupDelete}
-            className="bg-[#232323] rounded-[10px] py-4 px-10 w-fit cursor-pointer"
+            className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-10 w-fit cursor-pointer"
           >
             {isPendingDelete ? "Deleting Bot ..." : "Delete Sales Bot"}
           </div>
           {deletePopUp && (
-            <div className="fixed z-50 inset-0 overflow-hidden backdrop-blur-3xl flex justify-center items-center ">
-              <div className="flex flex-col justify-start items-start gap-4 px-12 py-8 bg-black/60 rounded-[10px]">
+            <div className="fixed z-50 inset-0 overflow-hidden backdrop-blur-3xl flex justify-center items-center p-4  ">
+              <div className="flex flex-col justify-start items-start gap-4 p-4 lg:px-12 lg:py-8 bg-black/60 rounded-[10px]">
                 <label htmlFor="deleteConfirm" className="select-none">
                   All the information in the bot will be deleted. <br />
                   Type <span className="font-bold">{deleteConfirm}</span> to
@@ -258,9 +258,9 @@ function BotSettings({ botData }: props) {
                   value={deleteMassage}
                   onChange={(e) => setDeleteMassage(e.target.value)}
                   placeholder={deleteConfirm}
-                  className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+                  className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 outline-none"
                 />
-                <div className=" flex justify-between items-center w-full">
+                <div className="flex flex-col lg:flex-row gap-2  justify-between items-center w-full">
                   <button
                     disabled={deleteMassage !== deleteConfirm}
                     onClick={(e) => {
@@ -270,12 +270,12 @@ function BotSettings({ botData }: props) {
                     className={`${
                       deleteMassage !== deleteConfirm &&
                       "opacity-40 cursor-not-allowed"
-                    } bg-[#fa5555] rounded-[10px] py-4 px-10 w-fit`}
+                    } bg-[#fa5555] rounded-[10px] py-2 px-4 lg:py-4 lg:px-10 w-full lg:w-fit`}
                   >
                     {isPendingDelete ? "Deleting Bot ..." : "Delete Bot"}
                   </button>
                   <button
-                    className="bg-[#232323] rounded-[10px] py-4 px-10 w-fit"
+                    className="bg-[#232323] rounded-[10px] py-2 px-4 lg:py-4 lg:px-10 w-full lg:w-fit"
                     onClick={(e) => {
                       e.preventDefault();
                       setDeletePopUp(false);

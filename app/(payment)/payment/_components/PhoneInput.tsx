@@ -38,7 +38,7 @@ export function PhoneInput({
             }}
             value={countrySelected}
             required
-            className="bg-[#232323] rounded-[10px] p-4 outline-none w-20 text-center"
+            className="bg-[#232323] rounded-[10px]  p-4 outline-none w-20 text-center"
           />
           {phoneCode ? (
             <input
@@ -56,7 +56,7 @@ export function PhoneInput({
               maxLength={16}
               title="Phone number must be between 5 and 16 digits"
               placeholder="Enter your phone number"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none w-full"
+              className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none w-full"
             />
           ) : (
             <input
@@ -70,7 +70,7 @@ export function PhoneInput({
               title="Phone number must be between 5 and 16 digits"
               minLength={5}
               maxLength={16}
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none w-full"
+              className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none w-full"
             />
           )}
         </div>
