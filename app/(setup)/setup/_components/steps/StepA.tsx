@@ -37,7 +37,7 @@ export function StepA({ handleNext }: props) {
     >
       <form
         action={openAiApiKeySubmit}
-        className="flex flex-col justify-around items-center w-[500px] h-full"
+        className="flex flex-col justify-around items-center lg:w-[500px] h-full p-4"
       >
         <Image src={"/logo.svg"} width={250} height={60} alt="logo png" />
         <div className="flex flex-col gap-3">
@@ -52,7 +52,7 @@ export function StepA({ handleNext }: props) {
             onChange={(e) => setOpenAiApiKey(e.target.value)}
             required
             placeholder="Paste your key here"
-            className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+            className="bg-[#232323] rounded-[10px] w-full p-4 lg:px-8 lg:py-4 outline-none"
           />
           <p className="text-[#909090]">
             <Link

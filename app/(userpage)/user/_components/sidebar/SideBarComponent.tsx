@@ -43,7 +43,9 @@ export function SideBarComponent({
 
       {/* data usage */}
       <div className="p-4 lg:p-0 flex flex-col gap-4">
-        <Upgrade />
+        <div className="block lg:hidden">
+          <Upgrade />
+        </div>
         <UsageComponent userUsage={userUsage} />
       </div>
     </div>

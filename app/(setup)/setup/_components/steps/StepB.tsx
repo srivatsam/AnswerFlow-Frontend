@@ -13,6 +13,7 @@ import { useProgressBar } from "@/hooks/use-progressbar-hook";
 type props = { handleNext: () => void };
 
 export function StepB({ handleNext }: props) {
+  const [toggle, setToggle] = useState(false);
   const increaseProgress = useProgressBar((state) => state.increaseProgress);
   const { formData, setBotName, setBotPurpose, setToneOfVoice } =
     useFormContext();
@@ -59,10 +60,19 @@ export function StepB({ handleNext }: props) {
     >
       <form
         action={createBotHandle}
-        className="flex flex-1 flex-col justify-between min-h-screen  items-start w-full px-20 py-20"
+        className="flex flex-1 flex-col justify-between min-h-screen items-start w-full p-4 lg:p-20"
       >
-        <h1 className="text-[40px] font-bold">Create a Bot</h1>
-        <div className="w-[460px] flex flex-col gap-10">
+        <div className="flex flex-col gap-10 w-full">
+          <div
+            onClick={() => setToggle((prev) => !prev)}
+            className="flex lg:hidden bg-[#2A2A2A] rounded-[10px] p-4 justify-between items-center w-full"
+          >
+            <p>Bot Setup Progress</p>
+            <Image src={"/Arrow.png"} alt="arrow" width={24} height={24} />
+          </div>
+          <h1 className="text-[32px] lg:text-[40px] font-bold">Create a Bot</h1>
+        </div>
+        <div className="w-full lg:w-[460px] flex flex-col gap-10">
           <div className="flex flex-col gap-2">
             <label htmlFor="botName" className="font-medium">
               Bot Name
@@ -77,7 +87,7 @@ export function StepB({ handleNext }: props) {
               }}
               required
               placeholder="Enter a name. Eg: Customer Support"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+              className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4outline-none"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -103,7 +113,7 @@ export function StepB({ handleNext }: props) {
               name="botPurpose"
               required
               placeholder="A customer support agent for a saas company that operates in healthcare market"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none min-h-[140px]  max-h-[240px]"
+              className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 outline-none min-h-[140px]  max-h-[240px]"
             />
           </div>
           <div className="flex flex-col gap-2 relative  text-left">
@@ -112,7 +122,7 @@ export function StepB({ handleNext }: props) {
             </label>
             <button
               type="button"
-              className="inline-flex justify-between items-center w-full bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+              className="inline-flex justify-between items-center w-full bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 outline-none"
               id="options-menu"
               onClick={toggleDropdown}
             >
@@ -146,11 +156,11 @@ export function StepB({ handleNext }: props) {
             )}
           </div>
         </div>
-        <div className="flex justify-center items-center flex-col gap-4">
+        <div className="flex justify-center items-center flex-col gap-4 w-full lg:w-fit">
           <button
             type="submit"
             disabled={isPending}
-            className={`btn sec flex !justify-around ${
+            className={`btn sec flex w-full !justify-between lg:!justify-around  lg:w-fit ${
               (formData.botName.length == 0 ||
                 formData.botPurpose.length == 0 ||
                 formData.toneOfVoice.length == 0) &&
@@ -167,37 +177,45 @@ export function StepB({ handleNext }: props) {
           </button>
         </div>
       </form>
-      <div className="min-h-screen min-w-[33%] bg-[#0B0B0B] py-30 flex flex-col justify-center items-start gap-20">
-        <h2 className="px-20 text-[#707070] text-[32px] font-bold">
-          Setup Progress
-        </h2>
-        <div className="flex flex-col justify-center items-start gap-10 ">
-          <div className="flex flex-col justify-start items-start gap-6 px-20">
-            <p className="text-[#9D9D9D] uppercase ">1. basic settings</p>
-            {formData.botName ? (
-              <p className="text-[18px] h-[31px]">{formData.botName}</p>
-            ) : (
-              <div className="w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
-            )}
-          </div>
-          <br />
-          <div className="flex flex-col justify-start items-start gap-6 px-20">
-            <p className="text-[#9D9D9D] uppercase">2. Data sources</p>
-            <div className="flex flex-col gap-2">
-              <div className="w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
-              <div className="w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
-              <div className="w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
+      <div
+        className={`${
+          toggle ? "flex" : "hidden"
+        } lg:flex absolute lg:relative top-[64px] lg:w-[33%] lg:top-0 left-0 min-h-screen w-full p-4 lg:p-0 "`}
+      >
+        <div
+          className={`min-h-screen w-full  bg-[#0B0B0B] p-4 lg:py-30 flex-col justify-center items-start gap-20 rounded-[10px]`}
+        >
+          <h2 className="lg:px-20 text-[#707070] text-[28px] lg:text-[32px] font-bold">
+            Setup Progress
+          </h2>
+          <div className="w-full flex flex-col justify-center items-start gap-6 lg:gap-10 ">
+            <div className="flex flex-col justify-start items-start gap-2 lg:gap-6 lg:px-20">
+              <p className="text-[#9D9D9D] uppercase ">1. basic settings</p>
+              {formData.botName ? (
+                <p className="text-[18px] h-[31px]">{formData.botName}</p>
+              ) : (
+                <div className="w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
+              )}
             </div>
-          </div>
-          <br />
-          <div className="flex flex-col justify-start items-start gap-6 px-20">
-            <p className="text-[#9D9D9D] uppercase">3. create bot</p>
-            <div className="flex flex-col gap-2">
-              <div className="w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
-              <div className="w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
+            <br />
+            <div className="w-full flex flex-col justify-start items-start gap-2 lg:gap-6 lg:px-20">
+              <p className="text-[#9D9D9D] uppercase">2. Data sources</p>
+              <div className="w-full flex flex-col gap-2">
+                <div className="w-full lg:w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
+                <div className="w-full lg:w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
+                <div className="w-full lg:w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
+              </div>
             </div>
+            <br />
+            <div className="w-full flex flex-col justify-start items-start gap-2 lg:gap-6 lg:px-20">
+              <p className="text-[#9D9D9D] uppercase">3. create bot</p>
+              <div className="w-full flex flex-col gap-2">
+                <div className="w-full lg:w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
+                <div className="w-full lg:w-[341px] h-[31px] bg-[#1E1E1E] rounded"></div>
+              </div>
+            </div>
+            <br />
           </div>
-          <br />
         </div>
       </div>
     </motion.div>
