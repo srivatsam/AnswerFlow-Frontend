@@ -15,7 +15,7 @@ export function HistoryChat({ pastChat, activeChat, setActiveChat }: props) {
 
   const unFocusHandle = async (chatId: string) => {
     setChanging(undefined);
-    if (chatTitle.trim().length == 0) {
+    if (chatTitle.trim().length === 0) {
       setChatTitle("unnamed");
     }
     startTransition(() => {
@@ -37,9 +37,7 @@ export function HistoryChat({ pastChat, activeChat, setActiveChat }: props) {
   const deleteHandle = async (chatId: string) => {
     startTransition(() => {
       const updateTitlePromise = deleteChat(chatId).then((data) => {
-        if (data.status == "success") {
-          setChanging(undefined);
-        }
+        setActiveChat(undefined);
       });
 
       toast.promise(updateTitlePromise, {
