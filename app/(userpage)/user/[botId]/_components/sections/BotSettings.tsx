@@ -41,32 +41,31 @@ function BotSettings({ botData }: props) {
   const updateBotHandle = (formDataFrom: FormData) => {
     if (formDataFrom && isValid && isChanged) {
       formDataFrom.append("toneOfVoice", selectedOption as string);
-      startTransition(() => {
-        const setPlanPromise = updateBot(
+      startTransition(async () => {
+        const updateBotPromise = await updateBot(
           formDataFrom,
           localStorage.getItem("botId")!
         );
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Bot Updated Successfully",
-          error: (error) => `${error.message}`,
-        });
+        if (updateBotPromise.success) {
+          toast.success(updateBotPromise.success);
+        }
+        if (updateBotPromise.error) {
+          toast.error(updateBotPromise.error);
+        }
       });
     }
   };
 
   const deleteHandle = () => {
-    startTransitionDelete(() => {
-      const setPlanPromise = deleteBot(localStorage.getItem("botId")!).then(
-        () => {
-          route.push("/user/profile");
-        }
-      );
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success: "Bot Deleted Successfully",
-        error: (error) => `${error.message}`,
-      });
+    startTransitionDelete(async () => {
+      const deleteBotPromise = await deleteBot(localStorage.getItem("botId")!);
+      if (deleteBotPromise.success) {
+        toast.success(deleteBotPromise.success);
+        route.push("/user/profile");
+      }
+      if (deleteBotPromise.error) {
+        toast.error(deleteBotPromise.error);
+      }
     });
   };
 
@@ -81,13 +80,14 @@ function BotSettings({ botData }: props) {
   };
 
   const shareLink = () => {
-    startTransitionShare(() => {
-      const setPlanPromise = shareBot(emails, botLink);
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success: "Bot Shared",
-        error: (error) => `${error.message}`,
-      });
+    startTransitionShare(async () => {
+      const shareBotPromise = await shareBot(emails, botLink);
+      if (shareBotPromise.success) {
+        toast.success(shareBotPromise.success);
+      }
+      if (shareBotPromise.error) {
+        toast.error(shareBotPromise.error);
+      }
     });
   };
 

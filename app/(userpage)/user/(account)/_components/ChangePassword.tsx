@@ -17,13 +17,14 @@ export function ChangePassword({ password }: props) {
 
   const formHandle = (e: FormData) => {
     if (e) {
-      startTransition(() => {
-        const setPlanPromise = resetPassword(e);
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Password Updated Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const resetPasswordPromise = await resetPassword(e);
+        if (resetPasswordPromise?.success) {
+          toast.success(resetPasswordPromise?.success);
+        }
+        if (resetPasswordPromise?.error) {
+          toast.error(resetPasswordPromise.error);
+        }
       });
     }
   };

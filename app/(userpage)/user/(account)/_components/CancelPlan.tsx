@@ -12,15 +12,15 @@ export function CancelPlan() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const onPlanCancel = () => {
-    startTransition(() => {
-      const setPlanPromise = cancelPlan().then((data) => {
+    startTransition(async () => {
+      const cancelPlanPromise = await cancelPlan();
+      if (cancelPlanPromise.success) {
         router.push("/payment");
-      });
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success: "Plan Cancel Successfully",
-        error: (error) => `${error.message}`,
-      });
+        toast.success(cancelPlanPromise.success);
+      }
+      if (cancelPlanPromise.error) {
+        toast.error(cancelPlanPromise.error);
+      }
     });
   };
 

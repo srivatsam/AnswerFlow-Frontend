@@ -18,7 +18,7 @@ export const cancelPlan = async () => {
   const responseStripeData = await responseStripe.json();
   if (responseStripeData.status == "error") {
     console.error(responseStripeData.message);
-    throw new Error(`${responseStripeData.message}`);
+    return { error: `${responseStripeData.message}` };
   } else {
     console.log(responseStripeData);
     return responseStripeData;

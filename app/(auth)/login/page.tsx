@@ -37,15 +37,14 @@ function Login() {
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     startTransition(async () => {
-      const registerPromise = login(values).then(() => {
+      const registerPromise = await login(values);
+      if (registerPromise.success) {
+        toast.success(registerPromise.success);
         route.push(`/user/profile`);
-      });
-
-      toast.promise(registerPromise, {
-        loading: "Loading...",
-        success: "User Login Successfully",
-        error: "Email or Password is Wrong",
-      });
+      }
+      if (registerPromise.error) {
+        toast.error(registerPromise.error);
+      }
     });
   };
 

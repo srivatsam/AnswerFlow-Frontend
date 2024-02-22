@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 import db from "@/utils/db";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 import { revalidateTag } from "next/cache";
 
 export const setAiKey = async (formData: FormData) => {
@@ -11,6 +12,18 @@ export const setAiKey = async (formData: FormData) => {
     process.env.NODE_ENV == "production"
       ? session?.user.id
       : "clshq8clq00001equez0kcmz3";
+
+  try {
+    const user = await db.user.update({
+      where: { id: session?.user.id },
+      data: { openai_api_key: formData.get("openai_api_key") as string },
+    });
+    if (!user) {
+      return { error: "user not found" };
+    }
+  } catch (error) {
+    return { error: `${getErrorMessage(error)}` };
+  }
 
   const response = await fetch(`${APIBACKEND}/update_user/${userId}`, {
     method: "PUT",
@@ -21,18 +34,12 @@ export const setAiKey = async (formData: FormData) => {
       openai_api_key: formData.get("openai_api_key"),
     }),
   });
-  const user = await db.user.update({
-    where: { id: session?.user.id },
-    data: { openai_api_key: formData.get("openai_api_key") as string },
-  });
   const responseData = await response.json();
   if (responseData.status == "error") {
     console.error(responseData.message);
-    throw new Error(`${responseData.message}`);
+    return { error: `${responseData.message}` };
+  } else {
+    revalidateTag("user");
+    return { success: "AI Key Added Successfully" };
   }
-  if (!user) {
-    throw new Error(`user not found`);
-  }
-  revalidateTag("user");
-  return { message: "AI Key Added Successfully" };
 };

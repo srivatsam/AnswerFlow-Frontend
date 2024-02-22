@@ -1,6 +1,7 @@
 "use server";
 
 import { APIBACKEND } from "@/utils/constData";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 import { revalidateTag } from "next/cache";
 
 export const updateChatTitle = async (chatID: string, name: string) => {
@@ -20,13 +21,13 @@ export const updateChatTitle = async (chatID: string, name: string) => {
     const data = await response.json();
 
     if (data.status == "error") {
-      throw new Error(`${data.message}`);
+      return { error: `${data.message}` };
     } else {
       revalidateTag("chatsTitle");
-      return data;
+      return { success: "Title Updated Successfully" };
     }
   } catch (error) {
     console.error(error);
-    return null;
+    return { error: `${getErrorMessage(error)}` };
   }
 };

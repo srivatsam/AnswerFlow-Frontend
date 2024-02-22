@@ -21,8 +21,8 @@ export const setUserName = async (formData: FormData) => {
       },
     });
     revalidateTag("userData");
-    return { success: "user updated Successfully" };
+    return { success: "User Updated Successfully" };
   } else {
-    throw new Error(`something went wrong`);
+    return { error: "something went wrong" };
   }
 };

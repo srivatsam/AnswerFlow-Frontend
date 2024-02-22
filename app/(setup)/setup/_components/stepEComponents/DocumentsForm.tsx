@@ -23,23 +23,21 @@ export function DocumentsForm({ handleNext }: props) {
 
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
-          (data) => {
-            if (data) {
-              setFile([]);
-              increaseProgressByNumber(0.3);
-              const fileData = formDataInputs.getAll("file") as File[];
-              setFiles(fileData);
-            }
-          }
+      startTransition(async () => {
+        const setDataSourceDocPromise = await addDataSourceDoc(
+          formDataInputs,
+          botId
         );
-
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully",
-          error: (error) => `${error.message}`,
-        });
+        if (setDataSourceDocPromise.success) {
+          setFile([]);
+          increaseProgressByNumber(0.3);
+          const fileData = formDataInputs.getAll("file") as File[];
+          setFiles(fileData);
+          toast.success(setDataSourceDocPromise.success);
+        }
+        if (setDataSourceDocPromise.error) {
+          toast.error(setDataSourceDocPromise.error);
+        }
       });
     }
   };

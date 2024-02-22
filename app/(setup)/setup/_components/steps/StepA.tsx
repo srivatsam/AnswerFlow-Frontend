@@ -15,16 +15,16 @@ export function StepA({ handleNext }: props) {
   const [isPending, startTransition] = useTransition();
 
   const openAiApiKeySubmit = (formData: FormData) => {
-    startTransition(() => {
-      const setPlanPromise = setAiKey(formData).then((data) => {
+    startTransition(async () => {
+      const setAiKeyPromise = await setAiKey(formData);
+      if (setAiKeyPromise.success) {
         increaseProgress(1);
         handleNext();
-      });
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success: "Open Ai Key Seated Successfully",
-        error: (error) => `${error.message}`,
-      });
+        toast.success(setAiKeyPromise.success);
+      }
+      if (setAiKeyPromise.error) {
+        toast.error(setAiKeyPromise.error);
+      }
     });
   };
   return (

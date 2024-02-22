@@ -1,9 +1,8 @@
 "use server";
 import db from "@/utils/db";
-
-import bcrypt from "bcryptjs";
 import { getUserById } from "@/utils/dbFunctions/user";
 import { auth } from "@/auth";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 
 export const changeEmail = async (e: FormData) => {
   const session = await auth();
@@ -12,8 +11,8 @@ export const changeEmail = async (e: FormData) => {
   const exitUser = await getUserById(userId!);
 
   if (!exitUser) {
-    console.error(`ERROR FROM SERVER user not found taken`);
-    return new Error("user not found taken");
+    console.error(`ERROR FROM SERVER user not found`);
+    return { error: `User Not Found!` };
   }
   if (exitUser) {
     try {
@@ -23,8 +22,8 @@ export const changeEmail = async (e: FormData) => {
       });
     } catch (error) {
       console.error(`ERROR FROM SERVER :${error}`);
-      return new Error(`${error}`);
+      return { error: getErrorMessage(error) };
     }
-    return { success: "Password Updated Successfully" };
+    return { success: "Email Updated Successfully" };
   }
 };

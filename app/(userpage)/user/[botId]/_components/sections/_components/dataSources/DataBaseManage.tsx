@@ -24,18 +24,16 @@ export function DataBaseManage() {
     formDataInputs.append("dbName", dbname);
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addDbData(formDataInputs, botId).then((data) => {
-          if (data) {
-            setName("");
-            setDbType("");
-          }
-        });
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const addDbDataPromise = await addDbData(formDataInputs, botId);
+        if (addDbDataPromise.success) {
+          setName("");
+          setDbType("");
+          toast.success(addDbDataPromise.success);
+        }
+        if (addDbDataPromise.error) {
+          toast.error(addDbDataPromise.error);
+        }
       });
     }
   };

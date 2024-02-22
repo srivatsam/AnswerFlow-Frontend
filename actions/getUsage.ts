@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 export const getUserUsage = async () => {
   const session = await auth();
   const userId =
@@ -15,12 +16,12 @@ export const getUserUsage = async () => {
     const responseData = await response.json();
     console.log(responseData);
     if (responseData.status != "success") {
-      throw new Error(`${responseData.status}`);
+      return { error: `${responseData.status}` };
     } else {
       return responseData;
     }
   } catch (error) {
     console.error(error);
-    throw new Error(`${error}`);
+    return { error: `${getErrorMessage(error)}` };
   }
 };

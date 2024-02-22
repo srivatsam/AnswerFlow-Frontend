@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
@@ -21,7 +21,7 @@ export const shareBot = async (emails: string, botLink: string) => {
   console.log(responseData);
   if (responseData.status == "error") {
     console.log(responseData.message);
-    throw new Error(`${responseData.message}`);
+    return { error: `${responseData.message}` };
   } else {
     return { success: "Invitation sent Successfully", data: responseData };
   }

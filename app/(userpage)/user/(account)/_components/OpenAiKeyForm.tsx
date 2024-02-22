@@ -13,13 +13,14 @@ export function OpenAiKeyForm({ openai_api_key }: props) {
 
   const formHandle = (e: FormData) => {
     if (e) {
-      startTransition(() => {
-        const setPlanPromise = setAiKey(e);
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Open Ai Key Updated Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const setAiKeyPromise = await setAiKey(e);
+        if (setAiKeyPromise.success) {
+          toast.success("Open Ai Key Updated Successfully");
+        }
+        if (setAiKeyPromise.error) {
+          toast.error(setAiKeyPromise.error);
+        }
       });
     }
   };

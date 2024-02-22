@@ -24,19 +24,17 @@ export function StepB({ handleNext }: props) {
   const createBotHandle = (formDataFrom: FormData) => {
     if (formData.botName || formData.botPurpose || formData.toneOfVoice) {
       formDataFrom.append("toneOfVoice", formData.toneOfVoice);
-      startTransition(() => {
-        const setPlanPromise = createBot(formDataFrom).then((response) => {
-          if (response.success) {
-            increaseProgress(2);
-            handleNext();
-            localStorage.setItem("botId", response.data.bot.id);
-          }
-        });
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Bot Created Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const setPlanPromise = await createBot(formDataFrom);
+        if (setPlanPromise.success) {
+          increaseProgress(2);
+          handleNext();
+          localStorage.setItem("botId", setPlanPromise.data.bot.id);
+          toast.success(setPlanPromise.success);
+        }
+        if (setPlanPromise.error) {
+          toast.error(setPlanPromise.error);
+        }
       });
     }
   };
@@ -180,10 +178,10 @@ export function StepB({ handleNext }: props) {
       <div
         className={`${
           toggle ? "flex" : "hidden"
-        } lg:flex absolute lg:relative top-[64px] lg:w-[33%] lg:top-0 left-0 min-h-screen w-full p-4 lg:p-0 "`}
+        } lg:flex absolute lg:relative top-[64px] lg:w-[33%] lg:top-0 left-0 min-h-screen w-full p-4 lg:p-0 py-10 "`}
       >
         <div
-          className={`min-h-screen w-full  bg-[#0B0B0B] p-4 lg:py-30 flex-col justify-center items-start gap-20 rounded-[10px]`}
+          className={`min-h-screen w-full flex  bg-[#0B0B0B] p-4 lg:py-30 flex-col justify-start lg:justify-center items-start gap-20 rounded-[10px]`}
         >
           <h2 className="lg:px-20 text-[#707070] text-[28px] lg:text-[32px] font-bold">
             Setup Progress

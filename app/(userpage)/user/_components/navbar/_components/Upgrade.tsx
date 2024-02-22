@@ -30,14 +30,17 @@ function Upgrade() {
     onPlanSubmit(planName);
   };
   const onPlanSubmit = (planName: string) => {
-    startTransition(() => {
-      const setPlanPromise = updatePlan(planName);
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success:
-          "Plan changed successfully, your billing plan will be updated from next billing cycle.",
-        error: "Something Went Wrong",
-      });
+    startTransition(async () => {
+      const updatePlanPromise = await updatePlan(planName);
+      if (isPending) {
+        toast.loading("loading ....");
+      }
+      if (updatePlanPromise.success) {
+        toast.success(updatePlanPromise.success);
+      }
+      if (updatePlanPromise.error) {
+        toast.error(updatePlanPromise.error);
+      }
     });
   };
   if (userPlan !== "Pro") {

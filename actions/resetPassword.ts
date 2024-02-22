@@ -4,6 +4,7 @@ import db from "@/utils/db";
 import bcrypt from "bcryptjs";
 import { getUserById } from "@/utils/dbFunctions/user";
 import { auth } from "@/auth";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 
 export const resetPassword = async (e: FormData) => {
   const session = await auth();
@@ -12,8 +13,8 @@ export const resetPassword = async (e: FormData) => {
   const exitUser = await getUserById(userId!);
 
   if (!exitUser) {
-    console.error(`ERROR FROM SERVER user not found taken`);
-    return new Error("user not found taken");
+    console.error(`ERROR FROM SERVER user not found `);
+    return { error: `User Not Found ` };
   }
   if (exitUser) {
     const isRightPassword = await bcrypt.compare(
@@ -21,7 +22,7 @@ export const resetPassword = async (e: FormData) => {
       exitUser.password!
     );
     if (!isRightPassword) {
-      return new Error("Wrong Password ,Try Again ");
+      return { error: `Wrong Password ,Try Again` };
     }
     try {
       const hashedPassword = await bcrypt.hash(
@@ -34,7 +35,7 @@ export const resetPassword = async (e: FormData) => {
       });
     } catch (error) {
       console.error(`ERROR FROM SERVER :${error}`);
-      return new Error("something went wrong");
+      return { error: getErrorMessage(error) };
     }
     return { success: "Password Updated Successfully" };
   }

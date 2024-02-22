@@ -13,10 +13,7 @@ import { DataBaseManage } from "./_components/dataSources/DataBaseManage";
 type props = {
   botData: any;
   userPlan: string;
-  botResources: {
-    success: string;
-    data: any;
-  };
+  botResources: any;
 };
 function DataSources({ botData, userPlan, botResources }: props) {
   const [toggleDataPopUp, setToggleDataPopUp] = useState(false);
@@ -27,13 +24,17 @@ function DataSources({ botData, userPlan, botResources }: props) {
     useState<fileTypeSelected>("Add Data Source");
 
   const deleteHandle = (resourceId: string) => {
-    startTransition(() => {
-      const setPlanPromise = deleteResource(botData.id, resourceId);
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success: "Resource Deleted Successfully",
-        error: (error) => `${error.message}`,
-      });
+    startTransition(async () => {
+      const deleteResourcePromise = await deleteResource(
+        botData.id,
+        resourceId
+      );
+      if (deleteResourcePromise.success) {
+        toast.success(deleteResourcePromise.success);
+      }
+      if (deleteResourcePromise.error) {
+        toast.error(deleteResourcePromise.error);
+      }
     });
   };
   return (
@@ -65,8 +66,8 @@ function DataSources({ botData, userPlan, botResources }: props) {
       </div>
       <hr />
       <div className="flex flex-col gap-8 w-full">
-        {botResources.data.length !== 0 ? (
-          botResources.data.map((resource: any) => (
+        {botResources.length !== 0 ? (
+          botResources.map((resource: any) => (
             <div key={resource.id} className="w-full flex justify-between">
               <div className="flex gap-6 items-center">
                 <Image

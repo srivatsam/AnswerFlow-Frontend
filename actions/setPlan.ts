@@ -5,6 +5,7 @@ import db from "@/utils/db";
 import { revalidateTag } from "next/cache";
 import { setUserName } from "./setUserName";
 import { YourPlanType } from "@/types/plan";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 
 export const setPlan = async (
   formData: FormData,
@@ -43,7 +44,7 @@ export const setPlan = async (
         create: billingData,
       });
     } catch (error) {
-      return { status: "error", message: "Can Set Billing Info Twice" };
+      return { error: getErrorMessage(error) };
     }
 
     const response = await fetch(`${APIBACKEND}/set_plan/${userId}/${planId}`, {
@@ -89,17 +90,16 @@ export const setPlan = async (
     ) {
       console.error(responseData.message);
       console.error(responseStripeData.message);
-      return { status: "error", message: responseData.message };
+      return { error: responseData.message };
     } else {
       revalidateTag("userPlan");
       return {
-        status: "success",
-        message: "Set The Plan Successfully",
+        success: "Set The Plan Successfully",
         url: responseStripeData.url,
       };
     }
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
-    return { status: "error", message: "You are not authorized" };
+    return { error: "You Are Not Authorized" };
   }
 };

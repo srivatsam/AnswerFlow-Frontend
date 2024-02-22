@@ -19,7 +19,7 @@ export function SideBarComponent({
     <div
       className={`absolute h-screen w-screen lg:h-[inherit] bg-black lg:bg-transparent lg:relative ${
         toggle ? "left-[0%]" : "left-[-110%]"
-      } lg:left-0 top-0 flex flex-col justify-between lg:w-[280px] shrink-0 z-[100] transition-all`}
+      } lg:left-0 top-0 flex flex-col justify-between lg:w-[280px] shrink-0 z-[40] transition-all`}
     >
       <div className="flex flex-col gap-4 py-4 lg:py-[0px]">
         <div className="lg:hidden flex justify-between items-center px-4">

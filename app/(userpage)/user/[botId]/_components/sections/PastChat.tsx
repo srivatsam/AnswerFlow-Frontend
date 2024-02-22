@@ -1,8 +1,7 @@
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 import Chat from "./Chat";
 import { HistoryChat } from "./_components/chat/HistoryChat";
-import { useActiveSection } from "@/hooks/use-active-section";
 
 type props = {
   pastChat: any;

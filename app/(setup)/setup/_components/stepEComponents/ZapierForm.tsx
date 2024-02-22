@@ -20,21 +20,17 @@ export function ZapierForm({ handleNext }: props) {
   const addFilesDataSource = async (formDataInputs: FormData) => {
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
-          (data) => {
-            if (data.success) {
-              const fileData = formDataInputs.get("file") as File;
-              setFiles([fileData]);
-              increaseProgressByNumber(0.3);
-            }
-          }
-        );
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const setZipPromise = await addDataSourceDoc(formDataInputs, botId);
+        if (setZipPromise.success) {
+          const fileData = formDataInputs.get("file") as File;
+          setFiles([fileData]);
+          increaseProgressByNumber(0.3);
+          toast.success(setZipPromise.success);
+        }
+        if (setZipPromise.error) {
+          toast.error(setZipPromise.error);
+        }
       });
     }
   };

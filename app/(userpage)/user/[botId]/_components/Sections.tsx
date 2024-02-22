@@ -21,10 +21,7 @@ export function Sections({
   botData: any;
   pastChat: any;
   userPlan: string;
-  botResources: {
-    success: string;
-    data: any;
-  };
+  botResources: any;
 }) {
   const setActiveSection = useActiveSection((state) => state.setActiveSection);
   const activeSection = useActiveSection((state) => state.activeSection);

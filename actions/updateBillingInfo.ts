@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import db from "@/utils/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { setUserName } from "./setUserName";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 
 export const updateInfo = async (formData: FormData) => {
   const session = await auth();
@@ -28,10 +29,10 @@ export const updateInfo = async (formData: FormData) => {
       return { success: "Updated Billing Info Successfully" };
     } catch (error) {
       console.error(error);
-      return new Error("Something went Wrong User Should Be Uniq");
+      return { error: `${getErrorMessage(error)}` };
     }
   } else {
     console.error(`You are not authorized`);
-    return new Error("You are not authorized");
+    return { error: `You are not authorized` };
   }
 };

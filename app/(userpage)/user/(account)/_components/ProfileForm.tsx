@@ -71,13 +71,14 @@ export function ProfileForm({ billingInfo, userInfo }: props) {
     if (imageUrl) {
       e.append("image", imageUrl);
     }
-    startTransition(() => {
-      const setPlanPromise = updateInfo(e);
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success: "Profile Info Updated Successfully",
-        error: (error) => `${error.message}`,
-      });
+    startTransition(async () => {
+      const updateInfoPromise = await updateInfo(e);
+      if (updateInfoPromise.success) {
+        toast.success(updateInfoPromise?.success);
+      }
+      if (updateInfoPromise.error) {
+        toast.error(updateInfoPromise.error);
+      }
     });
   };
   return (

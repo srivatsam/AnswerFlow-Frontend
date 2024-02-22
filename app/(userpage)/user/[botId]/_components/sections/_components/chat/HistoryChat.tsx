@@ -18,33 +18,28 @@ export function HistoryChat({ pastChat, activeChat, setActiveChat }: props) {
     if (chatTitle.trim().length === 0) {
       setChatTitle("unnamed");
     }
-    startTransition(() => {
-      const updateTitlePromise = updateChatTitle(chatId, chatTitle).then(
-        (data) => {
-          if (data.status == "success") {
-            setChanging(undefined);
-          }
-        }
-      );
-
-      toast.promise(updateTitlePromise, {
-        loading: "Loading...",
-        success: "Title Updated Successfully",
-        error: (error) => `${error.message}`,
-      });
+    startTransition(async () => {
+      const updateTitlePromise = await updateChatTitle(chatId, chatTitle);
+      if (updateTitlePromise.success) {
+        toast.success(updateTitlePromise.success);
+        setChanging(undefined);
+      }
+      if (updateTitlePromise.error) {
+        toast.error(updateTitlePromise.error);
+      }
     });
   };
   const deleteHandle = async (chatId: string) => {
-    startTransition(() => {
-      const updateTitlePromise = deleteChat(chatId).then((data) => {
-        setActiveChat(undefined);
-      });
+    startTransition(async () => {
+      const deleteChatPromise = await deleteChat(chatId);
 
-      toast.promise(updateTitlePromise, {
-        loading: "Loading...",
-        success: "Chat Deleted Successfully",
-        error: (error) => `${error.message}`,
-      });
+      if (deleteChatPromise.success) {
+        toast.success(deleteChatPromise.success);
+        setActiveChat(undefined);
+      }
+      if (deleteChatPromise.error) {
+        toast.error(deleteChatPromise.error);
+      }
     });
   };
   const onEnterKey = (

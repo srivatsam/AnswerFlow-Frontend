@@ -2,6 +2,7 @@
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
 import { getUserPlan } from "./getUserPlan";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 export const getUserBots = async () => {
   const session = await auth();
   const userId =
@@ -20,7 +21,7 @@ export const getUserBots = async () => {
     console.log(responseData);
 
     if (responseData.status != "success") {
-      throw new Error(`${responseData.status}`);
+      return { error: `${responseData.status}` };
     } else {
       return {
         success: "get user plan",
@@ -30,6 +31,6 @@ export const getUserBots = async () => {
     }
   } catch (error) {
     console.error(error);
-    throw new Error(`${error}`);
+    return { error: `${getErrorMessage(error)}` };
   }
 };

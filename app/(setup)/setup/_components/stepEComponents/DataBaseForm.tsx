@@ -39,26 +39,24 @@ export function DataBaseForm({ handleNext }: props) {
     formDataInputs.append("type", dbType);
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addDbData(formDataInputs, botId).then((data) => {
-          if (data) {
-            setDbs(formDataInputs.get("dbName") as string);
-            setDataBaseForm({
-              host: "",
-              port: "",
-              userName: "",
-              password: "",
-              dbName: "",
-            });
-            setDbType("");
-            increaseProgressByNumber(0.3);
-          }
-        });
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const addDBDatePromise = await addDbData(formDataInputs, botId);
+        if (addDBDatePromise.success) {
+          setDbs(formDataInputs.get("dbName") as string);
+          setDataBaseForm({
+            host: "",
+            port: "",
+            userName: "",
+            password: "",
+            dbName: "",
+          });
+          setDbType("");
+          increaseProgressByNumber(0.3);
+          toast.success(addDBDatePromise.success);
+        }
+        if (addDBDatePromise.error) {
+          toast.error(addDBDatePromise.error);
+        }
       });
     }
   };

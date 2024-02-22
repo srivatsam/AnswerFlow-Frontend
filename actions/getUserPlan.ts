@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/auth";
 import { APIBACKEND } from "@/utils/constData";
+import { getErrorMessage } from "@/utils/errorHandle/getErrorMessage";
 export const getUserPlan = async () => {
   const session = await auth();
   const userId =
@@ -15,7 +16,7 @@ export const getUserPlan = async () => {
     const responseData = await response.json();
     console.log(responseData);
     if (responseData.status != "success") {
-      throw new Error(`${responseData.status}`);
+      return { error: `${responseData.status}` };
     }
     if (responseData.user.plan !== null) {
       return {
@@ -30,7 +31,6 @@ export const getUserPlan = async () => {
     }
   } catch (error) {
     console.error(error);
-    throw new Error(`${error}`);
-    return { error: "can`t get user plan" };
+    return { error: `${getErrorMessage(error)}` };
   }
 };

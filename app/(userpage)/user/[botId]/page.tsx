@@ -23,7 +23,7 @@ async function Page({ params }: props) {
       <Sections
         botData={botData}
         userPlan={userPlan}
-        botResources={botResources}
+        botResources={botResources.data}
         pastChat={pastChat}
       />
     );

@@ -14,20 +14,16 @@ export function DocumentsManage() {
 
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addDataSourceDoc(formDataInputs, botId).then(
-          (data) => {
-            if (data) {
-              const fileData = formDataInputs.get("file") as File;
-              setFile([]);
-            }
-          }
-        );
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully.",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const addDataPromise = await addDataSourceDoc(formDataInputs, botId);
+        if (addDataPromise.success) {
+          const fileData = formDataInputs.get("file") as File;
+          setFile([]);
+          toast.success(addDataPromise.success);
+        }
+        if (addDataPromise.error) {
+          toast.error(addDataPromise.error);
+        }
       });
     }
   };

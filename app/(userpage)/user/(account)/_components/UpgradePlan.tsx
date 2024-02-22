@@ -19,14 +19,14 @@ type props = {
 export function UpgradePlan({ userPlan }: props) {
   const [isPending, startTransition] = useTransition();
   const onPlanSubmit = (planName: string) => {
-    startTransition(() => {
-      const setPlanPromise = updatePlan(planName);
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success:
-          "Plan changed successfully, your billing plan will be updated from next billing cycle.",
-        error: (error) => `${error.message}`,
-      });
+    startTransition(async () => {
+      const updatePlanPromise = await updatePlan(planName);
+      if (updatePlanPromise.success) {
+        toast.success(updatePlanPromise.success);
+      }
+      if (updatePlanPromise.error) {
+        toast.error(updatePlanPromise.error);
+      }
     });
   };
   if (userPlan.userPlan !== "Pro") {

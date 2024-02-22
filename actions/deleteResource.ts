@@ -20,7 +20,7 @@ export const deleteResource = async (botId: string, resourceID: string) => {
   console.log(responseData);
   if (responseData.status == "error") {
     console.log(responseData.message);
-    throw new Error(`${responseData.message}`);
+    return { error: `${responseData.message}` };
   } else {
     revalidateTag("resources");
     return {

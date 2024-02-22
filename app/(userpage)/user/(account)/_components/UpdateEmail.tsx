@@ -13,13 +13,14 @@ export function UpdateEmail({ email }: props) {
 
   const formHandle = (e: FormData) => {
     if (e) {
-      startTransition(() => {
-        const setPlanPromise = changeEmail(e);
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Email Updated Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const changeEmailPromise = await changeEmail(e);
+        if (changeEmailPromise?.success) {
+          toast.success(changeEmailPromise?.success);
+        }
+        if (changeEmailPromise?.error) {
+          toast.error(changeEmailPromise.error);
+        }
       });
     }
   };

@@ -10,19 +10,15 @@ export function LinkManage() {
   const addUrlDataHandle = async (formDataInputs: FormData) => {
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addUrlData(formDataInputs, botId).then(
-          (data) => {
-            if (data) {
-              setUrl("");
-            }
-          }
-        );
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const addUrlDataPromise = await addUrlData(formDataInputs, botId);
+        if (addUrlDataPromise.success) {
+          setUrl("");
+          toast.success(addUrlDataPromise.success);
+        }
+        if (addUrlDataPromise.error) {
+          toast.error(addUrlDataPromise.error);
+        }
       });
     }
   };

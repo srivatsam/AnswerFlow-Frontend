@@ -17,21 +17,17 @@ export function LinkForm({ handleNext }: props) {
   const addUrlDataHandle = async (formDataInputs: FormData) => {
     if (formDataInputs) {
       const botId = window.localStorage.getItem("botId") as string;
-      startTransition(() => {
-        const setPlanPromise = addUrlData(formDataInputs, botId).then(
-          (data) => {
-            if (data) {
-              setUrls(formDataInputs.get("link") as string);
-              setUrl("");
-              increaseProgressByNumber(0.3);
-            }
-          }
-        );
-        toast.promise(setPlanPromise, {
-          loading: "Loading...",
-          success: "Data Added Successfully",
-          error: (error) => `${error.message}`,
-        });
+      startTransition(async () => {
+        const setUrlDataPromise = await addUrlData(formDataInputs, botId);
+        if (setUrlDataPromise.success) {
+          setUrls(formDataInputs.get("link") as string);
+          setUrl("");
+          increaseProgressByNumber(0.3);
+          toast.success(setUrlDataPromise.success);
+        }
+        if (setUrlDataPromise.error) {
+          toast.error(setUrlDataPromise.error);
+        }
       });
     }
   };

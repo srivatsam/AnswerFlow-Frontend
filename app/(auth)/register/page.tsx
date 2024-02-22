@@ -44,15 +44,15 @@ function Register() {
   }, [route]);
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    startTransition(() => {
-      const registerPromise = register(values).then((date) => {
-        if (date) route.push("/payment");
-      });
-      toast.promise(registerPromise, {
-        loading: "Loading...",
-        success: "User Created Successfully",
-        error: "This Email taken",
-      });
+    startTransition(async () => {
+      const registerPromise = await register(values);
+      if (registerPromise.success) {
+        toast.success(registerPromise.success);
+        route.push("/payment");
+      }
+      if (registerPromise.error) {
+        toast.error(registerPromise.error);
+      }
     });
   };
   return (

@@ -26,13 +26,16 @@ export const updatePlan = async (plan: string) => {
     console.log(responseStripeData);
     if (responseStripeData.status === "error") {
       console.error(responseStripeData.message);
-      return { status: "error", message: responseStripeData.message };
+      return { error: responseStripeData.message };
     } else {
       revalidateTag("userPlan");
-      return { success: "Set The Plan Successfully" };
+      return {
+        success:
+          "Plan changed successfully, your billing plan will be updated from next billing cycle.",
+      };
     }
   } else {
     console.error(`ERROR FROM SERVER :You are not authorized`);
-    return { status: "error", message: "You are not authorized" };
+    return { error: "You are not authorized" };
   }
 };

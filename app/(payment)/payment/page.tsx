@@ -54,17 +54,16 @@ export default function Page() {
   }, [fetchPlanFromLocalStorage]);
 
   const onPlanSubmit = (formData: FormData) => {
-    startTransition(() => {
-      const setPlanPromise = setPlan(formData, planFromLocal!).then(
-        (response) => {
-          route.push(response.url);
-        }
-      );
-      toast.promise(setPlanPromise, {
-        loading: "Loading...",
-        success: "Plan Seated Successfully",
-        error: "Something Went Wrong",
-      });
+    startTransition(async () => {
+      const setPlanPromise = await setPlan(formData, planFromLocal!);
+      if (setPlanPromise.success) {
+        route.push(setPlanPromise.url);
+        toast.success("Go To Payment");
+      }
+      if (setPlanPromise.error) {
+        route.push(setPlanPromise.error);
+        toast.success(setPlanPromise.error);
+      }
     });
   };
 

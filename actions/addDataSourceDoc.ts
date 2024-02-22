@@ -24,7 +24,7 @@ export const addDataSourceDoc = async (formData: FormData, botId: string) => {
 
   if (responseData.status == "error") {
     console.error(responseData.message);
-    throw new Error(`${responseData.message}`);
+    return { error: `${responseData.message}` };
   } else {
     revalidateTag("resources");
     return { success: "Data Added Successfully" };
