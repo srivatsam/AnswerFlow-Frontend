@@ -16,7 +16,7 @@ export const addDbData = async (formData: FormData, botId: string) => {
       ? "mongodb"
       : formData.get("type") === "mysql"
       ? "mysql"
-      : "postgres";
+      : "postgresql";
 
   const name = `${prefix}://${username}:${password}@${host}:${port}/${db_name}`;
   const session = await auth();

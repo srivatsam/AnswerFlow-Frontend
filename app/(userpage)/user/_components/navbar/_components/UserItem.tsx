@@ -31,7 +31,6 @@ function UserItem() {
                 <button
                   key={i}
                   onClick={() => {
-                    localStorage.removeItem("botId");
                     setToggle(false);
                     route.push(`/user/${item}`);
                     setActiveSection("");
@@ -50,8 +49,8 @@ function UserItem() {
                 <button
                   key={i}
                   onClick={() => {
+                    localStorage.removeItem("botId");
                     setToggle(false);
-                    setActiveStep("a");
                     signOut();
                   }}
                   className="flex justify-between gap-1 py-1 px-2 w-full capitalize"
