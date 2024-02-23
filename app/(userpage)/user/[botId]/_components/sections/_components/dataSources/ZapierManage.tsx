@@ -49,7 +49,7 @@ export function ZapierManage() {
         <div className="bg-[#232323] rounded-[10px]  p-4 lg:px-12 lg:py-10 outline-none flex flex-col gap-4 justify-center items-center">
           <div className="flex flex-col items-start gap-2 w-[100%]">
             <h1 className="text-[20px] font-medium">
-              Your BotId && Bot Name :
+              Your Bot Key && Bot Name :
             </h1>
             <div className="rounded-[10px] bg-[#2e2e2e] p-4 lg:py-4 lg:px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
               <p className="w-[94%] whitespace-nowrap text-ellipsis overflow-hidden">

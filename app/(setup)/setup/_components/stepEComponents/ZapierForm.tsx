@@ -50,7 +50,7 @@ export function ZapierForm({ handleNext }: props) {
     <div className="flex-1 flex flex-col justify-between w-full gap-8  ">
       <div className="flex flex-col gap-6 w-full">
         <div className="flex flex-col items-start gap-2 w-[100%]">
-          <h1 className="text-[20px] font-medium">Your BotId & Bot Name :</h1>
+          <h1 className="text-[20px] font-medium">Your Bot Key & Bot Name :</h1>
           <div className="rounded-[10px] bg-[#232323] p-4 lg:py-4 lg:px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
             <p className="w-[94%] whitespace-nowrap text-ellipsis overflow-hidden">
               {botKey}
