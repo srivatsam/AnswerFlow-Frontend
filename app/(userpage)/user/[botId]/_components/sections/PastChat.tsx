@@ -36,7 +36,7 @@ function PastChat({ pastChat, botData }: props) {
       <div
         className={`bg-[#131313] rounded-[12px] ${
           toggle ? "flex" : "hidden"
-        } flex-col py-2 w-[200px] lg:w-[290px] absolute lg:relative h-[90%] lg:h-full z-10 shadow-lg `}
+        } flex-col py-2 w-[200px] lg:w-[290px] absolute lg:relative h-[90%] lg:h-full z-10 shadow-lg lg:flex`}
       >
         <div className="px-8 py-6 border-b-[0.5px] border-[#252525]">
           <button
