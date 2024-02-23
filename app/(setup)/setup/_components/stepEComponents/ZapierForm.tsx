@@ -1,4 +1,4 @@
-import React, { useTransition } from "react";
+import React, { useEffect, useTransition } from "react";
 
 import { addDataSourceDoc } from "@/actions/addDataSourceDoc";
 import { useFormContext } from "@/context/FormContext";
@@ -45,6 +45,11 @@ export function ZapierForm({ handleNext }: props) {
       addFilesDataSource(formDataWithFile);
     }
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <form
       action={addFilesDataSource}

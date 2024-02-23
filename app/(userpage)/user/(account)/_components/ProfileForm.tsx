@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 
 import { UserInfoForm } from "./UserInfoForm";
@@ -81,6 +81,11 @@ export function ProfileForm({ billingInfo, userInfo }: props) {
       }
     });
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <form action={formHandle} className="flex flex-col gap-6 w-full">
       <EdgeStoreProvider>

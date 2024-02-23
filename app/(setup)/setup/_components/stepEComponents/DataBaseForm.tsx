@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 
 import { useFormContext } from "@/context/FormContext";
 
@@ -60,7 +60,11 @@ export function DataBaseForm({ handleNext }: props) {
       });
     }
   };
-
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   function getButtonClass(isPending: boolean, dataBaseForm: dataBaseFormType) {
     const isFormInvalid =
       isPending ||

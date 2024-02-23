@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 
 import { toast } from "sonner";
 import { addDbData } from "@/actions/addDbData";
@@ -37,6 +37,11 @@ export function DataBaseManage() {
       });
     }
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <form
       action={addUrlDataHandle}

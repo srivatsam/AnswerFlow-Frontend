@@ -1,6 +1,6 @@
 "use client";
 import { updatePlan } from "@/actions/updatePlan";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 type props = {
@@ -29,6 +29,11 @@ export function UpgradePlan({ userPlan }: props) {
       }
     });
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   if (userPlan.userPlan !== "Pro") {
     return (
       <div className="rounded-[10px] p-6 bg-[#373737] flex flex-col gap-4">

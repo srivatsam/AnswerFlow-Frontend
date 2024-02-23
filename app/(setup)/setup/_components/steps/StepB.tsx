@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Image from "next/image";
 
 import { useFormContext } from "@/context/FormContext";
@@ -38,7 +38,11 @@ export function StepB({ handleNext }: props) {
       });
     }
   };
-
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -178,7 +182,7 @@ export function StepB({ handleNext }: props) {
       <div
         className={`${
           toggle ? "flex" : "hidden"
-        } lg:flex absolute lg:relative top-[64px] lg:w-[33%] lg:top-0 left-0 min-h-screen w-full p-4 lg:p-0 py-10 "`}
+        } lg:flex absolute lg:relative top-[64px] lg:w-[33%] lg:top-0 left-0 min-h-screen w-full p-4 lg:p-0 "`}
       >
         <div
           className={`min-h-screen w-full flex  bg-[#0B0B0B] p-4 lg:py-30 flex-col justify-start lg:justify-center items-start gap-20 rounded-[10px]`}

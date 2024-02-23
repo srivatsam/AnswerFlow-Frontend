@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { useActiveSection } from "@/hooks/use-active-section";
 import { activeSectionType } from "@/types/activeSection";
+import { useToggle } from "@/hooks/useToggle";
 
 // sections data
 const sections: activeSectionType[] = [
@@ -14,6 +15,8 @@ const sections: activeSectionType[] = [
   "Bot Settings",
 ];
 export function SideBarSections() {
+  const setToggle = useToggle((state) => state.setToggle);
+
   const route = useRouter();
 
   const { activeSection, setActiveSection } = useActiveSection(
@@ -30,7 +33,10 @@ export function SideBarSections() {
       {sections.map((section, i) => (
         <button
           key={i}
-          onClick={() => onClickSection(section)}
+          onClick={() => {
+            onClickSection(section);
+            setToggle(false);
+          }}
           className={`flex gap-4 items-center cursor-pointer hover:brightness-100 brightness-[0.3] transition-all py-3 lg:py-4 px-4 hover:bg-[#111111] ${
             activeSection === section && "!brightness-100 bg-[#111111]"
           }`}

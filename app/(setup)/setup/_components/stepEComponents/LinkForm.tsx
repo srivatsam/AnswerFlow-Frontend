@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 
 import { addUrlData } from "@/actions/addUrlData";
 import { useFormContext } from "@/context/FormContext";
@@ -31,6 +31,11 @@ export function LinkForm({ handleNext }: props) {
       });
     }
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <form
       action={addUrlDataHandle}

@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Image from "next/image";
 import { updateChatTitle } from "@/actions/updateChatTitle";
 import { toast } from "sonner";
@@ -51,7 +51,11 @@ export function HistoryChat({ pastChat, activeChat, setActiveChat }: props) {
       unFocusHandle(chatId);
     }
   };
-
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <div className="max-h-[67vh] overflow-y-auto ">
       {pastChat

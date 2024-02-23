@@ -1,7 +1,7 @@
 "use client";
 
 import { resetPassword } from "@/actions/resetPassword";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 type props = {
   password: string | null;
@@ -28,6 +28,11 @@ export function ChangePassword({ password }: props) {
       });
     }
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <>
       <h2 className="text-[24px] font-bold text-[#777777]">Change Password</h2>

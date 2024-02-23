@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 
 import { deleteResource } from "@/actions/deleteResource";
 import DropDownSelection from "@/app/(setup)/setup/_components/stepEComponents/DropDownSelection";
@@ -37,6 +37,11 @@ function DataSources({ botData, userPlan, botResources }: props) {
       }
     });
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("loading ....");
+    }
+  }, [isPending]);
   return (
     <div className="flex-1 bg-[#131313] rounded-[12px] p-6 lg:p-10 flex flex-col gap-4 lg:gap-10">
       <div className="relative">
@@ -69,14 +74,16 @@ function DataSources({ botData, userPlan, botResources }: props) {
         {botResources.length !== 0 ? (
           botResources.map((resource: any) => (
             <div key={resource.id} className="w-full flex justify-between">
-              <div className="flex gap-6 items-center">
+              <div className="flex gap-6 items-center w-[90%]">
                 <Image
                   src={`/${resource.type}.png`}
                   width={24}
                   height={24}
                   alt={resource.type}
                 />
-                <h1>{resource.name}</h1>
+                <h1 className="w-full whitespace-nowrap text-ellipsis overflow-hidden">
+                  {resource.name}
+                </h1>
               </div>
               <div className="flex gap-4">
                 {resource.name == "zip" && (

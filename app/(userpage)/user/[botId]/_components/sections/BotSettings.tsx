@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -68,6 +68,11 @@ function BotSettings({ botData }: props) {
       }
     });
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);

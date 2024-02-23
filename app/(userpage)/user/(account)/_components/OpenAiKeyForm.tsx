@@ -1,6 +1,6 @@
 "use client";
 import { setAiKey } from "@/actions/setAiKey";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 type props = {
@@ -24,6 +24,11 @@ export function OpenAiKeyForm({ openai_api_key }: props) {
       });
     }
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <div className="flex flex-col bg-[#131313] rounded-[12px]  p-4 lg:p-12 gap-4 lg:gap-8">
       <h1 className="text-[28px] font-bold ">OpenAI API Key</h1>

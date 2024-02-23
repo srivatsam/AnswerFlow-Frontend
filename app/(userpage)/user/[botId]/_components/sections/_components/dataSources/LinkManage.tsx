@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 
 import { addUrlData } from "@/actions/addUrlData";
 
@@ -22,6 +22,11 @@ export function LinkManage() {
       });
     }
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <form
       action={addUrlDataHandle}

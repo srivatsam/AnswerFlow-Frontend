@@ -1,7 +1,7 @@
 "use client";
 import { cancelPlan } from "@/actions/cancelPlan";
 import { useRouter } from "next/navigation";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 export function CancelPlan() {
@@ -23,7 +23,11 @@ export function CancelPlan() {
       }
     });
   };
-
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   const popupDelete = () => {
     setCancelPopUp(true);
   };

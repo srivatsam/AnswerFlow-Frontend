@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 
 import { addDataSourceDoc } from "@/actions/addDataSourceDoc";
 import { useFormContext } from "@/context/FormContext";
@@ -41,7 +41,11 @@ export function DocumentsForm({ handleNext }: props) {
       });
     }
   };
-
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
     if (selectedFiles) {

@@ -32,9 +32,6 @@ function Upgrade() {
   const onPlanSubmit = (planName: string) => {
     startTransition(async () => {
       const updatePlanPromise = await updatePlan(planName);
-      if (isPending) {
-        toast.loading("loading ....");
-      }
       if (updatePlanPromise.success) {
         toast.success(updatePlanPromise.success);
       }
@@ -43,6 +40,12 @@ function Upgrade() {
       }
     });
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("loading ....");
+    }
+  }, [isPending]);
+
   if (userPlan !== "Pro") {
     return (
       <>

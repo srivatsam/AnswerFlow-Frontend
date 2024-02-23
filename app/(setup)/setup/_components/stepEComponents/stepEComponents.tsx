@@ -6,6 +6,7 @@ import { LinkForm } from "./LinkForm";
 import { limitPlan } from "@/utils/constData";
 import { ZapierForm } from "./ZapierForm";
 import { DataBaseForm } from "./DataBaseForm";
+import Image from "next/image";
 
 type props = { handleNext: () => void; userPlan: string };
 
@@ -15,7 +16,7 @@ export function DataSourceSelection({ handleNext, userPlan }: props) {
     useState<fileTypeSelected>("Add Data Source");
 
   return (
-    <div className="flex flex-1 flex-col justify-between min-h-screen items-start w-full px-20 py-20 gap-20">
+    <div className="flex flex-1 flex-col justify-between lg:min-h-screen items-start w-full p-0 lg:p-20 gap-10 lg:gap-20">
       <DropDownSelection
         planSelected={planSelected}
         fileTypeSelected={fileTypeSelected}

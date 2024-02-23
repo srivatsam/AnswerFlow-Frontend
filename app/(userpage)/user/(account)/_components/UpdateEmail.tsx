@@ -1,7 +1,7 @@
 "use client";
 
 import { changeEmail } from "@/actions/changeEmail";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 type props = {
   email: string | null;
@@ -24,6 +24,11 @@ export function UpdateEmail({ email }: props) {
       });
     }
   };
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Loading ...!");
+    }
+  }, [isPending]);
   return (
     <>
       <h1 className="text-[28px] font-bold ">Settings</h1>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,6 +25,12 @@ import {
 import { Input } from "@/components/ui/input";
 
 function Login() {
+  const [botId, setBotId] = useState<string | null>();
+  useEffect(() => {
+    const botId = window.localStorage.getItem("botId");
+    setBotId(botId);
+  }, []);
+
   const route = useRouter();
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -40,7 +46,7 @@ function Login() {
       const registerPromise = await login(values);
       if (registerPromise.success) {
         toast.success(registerPromise.success);
-        route.push(`/user/profile`);
+        route.push(`/user/${botId}`);
       }
       if (registerPromise.error) {
         toast.error(registerPromise.error);
@@ -134,7 +140,7 @@ function Login() {
         </Form>
 
         {/* google sign in */}
-        <SignWithGoogle redirect="user/profile" />
+        <SignWithGoogle redirect={`user/${botId}`} />
       </div>
     </div>
   );
