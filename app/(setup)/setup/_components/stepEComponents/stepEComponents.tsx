@@ -16,7 +16,7 @@ export function DataSourceSelection({ handleNext, userPlan }: props) {
     useState<fileTypeSelected>("Add Data Source");
 
   return (
-    <div className="flex flex-1 flex-col justify-between lg:min-h-screen items-start w-full p-0 lg:p-20 gap-10 lg:gap-20">
+    <div className="flex flex-1 flex-col justify-between lg:min-h-screen items-start w-full p-0 lg:p-20 gap-10 lg:gap-14">
       <DropDownSelection
         planSelected={planSelected}
         fileTypeSelected={fileTypeSelected}

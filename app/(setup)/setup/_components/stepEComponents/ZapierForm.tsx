@@ -1,126 +1,152 @@
-import React, { useEffect, useTransition } from "react";
-
-import { addDataSourceDoc } from "@/actions/addDataSourceDoc";
+import { getBotData } from "@/actions/getBotData";
 import { useFormContext } from "@/context/FormContext";
-
-import { toast } from "sonner";
-import { useProgressBar } from "@/hooks/use-progressbar-hook";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 type props = { handleNext: () => void };
 
 export function ZapierForm({ handleNext }: props) {
-  const increaseProgressByNumber = useProgressBar(
-    (state) => state.increaseProgressByNumber
-  );
-
-  const { formData, setFiles } = useFormContext();
-  const [isPending, startTransition] = useTransition();
-
-  const addFilesDataSource = async (formDataInputs: FormData) => {
-    if (formDataInputs) {
-      const botId = window.localStorage.getItem("botId") as string;
-      startTransition(async () => {
-        const setZipPromise = await addDataSourceDoc(formDataInputs, botId);
-        if (setZipPromise.success) {
-          const fileData = formDataInputs.get("file") as File;
-          setFiles([fileData]);
-          increaseProgressByNumber(0.3);
-          toast.success(setZipPromise.success);
-        }
-        if (setZipPromise.error) {
-          toast.error(setZipPromise.error);
-        }
-      });
-    }
-  };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files;
-
-    if (selectedFile) {
-      const formDataWithFile = new FormData();
-
-      formDataWithFile.append("file", selectedFile[0]);
-
-      addFilesDataSource(formDataWithFile);
-    }
-  };
+  const { formData } = useFormContext();
+  const [isBotIdCopied, setIsBotIdCopied] = useState(false);
+  const [isBotNameCopied, setIsBotNameCopied] = useState(false);
+  const [botId, setBotId] = useState<string | null>();
+  const [botName, setBotName] = useState<string | null>();
   useEffect(() => {
-    if (isPending) {
-      toast.loading("Loading ...!");
+    const getBotName = async () => {
+      const botData = await getBotData(botId!);
+      setBotName(botData.name);
+    };
+    const botId = window.localStorage.getItem("botId");
+    setBotId(botId);
+    getBotName();
+  }, []);
+  const copyBotId = async () => {
+    try {
+      setIsBotIdCopied(true);
+      await navigator.clipboard.writeText(botId as string);
+      setTimeout(() => {
+        setIsBotIdCopied(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Unable to copy script to clipboard", error);
+      setIsBotIdCopied(false);
     }
-  }, [isPending]);
+  };
+  const copyBotName = async () => {
+    try {
+      setIsBotNameCopied(true);
+      await navigator.clipboard.writeText(botId as string);
+      setTimeout(() => {
+        setIsBotNameCopied(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Unable to copy script to clipboard", error);
+      setIsBotNameCopied(false);
+    }
+  };
   return (
-    <form
-      action={addFilesDataSource}
-      className="flex-1 flex flex-col justify-between w-full"
-    >
-      <div className="flex flex-col gap-20 w-full">
-        <div className="flex flex-col items-start gap-4 w-[100%]">
-          <label htmlFor="links" className="text-[20px] font-medium">
-            Step1: Create Zap
-          </label>
-          <div className="btn sec">
-            <div className="flex gap-4 items-center">
-              <p>Open Zapier</p>
-              <Image
-                src={"/Arrow.png"}
-                width={16}
-                height={16}
-                alt="Arrow"
-                className="rotate-[-90deg]"
-              />
-            </div>
+    <div className="flex-1 flex flex-col justify-between w-full gap-8  ">
+      <div className="flex flex-col gap-6 w-full">
+        <div className="flex flex-col items-start gap-2 w-[100%]">
+          <h1 className="text-[20px] font-medium">Your BotId & Bot Name :</h1>
+          <div className="rounded-[10px] bg-[#232323] p-4 lg:py-4 lg:px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
+            <p className="w-[94%] whitespace-nowrap text-ellipsis overflow-hidden">
+              {botId}
+            </p>
+            <button onClick={copyBotId}>
+              {isBotIdCopied ? (
+                <Image
+                  src={"/correct.png"}
+                  width={20}
+                  height={20}
+                  alt="copy image"
+                />
+              ) : (
+                <Image
+                  src={"/copy.png"}
+                  width={20}
+                  height={20}
+                  alt="copy image"
+                />
+              )}
+            </button>
           </div>
+          <div className="rounded-[10px] bg-[#232323] p-4 lg:py-4 lg:px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
+            <p className="w-[94%] whitespace-nowrap text-ellipsis overflow-hidden">
+              {botName || "botName"}
+            </p>
+            <button onClick={copyBotName}>
+              {isBotNameCopied ? (
+                <Image
+                  src={"/correct.png"}
+                  width={20}
+                  height={20}
+                  alt="copy image"
+                />
+              ) : (
+                <Image
+                  src={"/copy.png"}
+                  width={20}
+                  height={20}
+                  alt="copy image"
+                />
+              )}
+            </button>
+          </div>
+          <p className="text-[#9D9D9D]">You Need It To Connect The Zapier</p>
+        </div>
+        <div className="flex flex-col items-start gap-2 w-[100%]">
+          <h1 className="text-[20px] font-medium">1. Add a Trigger :</h1>
           <p className="text-[#9D9D9D]">
-            Import data from any app through Zapier
+            - Choose the app that will trigger your Zap (the one that will
+            initiate the workflow). <br /> - Select the specific event within
+            that app that will act as the trigger. <br /> - Connect your app
+            account (if not already connected). <br />- Configure the trigger
+            options to fit your needs. <br />- Test the trigger to ensure it
+            pulls in the correct data.
           </p>
         </div>
-        <div className="flex flex-col items-start gap-4 w-[100%]">
-          <label htmlFor="actionLink" className="text-[20px] font-medium">
-            Step 2: Enter your Zap’s Action Link
-          </label>
-          <input
-            type="text"
-            id="actionLink"
-            required
-            name="actionLink"
-            placeholder="https://my-website.com"
-            className="w-full bg-[#0B0B0B] py-4 px-10 outline-none rounded-[10px] text-[20px]"
-          />
+        <div className="flex flex-col items-start gap-2 w-[100%]">
+          <h1 className="text-[20px] font-medium">2. Add AnswerFlow :</h1>
           <p className="text-[#9D9D9D]">
-            AnswerFlow AI will import content from this link to this bot’s
-            Knowledge-base
+            - Choose AnswerFlow. <br />
+            - Login using the bot key, and bot name. <br />
+            - Set up the data you want to send to AnswerFlow. <br />- Test the
+            action to verify that it works as expected.
           </p>
         </div>
       </div>
-      <div className="flex justify-between w-full items-center">
-        <button
-          // disabled={formData.files.length > 0 || isPending}
-          type="submit"
-          className={`btn sec flex !justify-around `} //${formData.files.length == 0 && "opacity-50 cursor-not-allowed"}
-        >
-          <p>{isPending ? "Adding Data Source.." : "Add to Data Source"}</p>
-        </button>
-        <button
-          disabled={
-            isPending ||
-            (formData.files.length == 0 &&
-              formData.urls.length == 0 &&
-              formData.dbs.length == 0)
-          }
-          className={`btn sec flex !justify-around ${
-            ((formData.urls.length == 0 &&
-              formData.files.length == 0 &&
-              formData.dbs.length == 0) ||
-              isPending) &&
-            " opacity-50 cursor-not-allowed"
-          }`}
-          onClick={handleNext}
-        >
-          <p>Finish Setup</p>
-        </button>
-      </div>
-    </form>
+      <button
+        disabled={
+          formData.files.length == 0 &&
+          formData.urls.length == 0 &&
+          formData.dbs.length == 0
+        }
+        className={`btn sec flex !justify-around lg:w-fit${
+          formData.urls.length == 0 &&
+          formData.files.length == 0 &&
+          formData.dbs.length == 0 &&
+          " opacity-50 cursor-not-allowed"
+        }`}
+        onClick={handleNext}
+      >
+        <p>Finish Setup</p>
+      </button>
+    </div>
   );
 }
+
+/* 1. Add a Trigger:
+- Choose the app that will trigger your Zap (the one that will initiate the workflow).
+- Select the specific event within that app that will act as the trigger.
+- Connect your app account (if not already connected).
+- Configure the trigger options to fit your needs.
+- Test the trigger to ensure it pulls in the correct data.
+
+
+
+2. Add AnswerFlow:
+- Choose AnswerFlow.
+- Login using the bot key, and bot name
+- Set up the data you want to send to AnswerFlow
+- Test the action to verify that it works as expected. */

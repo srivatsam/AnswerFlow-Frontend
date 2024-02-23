@@ -85,7 +85,7 @@ export function DataBaseForm({ handleNext }: props) {
       className="flex-1 flex flex-col justify-between gap-6 w-full"
     >
       <div className="flex flex-col gap-6  ">
-        <div className="flex gap-4 w-[100%]">
+        <div className="flex flex-col md:flex-row gap-4 w-[100%]">
           <div className="flex flex-col gap-4 w-[100%]">
             <label htmlFor="host" className="text-[20px] font-medium">
               Host
@@ -117,7 +117,7 @@ export function DataBaseForm({ handleNext }: props) {
             />
           </div>
         </div>
-        <div className="flex gap-4 w-[100%]">
+        <div className="flex flex-col md:flex-row  gap-4 w-[100%]">
           <div className="flex flex-col gap-4 w-[100%]">
             <label htmlFor="dbName" className="text-[20px] font-medium">
               DB name
