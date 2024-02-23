@@ -1,12 +1,21 @@
+import { getBotData } from "@/actions/getBotData";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export function ZapierManage() {
   const [isBotIdCopied, setIsBotIdCopied] = useState(false);
+  const [isBotNameCopied, setIsBotNameCopied] = useState(false);
   const [botId, setBotId] = useState<string | null>();
+
+  const [botName, setBotName] = useState<string | null>();
   useEffect(() => {
+    const getBotName = async () => {
+      const botData = await getBotData(botId!);
+      setBotName(botData.name);
+    };
     const botId = window.localStorage.getItem("botId");
     setBotId(botId);
+    getBotName();
   }, []);
   const copyBotId = async () => {
     try {
@@ -20,18 +29,54 @@ export function ZapierManage() {
       setIsBotIdCopied(false);
     }
   };
+  const copyBotName = async () => {
+    try {
+      setIsBotNameCopied(true);
+      await navigator.clipboard.writeText(botId as string);
+      setTimeout(() => {
+        setIsBotNameCopied(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Unable to copy script to clipboard", error);
+      setIsBotNameCopied(false);
+    }
+  };
   return (
     <div className="flex flex-col justify-between w-fit absolute top-[120%] right-0 z-[1]">
       <div className="flex flex-col gap-4 w-full">
         <div className="bg-[#232323] rounded-[10px]  p-4 lg:px-12 lg:py-10 outline-none flex flex-col gap-4 justify-center items-center">
           <div className="flex flex-col items-start gap-2 w-[100%]">
-            <h1 className="text-[20px] font-medium">Your BotId :</h1>
+            <h1 className="text-[20px] font-medium">
+              Your BotId && Bot Name :
+            </h1>
             <div className="rounded-[10px] bg-[#2e2e2e] p-4 lg:py-4 lg:px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
               <p className="w-[94%] whitespace-nowrap text-ellipsis overflow-hidden">
                 {botId}
               </p>
               <button onClick={copyBotId}>
                 {isBotIdCopied ? (
+                  <Image
+                    src={"/correct.png"}
+                    width={20}
+                    height={20}
+                    alt="copy image"
+                  />
+                ) : (
+                  <Image
+                    src={"/copy.png"}
+                    width={20}
+                    height={20}
+                    alt="copy image"
+                  />
+                )}
+              </button>
+            </div>
+            <div className="rounded-[10px] bg-[#2e2e2e] p-4 lg:py-4 lg:px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
+              <p className="w-[94%] whitespace-nowrap text-ellipsis overflow-hidden">
+                {botName || "botName"}
+              </p>
+              <button onClick={copyBotName}>
+                {isBotNameCopied ? (
                   <Image
                     src={"/correct.png"}
                     width={20}
