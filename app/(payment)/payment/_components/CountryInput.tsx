@@ -32,7 +32,7 @@ export function CountryInput({ handleInputChange, country }: props) {
           value={countrySelected}
           required
           placeholder="Enter country"
-          className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none"
+          className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-8 outline-none w-full"
         />
       </div>
       {isOpen && (

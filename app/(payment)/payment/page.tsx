@@ -77,13 +77,13 @@ export default function Page() {
       className="flex justify-center items-stretch w-full"
     >
       {/* checkout form */}
-      <div className="flex-1 flex flex-col gap-10 justify-start items-start p-20">
-        <h1 className="text-[40px] leading-[74px] font-bold">
+      <div className="flex-1 flex flex-col gap-6 lg:gap-10 justify-start items-start p-4 lg:p-20">
+        <h1 className="text-[32px] lg:text-[40px] font-bold">
           Continue Checkout
         </h1>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 w-full lg:w-fit">
           <div className=""></div>
-          <div className="flex justify-between gap-4">
+          <div className="flex flex-col xl:flex-row justify-between gap-4">
             <div className="flex flex-col gap-1">
               <label htmlFor="firstName" className="font-medium">
                 First Name
@@ -97,7 +97,7 @@ export default function Page() {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 placeholder="Enter your first name"
-                className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+                className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 w-full outline-none"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -113,7 +113,7 @@ export default function Page() {
                 onChange={(e) => setLastName(e.target.value)}
                 required
                 placeholder="Enter your last name"
-                className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+                className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 w-full outline-none"
               />
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function Page() {
               value={user?.email || ""}
               required
               placeholder="Enter your work email"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none opacity-40 cursor-not-allowed"
+              className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 w-full outline-none opacity-40 cursor-not-allowed"
             />
           </div>
           <h1 className="text-[#777777] text-[24px] font-bold">Billing Info</h1>
@@ -146,7 +146,7 @@ export default function Page() {
               autoComplete="company"
               required
               placeholder="Enter your company name"
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+              className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 w-full outline-none"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -160,10 +160,10 @@ export default function Page() {
               autoComplete="address"
               required
               placeholder="Apartment, Suite etc.."
-              className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+              className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 w-full outline-none"
             />
           </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex flex-col xl:flex-row  justify-between gap-4">
             <div className="flex flex-col gap-1">
               <label htmlFor="city" className="font-medium">
                 City
@@ -175,7 +175,7 @@ export default function Page() {
                 autoComplete="city"
                 required
                 placeholder="Enter your city"
-                className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+                className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 w-full outline-none"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -189,11 +189,11 @@ export default function Page() {
                 autoComplete="state"
                 required
                 placeholder="Enter state"
-                className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+                className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 w-full outline-none"
               />
             </div>
           </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex flex-col xl:flex-row justify-between gap-4">
             <CountryInput />
             <div className="flex flex-col gap-1">
               <label htmlFor="pinCode" className="font-medium">
@@ -206,7 +206,7 @@ export default function Page() {
                 autoComplete="pinCode"
                 required
                 placeholder="Enter your PinCode"
-                className="bg-[#232323] rounded-[10px] px-8 py-4 outline-none"
+                className="bg-[#232323] rounded-[10px] p-4 lg:px-8 lg:py-4 w-full outline-none"
               />
             </div>
           </div>
