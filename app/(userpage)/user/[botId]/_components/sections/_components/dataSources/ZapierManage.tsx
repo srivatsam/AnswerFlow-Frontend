@@ -6,21 +6,23 @@ export function ZapierManage() {
   const [isBotIdCopied, setIsBotIdCopied] = useState(false);
   const [isBotNameCopied, setIsBotNameCopied] = useState(false);
   const [botId, setBotId] = useState<string | null>();
-
+  const [botKey, setBotKey] = useState<string | null>();
   const [botName, setBotName] = useState<string | null>();
+
   useEffect(() => {
     const getBotName = async () => {
       const botData = await getBotData(botId!);
       setBotName(botData.name);
+      setBotKey(botData.key);
     };
     const botId = window.localStorage.getItem("botId");
     setBotId(botId);
     getBotName();
   }, []);
-  const copyBotId = async () => {
+  const copyBotKey = async () => {
     try {
       setIsBotIdCopied(true);
-      await navigator.clipboard.writeText(botId as string);
+      await navigator.clipboard.writeText(botKey as string);
       setTimeout(() => {
         setIsBotIdCopied(false);
       }, 3000);
@@ -32,7 +34,7 @@ export function ZapierManage() {
   const copyBotName = async () => {
     try {
       setIsBotNameCopied(true);
-      await navigator.clipboard.writeText(botId as string);
+      await navigator.clipboard.writeText(botName as string);
       setTimeout(() => {
         setIsBotNameCopied(false);
       }, 3000);
@@ -51,9 +53,9 @@ export function ZapierManage() {
             </h1>
             <div className="rounded-[10px] bg-[#2e2e2e] p-4 lg:py-4 lg:px-8 text-[#BABABA] font-medium flex w-full justify-between items-center">
               <p className="w-[94%] whitespace-nowrap text-ellipsis overflow-hidden">
-                {botId}
+                {botKey}
               </p>
-              <button onClick={copyBotId}>
+              <button onClick={copyBotKey}>
                 {isBotIdCopied ? (
                   <Image
                     src={"/correct.png"}
