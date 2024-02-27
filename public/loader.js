@@ -38,9 +38,7 @@ function loadChatbot(containerId) {
           </div>
           <div id="bot-heading">
               <img src="https://answerflowai.com/favicon.png" alt="logo png" width="50" height="50" />
-              <h2>${bot_name}</h2>
-              
-              <p>bowered by answerflow.com</p>
+              <h2>${bot_name}</h2>              
           </div>
           <div id="chat-messages"></div>
           <div id="input-div">

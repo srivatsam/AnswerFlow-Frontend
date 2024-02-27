@@ -246,7 +246,9 @@ function BotSettings({ botData }: props) {
             onClick={popupDelete}
             className="bg-[#232323] rounded-[10px] p-4 lg:py-4 lg:px-10 w-fit cursor-pointer"
           >
-            {isPendingDelete ? "Deleting Bot ..." : "Delete Sales Bot"}
+            {isPendingDelete
+              ? "Deleting Bot ..."
+              : `Delete ${botData.name} Bot"`}
           </div>
           {deletePopUp && (
             <div className="fixed z-50 inset-0 overflow-hidden backdrop-blur-3xl flex justify-center items-center p-4  ">
