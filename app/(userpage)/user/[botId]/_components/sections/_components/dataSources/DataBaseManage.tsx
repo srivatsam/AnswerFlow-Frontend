@@ -64,7 +64,7 @@ export function DataBaseManage() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="{username}:{password}@{host}:{port}/{dbname}"
-          className="bg-[#484848] py-4 px-4 outline-none rounded-[10px] text-[14px] w-[390px]"
+          className="bg-[#484848] py-4 px-4 outline-none rounded-[10px] text-[14px] w-fit md:w-[390px]"
         />
       </div>
       <div className="flex gap-2">

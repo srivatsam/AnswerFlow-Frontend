@@ -44,7 +44,7 @@ export function ZapierManage() {
     }
   };
   return (
-    <div className="flex flex-col justify-between w-fit absolute top-[120%] right-0 z-[1]">
+    <div className="flex flex-col justify-between w-[320px] md:w-fit absolute top-[120%] right-0 z-[1]">
       <div className="flex flex-col gap-4 w-full">
         <div className="bg-[#232323] rounded-[10px]  p-4 lg:px-12 lg:py-10 outline-none flex flex-col gap-4 justify-center items-center">
           <div className="flex flex-col items-start gap-2 w-[100%]">

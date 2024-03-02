@@ -49,7 +49,7 @@ function UserItem() {
                 <button
                   key={i}
                   onClick={() => {
-                    localStorage.removeItem("botId");
+                    // localStorage.removeItem("botId");
                     setToggle(false);
                     signOut();
                   }}

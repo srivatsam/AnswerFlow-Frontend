@@ -55,8 +55,7 @@ function Hero() {
               className="flex flex-col justify-center items-center gap-1"
             >
               <Link
-                href={"https://cal.com/srivatsa"}
-                target="_blank"
+                href={"/#pricing"}
                 className="w-full h-full flex justify-center items-center btn sec"
               >
                 Get Started
