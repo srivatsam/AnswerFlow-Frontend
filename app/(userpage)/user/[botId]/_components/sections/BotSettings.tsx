@@ -248,7 +248,7 @@ function BotSettings({ botData }: props) {
           >
             {isPendingDelete
               ? "Deleting Bot ..."
-              : `Delete ${botData.name} Bot"`}
+              : `Delete ${botData.name} Bot`}
           </div>
           {deletePopUp && (
             <div className="fixed z-50 inset-0 overflow-hidden backdrop-blur-3xl flex justify-center items-center p-4  ">

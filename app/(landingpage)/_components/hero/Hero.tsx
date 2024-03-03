@@ -35,7 +35,7 @@ function Hero() {
               className="text-[18px] font-normal leading-[24px] md:text-[22px] md:leading-[32px]"
             >
               Affordable way to build CustomGPT Bots, trained on your Data.{" "}
-              <span className="font-medium"></span>,
+              <span className="font-medium"></span>
               <span className="text-[#EC7D4E] font-medium">
                 Using your own OpenAI API Key!
               </span>
