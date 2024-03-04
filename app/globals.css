@@ -198,7 +198,7 @@ img {
 }
 /* btn classes */
 .btn {
-  @apply px-4 py-2 md:px-10 md:py-3 rounded-[10px] flex justify-center gap-4 items-center font-semibold;
+  @apply px-4 py-3 md:px-10 md:py-3 rounded-[10px] flex justify-center gap-4 items-center font-semibold;
 }
 .btn {
   transition: 0.3s all ease-in-out;

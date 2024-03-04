@@ -212,6 +212,15 @@ export default function Page() {
           </div>
           <PhoneInput />
         </div>
+        <div className="w-full">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="btn sec !w-[100%]"
+          >
+            {isPending ? "Loading..." : "Proceed to Payment"}
+          </button>
+        </div>
       </div>
       {/* plan details  */}
       <PlanDetails planProps={planFromLocal} isPending={isPending} />
